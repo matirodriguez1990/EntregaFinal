@@ -1,0 +1,38 @@
+{% extends "AppJuegos/padre.html" %}
+
+{% load static %}
+
+<!--Bloque modificable para el menu-->
+{% block menuModificable %}
+
+<li> <a href="{% url 'Juego' %}">Juegos</a> </li>
+<li class="active"> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
+<li> <a href="{% url 'Consola' %}">Consolas</a> </li> 
+
+{% endblock %}
+
+
+<!--Bloque modificable para formularios y busqueda-->
+{% block contenidoModificable %}
+<FONT SIZE=6 style="color: white; position: absolute; top: 120px; left: 300px;">Jugadores llamados {{nombre}}</FONT>
+
+{% if jugadores %}
+
+<ul style="position: absolute; top: 200px; left: 350px;">
+{% for j in jugadores %}
+
+    <li><FONT SIZE=4 style="color: white">Nombre: {{j.nombre}}</FONT></li> 
+    <li><FONT SIZE=4 style="color: white">Apellido: {{j.apellido}}</FONT></li> 
+    <li><FONT SIZE=4 style="color: white">Email: {{j.email}}</FONT></li> 
+
+    {% if j.jugadorActivo %}
+    <li><FONT SIZE=4 style="color: white">Jugador activo: Si</FONT></li>
+    {% else %}
+    <li><FONT SIZE=4 style="color: white">Jugador activo: No</FONT></li>
+    {% endif %}
+    
+    <li><FONT SIZE=4 style="color: white">Horas jugadas por día: {{j.horasJugadasPorDia}}</FONT></li> 
+    <br>
+{% endfor %}
+{% endif %}
+{% endblock %}

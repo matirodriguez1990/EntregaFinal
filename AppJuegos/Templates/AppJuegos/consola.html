@@ -1,0 +1,61 @@
+{% extends "AppJuegos/padre.html" %}
+
+{% load static %}
+
+<!--Bloque modificable para el logo-->
+{% block contenidoModificableLogo %}
+
+<FONT SIZE=7 style="color: white; position: absolute; top: -20px; left: -80px;">Consolas</FONT>
+
+{% endblock %}
+
+
+<!--Bloque modificable para el menu-->
+{% block menuModificable %}
+
+<li> <a href="{% url 'Juego' %}">Juegos</a> </li>
+<li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
+<li class="active"> <a href="{% url 'Consola' %}">Consolas</a> </li> 
+
+{% endblock %}
+
+
+<!--Bloque modificable para formularios y busqueda-->
+{% block contenidoModificable %}
+
+{% if miForm.errors %}
+
+<p style="color: red">Datos incorrectos</p>
+
+{% endif %}
+
+<form action="" method="POST">{% csrf_token %}
+
+    <table>
+    
+    <h3 style="color: white">Agregar una consola</h3>
+    
+    {{miFormulario.as_table}}
+
+    </table>
+
+    <input type="submit" value="Enviar" style="position:absolute; top: 290px; left: 492px; width:auto; height:auto;">
+
+</form>
+
+<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 ">
+    <div class="text-img">
+       <figure><img src="{% static '/AppJuegos/images/img.png' %}" style="position:absolute; top: 55px; left: 80px; width:auto; height:auto;" alt="#"/></figure>
+    </div>
+</div>
+
+<h3 style="color: white; position:absolute; top: 355px; left: 200px;">Buscar consolas por nombre de compañía</h3>
+<form action="/AppJuegos/buscarConsola" method="GET">
+        
+    <input type="text" name="compania" id="compania" style="position:absolute; top: 400px; left: 200px; width: 240px; height:auto;">
+    
+    <input type="submit" value="Buscar"style="position:absolute; top: 400px; left: 485px; width:auto; height:auto;">
+
+</form>
+
+{% endblock %}

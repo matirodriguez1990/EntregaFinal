@@ -1,0 +1,30 @@
+{% extends "AppJuegos/padre.html" %}
+
+{% load static %}
+
+<!--Bloque modificable para el menu-->
+{% block menuModificable %}
+
+<li class="active"> <a href="{% url 'Juego' %}">Juegos</a> </li>
+<li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
+<li> <a href="{% url 'Consola' %}">Consolas</a> </li> 
+{% endblock %}
+
+
+<!--Bloque modificable para formularios y busqueda-->
+{% block contenidoModificable %}
+<FONT SIZE=6 style="color: white; position: absolute; top: 120px; left: 300px;">Juegos de {{compania}}</FONT>
+
+{% if juegos %}
+
+<ul style="position: absolute; top: 200px; left: 350px;">
+{% for j in juegos %}
+
+    <li><FONT SIZE=4 style="color: white">Nombre: {{j.nombre}}</FONT></li>
+    <li><FONT SIZE=4 style="color: white">Género: {{j.genero}}</FONT></li>
+    <br>
+
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

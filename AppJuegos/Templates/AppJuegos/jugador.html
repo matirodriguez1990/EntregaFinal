@@ -1,0 +1,53 @@
+{% extends "AppJuegos/padre.html" %}
+
+{% load static %}
+
+<!--Bloque modificable para el logo-->
+{% block contenidoModificableLogo %}
+
+<FONT SIZE=7 style="color: white; position: absolute; top: -20px; left: -80px;">Jugadores</FONT>
+{% endblock %}
+
+<!--Bloque modificable para el menu-->
+{% block menuModificable %}
+
+<li> <a href="{% url 'Juego' %}">Juegos</a> </li>
+<li class="active"> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
+<li> <a href="{% url 'Consola' %}">Consolas</a> </li> 
+
+{% endblock %}
+
+
+<!--Bloque modificable para formularios y busqueda-->
+{% block contenidoModificable %}
+
+<form action="" method="POST">{% csrf_token %}
+
+    <table>
+    
+    <h3 style="color: white">Agregar un jugador</h3>
+    
+    {{miFormulario.as_table}}
+
+    </table>
+
+    <input type="submit" value="Enviar" style="position:absolute; top: 360px; left: 575px; width:auto; height:auto;">
+
+</form>
+
+<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 ">
+    <div class="text-img">
+       <figure><img src="{% static '/AppJuegos/images/img.png' %}" style="position:absolute; top: 55px; left: 80px; width:auto; height:auto;" alt="#"/></figure>
+    </div>
+</div>
+
+<h3 style="color: white; position:absolute; top: 455px; left: 280px;">Buscar jugadores por nombre</h3>
+<form action="/AppJuegos/buscarJugador" method="GET">
+        
+    <input type="text" name="nombre" id="nombre" style="position:absolute; top: 503px; left: 280px; width: 240px; height:auto;">
+    
+    <input type="submit" value="Buscar"style="position:absolute; top: 503px; left: 545px; width:auto; height:auto;">
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "AppJuegos/padre.html" %}
+
+{% load static %}
+
+<!--Bloque modificable para el menu-->
+{% block menuModificable %}
+
+<li> <a href="{% url 'Juego' %}">Juegos</a> </li>
+<li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
+<li> <a href="{% url 'Consola' %}">Consolas</a> </li> 
+{% endblock %}
+
+{% block contenidoModificable %}
+<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 ">
+    <div class="text-img">
+       <figure><img src="{% static '/AppJuegos/images/img.png' %}" alt="#"/></figure>
+    </div>
+</div>
+{% endblock %}
