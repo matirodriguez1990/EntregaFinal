@@ -1,0 +1,77 @@
+{% extends "AppJuegos/padre.html" %}
+
+{% load static %}
+
+<!--Bloque modificable para el menu-->
+{% block menuModificable %}
+
+<li> <a href="{% url 'Juego' %}">Juegos</a> </li>
+<li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
+<li> <a href="{% url 'Consola' %}">Consolas</a> </li>
+<li class="active"> <a href="{% url 'About' %}">About</a> </li>  
+{% endblock %}
+
+{% block contenidoModificable %}
+<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 ">
+    <div class="text-img">
+       <figure><img src="{% static '/AppJuegos/images/img.png' %}" style="position:absolute; top: 100px; left: 380px; width:auto; height:auto;" alt="#"/></figure>
+    </div>
+</div>
+
+<section class="space-pt">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 15%; left: 15%;">
+                <span>¿Quiénes somos?</span>
+                <h3 style="color: white">BlogGames</h3>
+                <p class="mb-4 justify">BlogGames es un sitio hecho para los amantes de los videojuegos. En este blog todos los usuarios podrán agregar juegos que hayan jugado o no. Podrán dejar reseñas de los mismos o bien solicitarlas, y además, podrán pedir ayuda si les cuesta matar a un jefe, si no encuentran un coleccionable, o si simplemente no saben que hacer.</p> 
+            </div>
+            
+            <div class="col-lg-2 col-md-6 text-center mb-4 mb-lg-0" style="position: absolute; top: 60%; left: 15%;">
+                <div class="bg-light h-100 p-4">
+                    <img src="{% static '/AppJuegos/images/mr.jpg' %}" alt="Matias Rodriguez" style="top:60%; left:20%">
+                    <div class="badge-round mt-2">
+                        <h4 style="color: black">Matias Rodriguez</h4>
+                    </div>
+                    <p class="mt-3">Ingeniero en sistemas especializado en seguridad informática. Uno de sus hobbies son los videojuegos.</p>
+                    <br>
+                    <li class="nav-item">
+                        <a href="https://www.linkedin.com/in/matias-sebastian-rodriguez-5bb2a720/">
+                        <img src="{% static '/AppJuegos/images/linkedin.jpg' %}" alt="LinkedIn">
+                        </a>
+                    </li>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6 text-center mb-4 mb-lg-0" style="position: absolute; top: 60%; left: 35%;">
+                <div class="bg-light h-100 p-4">
+                    <img src="{% static '/AppJuegos/images/jmgk.jpg' %}" alt="Juan Manuel Gonzalez Keilty">
+                    <div class="badge-round mt-2">
+                        <h4 style="color: black">Juan Manuel Gonzalez Keilty</h4>
+                    </div>
+                    <p class="mt-3">Analista en ciberseguridad. Fanático de los videojuegos.</p>
+                    <br>
+                    <li class="nav-item">
+                        <a href="https://www.linkedin.com/in/juan-manuel-gonz%C3%A1lez-keilty-37b46935/">
+                        <img src="{% static '/AppJuegos/images/linkedin.jpg' %}" alt="LinkedIn">
+                        </a>
+                    </li>
+                </div>
+            </div>
+
+            <div class="col-lg-6" style="position: absolute; top: 50%; left: 15%;">
+                <div class="container2">
+                    <h3 style="color: white">Desarrolladores</h3>
+                    <style>
+                        img {
+                          border-radius: 50%;
+                        }
+                    </style>
+                </div>
+            </div>       
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

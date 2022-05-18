@@ -6,6 +6,7 @@ urlpatterns = [
     path("juego/",views.juego, name="Juego"),
     path("jugador/",views.jugador, name="Jugador"),
     path("consola/",views.consola, name="Consola"),
+    path("about/",views.about, name="About"),
     path("buscarJuego/",views.buscarJuego,),
     path("buscarJugador/",views.buscarJugador,),
     path("buscarConsola/",views.buscarConsola,)

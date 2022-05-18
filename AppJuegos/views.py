@@ -9,6 +9,9 @@ from AppJuegos.forms import ConsolaFormulario, JuegoFormulario, JugadorFormulari
 def inicio(request):
     return render(request,"AppJuegos/inicio.html")
 
+def about(request):
+    return render(request,"AppJuegos/about.html")
+
 def juego(request):
     if request.method == "POST":
         miFormulario= JuegoFormulario(request.POST)
