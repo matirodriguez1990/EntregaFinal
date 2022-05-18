@@ -15,7 +15,7 @@ class Juego(models.Model):
 class Jugador(models.Model):
     nombre=models.CharField(max_length=40)
     apellido=models.CharField(max_length=40)
-    email=models.EmailField()
+    email=models.EmailField(unique=True)
     jugadorActivo=models.BooleanField()
     horasJugadasPorDia=models.IntegerField()
 

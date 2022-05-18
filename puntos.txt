@@ -1,0 +1,13 @@
+Generar un nuevo modelo para la entrada de cada hilo del blog, tiene que tener: título, subtítulo, cuerpo, autor, fecha, avatar (sale del autor)
+Generar un nuevo modelo para comentarios de cada hilo, tiene que tener: cuerpo, autor, fecha, avatar (sale del autor)
+Editar el modelo de jugador, para agregar avatar y nombre de usuario. Ver metodo de registro de usuario nuevo.
+En caso de no encontrar nada mostrar no se encontró nada, en busquedas.
+El registro de usuario debe permitir seleccionar un avatar o bien agregar uno propio.
+Editar perfil del usuario logueado.
+Investigar un contenido en editor de texto avanzado (ckeditor por ejemplo) para lo que es el cuerpo del hilo o comentario.
+Restrigir todo a usuario logueado, salvo la vista del contenido de los hilos.
+Hacer el CRUD de los hilos.
+Generar la clase Avatar y asociarla al usuario.
+
+
+--- Si estamos con tiempo: Revisar como hacer diferenciar login de usuario admin como de usuario normal. (Permisos) Ver ultima afterclass (creo)
