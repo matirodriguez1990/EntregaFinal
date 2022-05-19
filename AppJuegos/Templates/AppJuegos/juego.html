@@ -29,30 +29,30 @@
 
 <form action="" method="POST">{% csrf_token %}
 
-    <table>
+    <table style="position: absolute; top: 25%; left:15%">
     
-    <h3 style="color: white">Agregar un juego</h3>
+    <h3 style="color: white; position: absolute; top: 20%; left:15%">Agregar un juego</h3>
     
     {{miFormulario.as_table}}
 
     </table>
 
-    <input type="submit" value="Enviar" style="position:absolute; top: 375px; left: 575px; width:auto; height:auto;">
+    <input type="submit" value="Enviar" style="position: absolute; top: 54%; left:34%">
 
 </form>
 
 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 ">
     <div class="text-img">
-       <figure><img src="{% static '/AppJuegos/images/img.png' %}" style="position:absolute; top: 55px; left: 80px; width:auto; height:auto;" alt="#"/></figure>
+       <figure><img src="{% static '/AppJuegos/images/img.png' %}" style="position:absolute; top: 50%; left: 60%; width:auto; height:auto;" alt="#"/></figure>
     </div>
 </div>
 
-<h3 style="color: white; position:absolute; top: 455px; left: 280px;">Buscar juegos por nombre de compañía</h3>
+<h3 style="color: white; position:absolute; top: 65%; left: 15%;">Buscar juegos por nombre de compañía</h3>
 <form action="/AppJuegos/buscarJuego" method="GET">
         
-    <input type="text" name="compania" id="compania" style="position:absolute; top: 503px; left: 280px; width: 240px; height:auto;">
+    <input type="text" name="compania" id="compania" style="position:absolute; top: 70%; left: 15%; width: 260px; height:auto;">
     
-    <input type="submit" value="Buscar"style="position:absolute; top: 503px; left: 545px; width:auto; height:auto;">
+    <input type="submit" value="Buscar"style="position:absolute; top: 70%; left: 33.7%; width:auto; height:auto;">
 
 </form>
 

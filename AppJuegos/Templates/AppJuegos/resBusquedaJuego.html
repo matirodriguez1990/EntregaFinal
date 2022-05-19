@@ -7,7 +7,8 @@
 
 <li class="active"> <a href="{% url 'Juego' %}">Juegos</a> </li>
 <li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
-<li> <a href="{% url 'Consola' %}">Consolas</a> </li> 
+<li> <a href="{% url 'Consola' %}">Consolas</a> </li>
+<li> <a href="{% url 'About' %}">About</a> </li>
 {% endblock %}
 
 
@@ -26,5 +27,7 @@
 
 {% endfor %}
 </ul>
-{% endif %}
+{% else %}
+<li><FONT SIZE=4 style="color: white; position: absolute; top: 200px; left: 350px;" >No se encontraron juegos de esa compañía</FONT></li>
+{% endif %} 
 {% endblock %}

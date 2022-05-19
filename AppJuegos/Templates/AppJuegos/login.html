@@ -1,0 +1,47 @@
+{% extends "AppJuegos/padre.html" %}
+
+{% load static %}
+
+
+{% block contenidoModificableLogo %}
+
+{% endblock %}
+
+{% block menuModificable %}
+
+<li> <a href="{% url 'Juego' %}">Juegos</a> </li>
+<li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
+<li> <a href="{% url 'Consola' %}">Consolas</a> </li>
+<li> <a href="{% url 'About' %}">About</a> </li>
+
+{% endblock %}
+
+{% block contenidoModificable %}
+
+<body>
+
+    <form method="POST">
+
+    {% csrf_token%}
+
+    <table style="width: 330;">
+    
+        <h1 style="color: white;">Iniciar sesión</h1> 
+    
+        {{miFormulario.as_table}}
+        
+        </table>
+        <br>
+        <button class="button_login" type="submit" style="color: white; width:330px">Login</button>
+
+    </form>
+
+</body>
+
+<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 ">
+    <div class="text-img">
+       <figure><img src="{% static '/AppJuegos/images/img.png' %}" style="position:absolute; top: 30%; left: 40%; width:auto; height:auto;" alt="#"/></figure>
+    </div>
+</div>
+
+{% endblock %}

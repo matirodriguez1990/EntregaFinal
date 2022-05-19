@@ -1,9 +1,9 @@
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from AppJuegos.models import Consola, Juego, Jugador
-from AppJuegos.forms import ConsolaFormulario, JuegoFormulario, JugadorFormulario
-#from AppJuegos.forms import 
-#from .models import Curso, Profesor
+from AppJuegos.forms import ConsolaFormulario, JuegoFormulario, JugadorFormulario, RegistrarUsuarioFormulario
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 
 # Create your views here.
 def inicio(request):
@@ -11,6 +11,56 @@ def inicio(request):
 
 def about(request):
     return render(request,"AppJuegos/about.html")
+
+def loginRequest(request):
+    if request.method == "POST":
+        miFormulario= AuthenticationForm(request, data=request.POST)
+        if miFormulario.is_valid():
+            usuario=miFormulario.cleaned_data.get("username")
+            contrasenia=miFormulario.cleaned_data.get("password")
+            user=authenticate(username=usuario, password=contrasenia)
+            if user:
+                login(request,user)
+                return redirect("Inicio")
+        else:
+            return render(request,"AppJuegos/login.html",{"miFormulario":miFormulario})
+    else:
+        miFormulario = AuthenticationForm()
+    return render(request,"AppJuegos/login.html",{"miFormulario":miFormulario})
+
+def registro(request):
+    if request.method == "POST":
+        miFormulario= RegistrarUsuarioFormulario(request.POST)
+        if miFormulario.is_valid():
+            username=miFormulario.cleaned_data["username"]
+            miFormulario.save()
+            username= miFormulario.cleaned_data["username"]
+            user = User.objects.get(username=username)
+            login(request,user)
+            return redirect("Inicio")
+    else:
+        miFormulario = RegistrarUsuarioFormulario()
+    return render(request,"AppJuegos/registro.html",{"miFormulario":miFormulario})
+
+def editarUsuario(request):
+    usuario= request.user
+
+    if request.method == "POST":
+        miFormulario = RegistrarUsuarioFormulario(request.POST)
+
+        if miFormulario.is_valid():
+            info=miFormulario.cleaned_data
+            usuario.username=info["username"]
+            usuario.email=info["email"]
+            usuario.password1=info["password1"]
+            usuario.password2=info["password1"]
+            usuario.save()
+            return redirect ("Inicio")
+    else:
+        miFormulario= RegistrarUsuarioFormulario(initial={"username":usuario.username,"email":usuario.email})
+
+    return render (request,"AppJuegos/editarUsuario.html",{"miFormulario":miFormulario,"usuario":usuario.username})
+
 
 def juego(request):
     if request.method == "POST":
