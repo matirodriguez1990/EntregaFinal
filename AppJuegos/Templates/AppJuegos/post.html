@@ -24,9 +24,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 15%; left: 15%;">
-                <span>{{post.fecha}} - Por: {{ post.autor.first_name }} {{post.autor.last_name }} - <a href="{% url 'EditarPost' post.pk %}">Editar</a> - <a href="{% url 'EliminarPost' post.pk %}">Eliminar</a></span>
+                <span>{{post.fecha}} - Por: {{ post.autor.first_name }} {{post.autor.last_name }}</span>
                 <h3 style="color: white">{{ post.titulo }}</h3>
                 <p style="color: white" class="mb-4 justify">{{post.cuerpo}}</p> 
+                <a style="color:lightblue" href="{% url 'EditarPost' post.pk %}">Editar</a> - <a style="color:lightblue" href="{% url 'EliminarPost' post.pk %}">Eliminar</a>
             </div>
         </div>
     </div>

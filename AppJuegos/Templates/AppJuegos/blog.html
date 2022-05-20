@@ -41,8 +41,10 @@
 
                         {% for post in object_list %}
                         </br>
+                        </br>
+
                         <small> {{ post.fecha }}</small>
-                        <li><a href="{% url 'PostCompleto' post.pk %}" style="color:white">{{ post.titulo }}</a> - Por: {{post.autor.first_name}} {{post.autor.last_name}} - <small><a style="color:white" href="{% url 'EditarPost' post.pk %}">Editar</a></small> - <small><a style="color:white" href="{% url 'EliminarPost' post.pk %}">Eliminar</a></small><br/>
+                        <li><a href="{% url 'PostCompleto' post.pk %}" style="color:white">{{ post.titulo }}</a> - Por: {{post.autor.first_name}} {{post.autor.last_name}} - <small><a style="color:lightblue" href="{% url 'EditarPost' post.pk %}">Editar</a></small> - <small><a style="color:lightblue" href="{% url 'EliminarPost' post.pk %}">Eliminar</a></small><br/>
                          {{post.subtitulo}}<br/><br/> </li>
                          {% endfor %}
                     </ul>
