@@ -36,10 +36,13 @@
                 <p style="color: white" class="mb-4 justify">
                     <ul>
                         {% if user.is_authenticated %}
-                        <a href="{% url 'CrearPost' %}">Nuevo Post</a>
+                        <button href="{% url 'CrearPost' %}" type="button" class="btn btn-secondary">Crear Post</button>
                         {% endif %}
+
                         {% for post in object_list %}
-                        <li><a href="{% url 'PostCompleto' post.pk %}" style="color:white">{{ post.titulo }}</a> - Por: {{post.autor.first_name}} {{post.autor.last_name}} - <small><a href="{% url 'EditarPost' post.pk %}">Editar</a></small> - <small><a href="{% url 'EliminarPost' post.pk %}">Eliminar</a></small><br/>
+                        </br>
+                        <small> {{ post.fecha }}</small>
+                        <li><a href="{% url 'PostCompleto' post.pk %}" style="color:white">{{ post.titulo }}</a> - Por: {{post.autor.first_name}} {{post.autor.last_name}} - <small><a style="color:white" href="{% url 'EditarPost' post.pk %}">Editar</a></small> - <small><a style="color:white" href="{% url 'EliminarPost' post.pk %}">Eliminar</a></small><br/>
                          {{post.subtitulo}}<br/><br/> </li>
                          {% endfor %}
                     </ul>

@@ -127,6 +127,7 @@ def buscarJugador(request):
 class VistaBlog(ListView):
     model = Post
     template_name = 'AppJuegos/blog.html'
+    ordering = ['-id']
 
 class VistaPost(DetailView):
     model = Post
