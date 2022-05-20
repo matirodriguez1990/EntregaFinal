@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 # Create your models here.
 
 class Juego(models.Model):
@@ -13,6 +14,7 @@ class Juego(models.Model):
         return f"Nombre: {self.nombre} - Compañía: {self.compania}"
 
 class Jugador(models.Model):
+    #usuario=models.OneToOneField(User,related_name="autor",on_delete=models.CASCADE,default=666)
     nombre=models.CharField(max_length=40)
     apellido=models.CharField(max_length=40)
     email=models.EmailField(unique=True)
@@ -38,9 +40,11 @@ class Post(models.Model):
     titulo = models.CharField(max_length=50)
     subtitulo = models.CharField(max_length=150)
     cuerpo = models.TextField()
-    #autor=Jugador()
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
-    fecha = models.DateField()
+    fecha = models.DateField(null=False,auto_now_add=True)
 
     def __str__(self) -> str:
-        return self.titulo + ' - ' + str(self.autor)#+ self.autor
+        return self.titulo + ' - ' + str(self.autor)
+    
+    def get_absolute_url(self):
+        return reverse('Blog')

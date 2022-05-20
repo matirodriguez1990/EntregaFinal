@@ -3,7 +3,7 @@ from AppJuegos import views
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
-    path("",views.inicio,name="Inicio"),
+    path("",views.VistaBlog.as_view(),name="Inicio"),
     path("juego/",views.juego, name="Juego"),
     path("jugador/",views.jugador, name="Jugador"),
     path("consola/",views.consola, name="Consola"),
@@ -15,7 +15,11 @@ urlpatterns = [
     path("buscarJuego/",views.buscarJuego,),
     path("buscarJugador/",views.buscarJugador,),
     path("buscarConsola/",views.buscarConsola,),
+
     path("blog/",views.VistaBlog.as_view(),name="Blog"),
-    path("hilo/<int:pk>",views.VistaPost.as_view(),name="PostCompleto"),
+    path("post/<int:pk>",views.VistaPost.as_view(),name="PostCompleto"),
+    path("nuevoPost/",views.CrearPost.as_view(),name="CrearPost"),
+    path("editarPost/<int:pk>",views.EditarPost.as_view(),name="EditarPost"),
+    path("post/<int:pk>/eliminar",views.EliminarPost.as_view(),name="EliminarPost"),
 
 ]

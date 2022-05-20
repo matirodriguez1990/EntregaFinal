@@ -1,10 +1,12 @@
 from cProfile import label
-from datetime import datetime
+from datetime import date, datetime
 from enum import unique
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+
+from AppJuegos.models import Post
 
 def validate_email(request):
     if User.objects.filter(email = request).exists():
@@ -43,11 +45,33 @@ class RegistrarUsuarioFormulario(UserCreationForm):
             "password1": None,
             "password2": None}
 
-class PostFormulario(forms.Form):
-    titulo = forms.CharField(label="Título")
-    subtitulo = forms.CharField(label="Subtítulo")
-    cuerpo = forms.TextField()
-    #autor=Jugador()
-    autor = forms.ForeignKey(User, on_delete=forms.CASCADE)
-    fecha = forms.DateField(initial=datetime.date.today)
+#class PostFormulario(forms.Form):
+#    titulo = forms.CharField(label="Título")
+#    subtitulo = forms.CharField(label="Subtítulo")
+#    cuerpo = forms.CharField()
+#    fecha = forms.DateField(initial=date.today())
+#    class Meta:
+#        model = Post
+#        fields = 'autor'
 
+class PostFormulario(forms.ModelForm):
+    fecha = forms.DateField(initial=date.today())
+    class Meta:
+        model = Post
+        fields = ('titulo','subtitulo','cuerpo','autor')
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class':'form-control','placeholder':'Título'}),
+            'subtitulo': forms.TextInput(attrs={'class':'form-control'}),
+            'autor': forms.Select(attrs={'class':'form-control'}),
+            'cuerpo': forms.Textarea(attrs={'class':'form-control'}),
+        }
+
+class PostEditFormulario(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('titulo','subtitulo','cuerpo',)
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class':'form-control','placeholder':'Título'}),
+            'subtitulo': forms.TextInput(attrs={'class':'form-control'}),
+            'cuerpo': forms.Textarea(attrs={'class':'form-control'}),
+        }

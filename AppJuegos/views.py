@@ -1,10 +1,11 @@
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from AppJuegos.models import Consola, Juego, Jugador, Post
-from AppJuegos.forms import ConsolaFormulario, JuegoFormulario, JugadorFormulario, RegistrarUsuarioFormulario
+from AppJuegos.forms import ConsolaFormulario, JuegoFormulario, JugadorFormulario, RegistrarUsuarioFormulario,PostFormulario,PostEditFormulario
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
-from django.views.generic import ListView, DetailView, DeleteView, UpdateView
+from django.views.generic import ListView, DetailView, DeleteView, UpdateView, CreateView
 
 # Create your views here.
 def inicio(request):
@@ -129,4 +130,21 @@ class VistaBlog(ListView):
 
 class VistaPost(DetailView):
     model = Post
-    template_name = 'AppJuegos/hilo.html'
+    template_name = 'AppJuegos/post.html'
+
+class CrearPost(CreateView):
+    model = Post
+    form_class = PostFormulario
+    template_name = 'AppJuegos/nuevoPost.html'
+    #fields = ['titulo','subtitulo','cuerpo','autor']
+
+class EliminarPost(DeleteView):
+    model = Post
+    template_name = 'AppJuegos/eliminarPost.html'
+    success_url = reverse_lazy('Inicio')
+
+class EditarPost(UpdateView):
+    model = Post
+    template_name = 'AppJuegos/editarPost.html'
+    form_class = PostEditFormulario
+

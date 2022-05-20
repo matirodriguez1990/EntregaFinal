@@ -23,9 +23,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 15%; left: 15%;">
-                <span>Por: {{ post.autor }}</span>
-                <h3 style="color: white">{{ post.titulo }}</h3>
-                <p style="color: white" class="mb-4 justify">{{post.cuerpo}}</p> 
+                <form method="post">{% csrf_token%}
+                    {{ form.as_p}}
+                    <input type="submit" view="Enviar">
+                </form>
             </div>
         </div>
     </div>
