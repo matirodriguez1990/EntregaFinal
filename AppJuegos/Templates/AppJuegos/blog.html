@@ -36,7 +36,8 @@
                 <p style="color: white" class="mb-4 justify">
                     <ul>
                         {% if user.is_authenticated %}
-                        <button href="{% url 'CrearPost' %}" type="button" class="btn btn-secondary">Crear Post</button>
+                        <li class="button_login" style=" width:100px"> <a style="color: white" href="{% url 'CrearPost' %}">Crear Post</a> </li>
+                        
                         {% endif %}
 
                         {% for post in object_list %}

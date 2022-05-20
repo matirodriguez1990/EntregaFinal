@@ -128,6 +128,8 @@ class VistaBlog(ListView):
     model = Post
     template_name = 'AppJuegos/blog.html'
     ordering = ['-id']
+    #ordering = ['-fecha']
+
 
 class VistaPost(DetailView):
     model = Post
