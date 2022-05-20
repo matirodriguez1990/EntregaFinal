@@ -1,3 +1,5 @@
+from cProfile import label
+from datetime import datetime
 from enum import unique
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
@@ -40,3 +42,12 @@ class RegistrarUsuarioFormulario(UserCreationForm):
             "email": None,
             "password1": None,
             "password2": None}
+
+class PostFormulario(forms.Form):
+    titulo = forms.CharField(label="Título")
+    subtitulo = forms.CharField(label="Subtítulo")
+    cuerpo = forms.TextField()
+    #autor=Jugador()
+    autor = forms.ForeignKey(User, on_delete=forms.CASCADE)
+    fecha = forms.DateField(initial=datetime.date.today)
+

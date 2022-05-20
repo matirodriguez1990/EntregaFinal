@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Juego(models.Model):
@@ -34,3 +34,13 @@ class Consola(models.Model):
     def __str__(self):
         return f"Nombre: {self.nombre} - Compañía: {self.compania}"
     
+class Post(models.Model):
+    titulo = models.CharField(max_length=50)
+    subtitulo = models.CharField(max_length=150)
+    cuerpo = models.TextField()
+    #autor=Jugador()
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    fecha = models.DateField()
+
+    def __str__(self) -> str:
+        return self.titulo + ' - ' + str(self.autor)#+ self.autor

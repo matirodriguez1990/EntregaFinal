@@ -6,3 +6,4 @@ from .models import *
 admin.site.register(Juego)
 admin.site.register(Jugador)
 admin.site.register(Consola)
+admin.site.register(Post)

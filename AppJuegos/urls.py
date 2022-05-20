@@ -14,5 +14,8 @@ urlpatterns = [
     path("logout",LogoutView.as_view(template_name="AppJuegos/logout.html"), name="Logout"),
     path("buscarJuego/",views.buscarJuego,),
     path("buscarJugador/",views.buscarJugador,),
-    path("buscarConsola/",views.buscarConsola,)
+    path("buscarConsola/",views.buscarConsola,),
+    path("blog/",views.VistaBlog.as_view(),name="Blog"),
+    path("hilo/<int:pk>",views.VistaPost.as_view(),name="PostCompleto"),
+
 ]

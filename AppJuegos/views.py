@@ -1,9 +1,10 @@
 from django.shortcuts import redirect, render
-from AppJuegos.models import Consola, Juego, Jugador
+from AppJuegos.models import Consola, Juego, Jugador, Post
 from AppJuegos.forms import ConsolaFormulario, JuegoFormulario, JugadorFormulario, RegistrarUsuarioFormulario
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
+from django.views.generic import ListView, DetailView, DeleteView, UpdateView
 
 # Create your views here.
 def inicio(request):
@@ -122,3 +123,10 @@ def buscarJugador(request):
         return render(request,"AppJuegos/resBusquedaJugador.html",{"jugadores":jugadores,"nombre":nombreJugador})
     return redirect("Jugador")
 
+class VistaBlog(ListView):
+    model = Post
+    template_name = 'AppJuegos/blog.html'
+
+class VistaPost(DetailView):
+    model = Post
+    template_name = 'AppJuegos/hilo.html'
