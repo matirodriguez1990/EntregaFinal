@@ -35,8 +35,9 @@ Eliminar Post
                 <div class="form-group">
                 <form method="post">
                     {% csrf_token%}
-                    Esta seguro que desea eliminar el Post {{ post.titulo }}
-                    <button>Confirmar</button>
+                    Esta seguro que desea eliminar el Post {{ post.titulo }}?
+                    </br>
+                    <button class="button_login" style=" width:50px"> <a style="color: white">Si</a> </button>
             </div>
             </div>
         </div>

@@ -18,7 +18,7 @@
 
 {% block contenidoModificableLogo %}
 
-<FONT SIZE=7 style="color: white; position: absolute; top: -20px; left: -80px;">Nuevo Post</FONT>
+<FONT SIZE=6 style="color: white; position: absolute; top: 20px; left: -80px;">Nuevo Post</FONT>
 {% endblock %}
 
 {% block contenidoModificable %}
@@ -37,7 +37,7 @@
                     {% csrf_token%}
                     {{ form.as_p}}
                     </br>
-                    <button class="button_login" type="submit" style="color: white; width:110px">Login</button>
+                    <button class="button_login" type="submit" style="color: white; width:110px">Crear</button>
                     </form>    
                 </div>
                 <script>
