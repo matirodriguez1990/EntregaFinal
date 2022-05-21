@@ -18,26 +18,22 @@ Eliminar Consola
 
 {% block contenidoModificableLogo %}
 
-<FONT SIZE=7 style="color: white; position: absolute; top: -20px; left: -80px;">Eliminar Consola {{ consola.nombre }}</FONT>
 {% endblock %}
 
 {% block contenidoModificable %}
-<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 ">
-    <div class="text-img">
-       <figure><img src="{% static '/AppJuegos/images/img.png' %}" style="position:absolute; top: 100px; left: 380px; width:auto; height:auto;" alt="#"/></figure>
-    </div>
-</div>
 
 <section class="space-pt">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 15%; left: 15%;">
                 <div class="form-group">
-                <form method="post">
-                    {% csrf_token%}
-                    Esta seguro que desea eliminar la consola {{ consola.compania }} - {{ consola.nombre }}?
-                    <button>Confirmar</button>
-            </div>
+                    <form method="post">
+                        {% csrf_token%}
+                        <h3 style="color:white; width: auto;">¿Esta seguro que desea eliminar la consola <i>{{ consola.nombre }}</i>?</h3>
+                        <button class="button_login" style=" width:50px"> <a style="color: white">Si</a> </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="button_login" style=" width:50px"> <a style="color: white" href="{% url 'Consola' %}">No</a> </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
