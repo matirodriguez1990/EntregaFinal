@@ -58,11 +58,10 @@ class PostFormulario(forms.ModelForm):
     fecha = forms.DateField(initial=date.today())
     class Meta:
         model = Post
-        fields = ('titulo','subtitulo','cuerpo','autor')
+        fields = ('titulo','subtitulo','cuerpo')
         widgets = {
             'titulo': forms.TextInput(attrs={'class':'form-control','placeholder':'Título'}),
             'subtitulo': forms.TextInput(attrs={'class':'form-control'}),
-            'autor': forms.Select(attrs={'class':'form-control'}),
             'cuerpo': forms.Textarea(attrs={'class':'form-control'}),
         }
 

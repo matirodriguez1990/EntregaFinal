@@ -41,7 +41,7 @@ class Post(models.Model):
     subtitulo = models.CharField(max_length=150)
     cuerpo = models.TextField()
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
-    fecha = models.DateField(null=False,auto_now_add=True)
+    fecha = models.DateField(auto_now_add=True)
 
     def __str__(self) -> str:
         return self.titulo + ' - ' + str(self.autor)

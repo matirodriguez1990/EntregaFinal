@@ -151,3 +151,18 @@ class EditarPost(UpdateView):
     template_name = 'AppJuegos/editarPost.html'
     form_class = PostEditFormulario
 
+"""def publicarPost(request):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            form = PostFormulario(request.POST)
+            for field in form:
+                print(field.value())
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.autor = User.objects.get(pk=request.user.id)
+            obj.save()
+        else:
+            print("ERROR : Formulario invalido")
+            print(form.errors)
+    return redirect("Blog")
+"""
