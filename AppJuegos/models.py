@@ -39,7 +39,7 @@ class Consola(models.Model):
         return f"Nombre: {self.nombre} - Compañía: {self.compania}"
 
     def get_absolute_url(self):
-        return reverse('ListaConsolas')
+        return reverse('Consola')
     
 class Post(models.Model):
     titulo = models.CharField(max_length=50)

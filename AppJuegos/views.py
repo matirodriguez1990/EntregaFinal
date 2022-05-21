@@ -184,12 +184,12 @@ class EditarConsola(UpdateView):
     model = Consola
     template_name = 'AppJuegos/Consolas/editarConsola.html'
     form_class = ConsolaFormulario
-    success_url = reverse_lazy('ListaConsolas')
+    success_url = reverse_lazy('Consola')
 
 class EliminarConsola(DeleteView):
     model = Consola
     template_name = 'AppJuegos/Consolas/eliminarConsola.html'
-    success_url = reverse_lazy('ListaConsolas')
+    success_url = reverse_lazy('Consola')
 
 def consola(request):
     if request.method == "POST":
