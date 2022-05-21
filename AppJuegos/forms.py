@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from AppJuegos.models import Post, Juego
+from AppJuegos.models import Consola, Post, Juego
 
 def validate_email(request):
     if User.objects.filter(email = request).exists():
@@ -25,11 +25,6 @@ class JugadorFormulario(forms.Form):
     email=forms.EmailField()
     jugadorActivo=forms.BooleanField(required=False,label="Jugador activo")
     horasJugadasPorDia=forms.IntegerField(label="Horas jugadas por día")
-
-class ConsolaFormulario(forms.Form):
-    nombre=forms.CharField()
-    compania=forms.CharField(label="Compañía")
-    precio=forms.IntegerField()
 
 class RegistrarUsuarioFormulario(UserCreationForm):
     email = forms.EmailField(validators= [validate_email])
@@ -88,3 +83,14 @@ class JuegoEditFormulario(forms.ModelForm):
             'genero': forms.TextInput(attrs={'class':'form-control'}),
         }
 
+class ConsolaFormulario(forms.ModelForm):
+    class Meta:
+        model = Consola
+        fields = ('nombre','compania','fechaLanzamiento','precio','unidadesVendidas')
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class':'form-control','placeholder':'Título'}),
+            'compania': forms.TextInput(attrs={'class':'form-control'}),
+            'fechaLanzamiento': forms.DateInput(attrs={'class':'form-control','placeholder':'DD/MM/AAAA'}),
+            'precio': forms.NumberInput(attrs={'class':'form-control'}),
+            'unidadesVendidas' : forms.NumberInput(attrs={'class':'form-control'}),
+        }

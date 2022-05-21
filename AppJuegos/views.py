@@ -90,32 +90,12 @@ def jugador(request):
     
     return render(request,"AppJuegos/jugador.html",{"miFormulario":miFormulario})
 
-def consola(request):
-    if request.method == "POST":
-        miFormulario= ConsolaFormulario(request.POST)
-        if miFormulario.is_valid():
-            info=miFormulario.cleaned_data
-            consola=Consola(nombre=info["nombre"],compania=info["compania"],precio=info["precio"])
-            consola.save()
-            return redirect("Consola")
-    else:
-        miFormulario=ConsolaFormulario()
-    
-    return render(request,"AppJuegos/consola.html",{"miFormulario":miFormulario})
-
 def buscarJuego(request):
     if request.GET["compania"]:
         companiaJuego=request.GET["compania"]
         juegos=Juego.objects.filter(compania__iexact=companiaJuego)
         return render(request,"AppJuegos/resBusquedaJuego.html",{"juegos":juegos,"compania":companiaJuego})
     return redirect("Juego")
-
-def buscarConsola(request):
-    if request.GET["compania"]:
-        companiaConsolas=request.GET["compania"]
-        consolas=Consola.objects.filter(compania__iexact=companiaConsolas)
-        return render(request,"AppJuegos/resBusquedaConsola.html",{"consolas":consolas,"compania":companiaConsolas})
-    return redirect("Consola")
 
 def buscarJugador(request):
     if request.GET["nombre"]:
@@ -185,3 +165,48 @@ class EditarJuego(UpdateView):
     template_name = 'AppJuegos/editarJuego.html'
     form_class = JuegoEditFormulario
     success_url = reverse_lazy('ListaJuegos')
+
+class VistaConsolas(ListView):
+    model = Consola
+    template_name = 'AppJuegos/Consolas/listaConsolas.html'
+    ordering = ['nombre']
+
+class DetalleConsola(DetailView):
+    model = Consola
+    template_name = 'AppJuegos/Consolas/detalleConsola.html'
+
+class NuevaConsola(CreateView):
+    model = Consola
+    form_class = ConsolaFormulario
+    template_name = 'AppJuegos/Consolas/nuevaConsola.html'
+
+class EditarConsola(UpdateView):
+    model = Consola
+    template_name = 'AppJuegos/Consolas/editarConsola.html'
+    form_class = ConsolaFormulario
+    success_url = reverse_lazy('ListaConsolas')
+
+class EliminarConsola(DeleteView):
+    model = Consola
+    template_name = 'AppJuegos/Consolas/eliminarConsola.html'
+    success_url = reverse_lazy('ListaConsolas')
+
+def consola(request):
+    if request.method == "POST":
+        miFormulario= ConsolaFormulario(request.POST)
+        if miFormulario.is_valid():
+            info=miFormulario.cleaned_data
+            consola=Consola(nombre=info["nombre"],compania=info["compania"],precio=info["precio"])
+            consola.save()
+            return redirect("Consola")
+    else:
+        miFormulario=ConsolaFormulario()
+    
+    return render(request,"AppJuegos/consola.html",{"miFormulario":miFormulario})
+
+def buscarConsola(request):
+    if request.GET["compania"]:
+        companiaConsolas=request.GET["compania"]
+        consolas=Consola.objects.filter(compania__iexact=companiaConsolas)
+        return render(request,"AppJuegos/resBusquedaConsola.html",{"consolas":consolas,"compania":companiaConsolas})
+    return redirect("Consola")
