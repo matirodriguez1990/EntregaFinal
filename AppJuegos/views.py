@@ -139,7 +139,7 @@ class CrearPost(CreateView):
     model = Post
     form_class = PostFormulario
     template_name = 'AppJuegos/nuevoPost.html'
-    #fields = ['titulo','subtitulo','cuerpo','autor']
+    #fields = ['titulo','subtitulo','cuerpo']
 
 class EliminarPost(DeleteView):
     model = Post

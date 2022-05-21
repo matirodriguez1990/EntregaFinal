@@ -12,6 +12,10 @@ def validate_email(request):
     if User.objects.filter(email = request).exists():
         raise ValidationError((f"{request} ya existe."))
 
+def usuarioLogueado(request):
+        usuario = User.objects.get(pk=request.user.id)
+        return usuario
+
 class JuegoFormulario(forms.Form):
     nombre=forms.CharField()
     fechaLanzamiento=forms.DateField(label="Fecha de lanzamiento",help_text="MM/DD/AAAA")
@@ -55,14 +59,15 @@ class RegistrarUsuarioFormulario(UserCreationForm):
 #        fields = 'autor'
 
 class PostFormulario(forms.ModelForm):
-    fecha = forms.DateField(initial=date.today())
+    #fecha = forms.DateField(initial=date.today())
     class Meta:
         model = Post
-        fields = ('titulo','subtitulo','cuerpo')
+        fields = ('titulo','subtitulo','cuerpo','autor')
         widgets = {
             'titulo': forms.TextInput(attrs={'class':'form-control','placeholder':'Título'}),
             'subtitulo': forms.TextInput(attrs={'class':'form-control'}),
             'cuerpo': forms.Textarea(attrs={'class':'form-control'}),
+            'autor': forms.TextInput(attrs={'class':'form-control','placeholder':'Autor','value':'','id':'blogGames','type':'hidden'}),
         }
 
 class PostEditFormulario(forms.ModelForm):
