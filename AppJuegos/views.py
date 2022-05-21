@@ -171,6 +171,7 @@ class VistaConsolas(ListView):
     model = Consola
     template_name = 'AppJuegos/Consolas/listaConsolas.html'
     ordering = ['nombre']
+    paginate_by = 3
 
 class DetalleConsola(DetailView):
     model = Consola
