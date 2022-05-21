@@ -8,6 +8,9 @@ from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, DeleteView, UpdateView, CreateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
+from operator import attrgetter
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 # Create your views here.
 def inicio(request):
@@ -78,14 +81,14 @@ def jugador(request):
         miFormulario=JugadorFormulario()
     
     return render(request,"AppJuegos/jugador.html",{"miFormulario":miFormulario})
-
+"""
 def buscarJuego(request):
     if request.GET["nombre"]:
         nombreJuego=request.GET["nombre"]
         juegos=Juego.objects.filter(nombre__icontains=nombreJuego)
         return render(request,"AppJuegos/Juegos/resBusquedaJuego.html",{"juegos":juegos,"nombre":nombreJuego})
-    return redirect("Juego")
-
+    return redirect("ListaJuegos")
+"""
 def buscarJugador(request):
     if request.GET["nombre"]:
         nombreJugador=request.GET["nombre"]
@@ -141,7 +144,24 @@ class VistaJuegos(ListView):
     ordering = ['nombre']
     paginate_by = 10
 
-class DetalleJuegos(DetailView):
+class BuscarJuego(ListView):
+    template_name = 'AppJuegos/Juegos/resBusquedaJuego.html'
+    model = Juego
+    paginate_by = 2
+
+    def get_queryset(self):
+        query = self.request.GET.get('nombre')
+        if query:
+            object_list = self.model.objects.filter(nombre__icontains=query)
+        else:
+            object_list = self.model.objects.none()
+        return object_list
+    
+    def get_query(self):
+        query = self.request.GET.get('nombre')
+        return query
+        
+class DetalleJuego(DetailView):
     model = Juego
     template_name = 'AppJuegos/Juegos/detalleJuego.html'
     ordering = ['nombre']
@@ -216,3 +236,57 @@ def buscarConsola(request):
         consolas=Consola.objects.filter(compania__iexact=companiaConsolas)
         return render(request,"AppJuegos/resBusquedaConsola.html",{"consolas":consolas,"compania":companiaConsolas})
     return redirect("Consola")
+"""
+def buscarJuego(request):
+    if request.GET["nombre"]:
+        nombreJuego=request.GET["nombre"]
+        juegos = Juego.objects.filter(nombre__icontains=nombreJuego)
+        return render(request, 'AppJuegos/Juegos/resBusquedaJuego.html', {"juegos":juegos,"nombre":nombreJuego})
+    return redirect("ListaJuegos")"""
+
+"""
+def home_screen_view(request, *args, **kwargs):
+	
+	context = {}
+	# Search
+	query = ""
+	if request.GET:
+		query = request.GET.get('q', '')
+		context['query'] = str(query)
+
+	resultadoBusqueda = sorted(get_blog_queryset(query), key=attrgetter('date_updated'), reverse=True)
+	
+	# Pagination
+	page = request.GET.get('page', 1)
+	resultadoBusqueda_paginator = Paginator(resultadoBusqueda, 5)
+	try:
+		resultadoBusqueda = resultadoBusqueda_paginator.page(page)
+	except PageNotAnInteger:
+		resultadoBusqueda = resultadoBusqueda_paginator.page(5)
+	except EmptyPage:
+		resultadoBusqueda = resultadoBusqueda_paginator.page(resultadoBusqueda_paginator.num_pages)
+
+	context['resultadoBusqueda'] = resultadoBusqueda
+
+	return render(request, "personal/home.html", context)"""
+
+"""
+def buscarJuego(request):
+    context = {}
+    query = ""
+    if request.GET:
+        query = request.GET.get('q', '')
+        context['query'] = str(query)
+
+    resultadoBusqueda = Juego.objects.filter(nombre__icontains=query)
+    #page = request.GET.get('page', 1)
+    resultadoBusqueda_paginator = Paginator(resultadoBusqueda, 5)
+    try:
+        resultadoBusqueda = resultadoBusqueda_paginator.page(page)
+    except PageNotAnInteger:
+        resultadoBusqueda = resultadoBusqueda_paginator.page(5)
+    except EmptyPage:
+        resultadoBusqueda = resultadoBusqueda_paginator.page(resultadoBusqueda_paginator.num_pages)
+    
+    context['resultadoBusqueda'] = resultadoBusqueda
+    return render(request, "AppJuegos/Juegos/busquedaJuego.html", context)"""

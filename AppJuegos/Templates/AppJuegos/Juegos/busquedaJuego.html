@@ -1,0 +1,59 @@
+{% extends "AppJuegos/padre.html" %}
+
+{% load static %}
+
+<!--Bloque modificable para el menu-->
+{% block menuModificable %}
+<li> <a href="{% url 'Blog' %}">Home</a></li>
+<li class="active"> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
+<li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
+<li> <a href="{% url 'Consola' %}">Consolas</a> </li>
+<li> <a href="{% url 'About' %}">About</a> </li>
+{% endblock %}
+
+{% block contenidoModificable %}
+<FONT SIZE=6 style="color: white; position: absolute; top: 120px; left: 300px;">Juegos encontrados</FONT>
+
+{% if resultadoBusqueda %}
+
+<ul style="position: absolute; top: 200px; left: 350px;">
+{% for j in resultadoBusqueda %}
+    <li><a href="{% url 'DetalleJuego' j.id %}" style="color:white"><FONT SIZE=5>{{ j.nombre }}</FONT></a>
+    {% if user.is_authenticated %}
+    <a style="color:lightblue" href="{% url 'EditarJuego' j.pk %}">Editar</a> 
+    <a style="color:lightblue" href="{% url 'EliminarJuego' j.pk %}">Eliminar</a>
+    {% endif %}
+    <br>
+
+{% endfor %}
+
+</ul>
+    <div style="position:absolute; top: 90%; left: 20%" class="pagination">
+        <span class="step-links">
+            {% if resultadoBusqueda.has_previous %}
+                <a href="?{% if query %}q={{query}}&{% endif %}page={{ resultadoBusqueda.previous_page_number }} style="color:lightgray">&laquo; Anterior</a>
+            {% endif %}
+    
+            {% for i in resultadoBusqueda.paginator.page_range %}
+            {% if resultadoBusqueda.number == i %}
+                <li><a>{{ i }}</a></li>
+            {% else %}
+                <li><a href="?{% if query %}q={{query}}&{% endif %}page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+    
+            {% if resultadoBusqueda.has_next %}
+            <li>
+              <a href="?{% if query %}q={{query}}&{% endif %}page={{ resultadoBusqueda.next_page_number }}">Siguiente</a>
+            </li>
+            <li>
+              <a href="?{% if query %}q={{query}}&{% endif %}page={{ resultadoBusqueda.paginator.num_pages }}">Último &raquo;</a>
+            </li>
+        {% endif %}
+        </span>
+    </div>
+
+
+    <!-- end pagination-->
+    {% endif %}
+    {% endblock %}

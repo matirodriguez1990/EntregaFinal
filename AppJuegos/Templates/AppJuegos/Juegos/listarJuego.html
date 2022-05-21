@@ -43,6 +43,7 @@
 
 
 </ul>
+
 <div style="position:absolute; top: 90%; left: 20%" class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
@@ -65,7 +66,7 @@
 {% endif %}
 
 
-<form action="/AppJuegos/buscarJuego" method="GET" style="position:absolute; top: 15%; left: 20%">
+<form action="/AppJuegos/juego/buscar" method="GET" style="position:absolute; top: 15%; left: 20%">
     <h3 style="color: white;">Buscar juegos por nombre</h3>
     <input type="text" name="nombre" id="nombre" style= "width: 260px; height:auto;">
     <button class="button_login" type="submit" style="color: white; width:auto; height:auto">Buscar</button>
