@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from AppJuegos.models import Consola, Juego, Jugador, Post
-from AppJuegos.forms import ConsolaFormulario, JuegoFormulario, JugadorFormulario, RegistrarUsuarioFormulario,PostFormulario,PostEditFormulario
+from AppJuegos.forms import ConsolaFormulario, JuegoFormulario, JugadorFormulario, RegistrarUsuarioFormulario,PostFormulario,PostEditFormulario, JuegoEditFormulario
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
@@ -130,7 +130,6 @@ class VistaBlog(ListView):
     ordering = ['-id']
     #ordering = ['-fecha']
 
-
 class VistaPost(DetailView):
     model = Post
     template_name = 'AppJuegos/post.html'
@@ -166,3 +165,23 @@ class EditarPost(UpdateView):
             print(form.errors)
     return redirect("Blog")
 """
+class VistaJuegos(ListView):
+    model = Juego
+    template_name = 'AppJuegos/listarJuego.html'
+    ordering = ['nombre']
+
+class DetalleJuegos(DetailView):
+    model = Juego
+    template_name = 'AppJuegos/detalleJuego.html'
+    ordering = ['nombre']
+
+class EliminarJuego(DeleteView):
+    model = Juego
+    template_name = 'AppJuegos/eliminarJuego.html'
+    success_url = reverse_lazy('ListaJuegos')
+
+class EditarJuego(UpdateView):
+    model = Juego
+    template_name = 'AppJuegos/editarJuego.html'
+    form_class = JuegoEditFormulario
+    success_url = reverse_lazy('ListaJuegos')

@@ -6,15 +6,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from AppJuegos.models import Post
+from AppJuegos.models import Post, Juego
 
 def validate_email(request):
     if User.objects.filter(email = request).exists():
         raise ValidationError((f"{request} ya existe."))
-
-def usuarioLogueado(request):
-        usuario = User.objects.get(pk=request.user.id)
-        return usuario
 
 class JuegoFormulario(forms.Form):
     nombre=forms.CharField()
@@ -79,3 +75,16 @@ class PostEditFormulario(forms.ModelForm):
             'subtitulo': forms.TextInput(attrs={'class':'form-control'}),
             'cuerpo': forms.Textarea(attrs={'class':'form-control'}),
         }
+
+class JuegoEditFormulario(forms.ModelForm):
+    class Meta:
+        model = Juego
+        fields = ('nombre','fechaLanzamiento','compania','copiasCreadas','genero')
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class':'form-control'}),
+            'fechaLanzamiento': forms.DateInput(attrs={'class':'form-control','placeholder':'MM/DD/AAAA'}),
+            'compania': forms.TextInput(attrs={'class':'form-control'}),
+            'copiasCreadas': forms.NumberInput(attrs={'class':'form-control'}),
+            'genero': forms.TextInput(attrs={'class':'form-control'}),
+        }
+

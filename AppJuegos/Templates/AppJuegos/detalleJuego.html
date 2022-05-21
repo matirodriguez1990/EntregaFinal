@@ -1,0 +1,52 @@
+{% extends "AppJuegos/padre.html" %}
+
+{% load static %}
+{% block titulo %}
+        Juego
+{% endblock %}
+<!--Bloque modificable para el menu-->
+{% block menuModificable %}
+
+<li> <a href="{% url 'Blog' %}">Home</a></li>
+<li class="active"> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
+<li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
+<li> <a href="{% url 'Consola' %}">Consolas</a> </li>
+<li> <a href="{% url 'About' %}">About</a> </li>  
+
+{% endblock %}
+
+{% block login%}
+<div class="img-circular">
+    <img height="40px" src="{{url}}" />
+    <h3 style="color: white; position:absolute; top:15%; left:60%">Hola, {{user.username}}</h3>
+</div>
+{% endblock %}
+
+
+{% block contenidoModificable %}
+
+    <section class="space-pt">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 15%; left: 15%;">
+                    
+                    <h1 style="color: white">{{ juego.nombre }}</h1>
+                    <h3 style="color: white">Compañía: <p style="color: white" class="mb-4 justify">{{juego.compania}}</p> </h3> 
+                    <h3 style="color: white">Fecha de lanzamiento: <p style="color: white" class="mb-4 justify">{{juego.fechaLanzamiento}}</p> </h3> 
+                    <h3 style="color: white">Copias creadas: <p style="color: white" class="mb-4 justify">{{juego.copiasCreadas}}</p> </h3> 
+                    <h3 style="color: white">Género: <p style="color: white" class="mb-4 justify">{{juego.genero}}</p> </h3> 
+                    <a href="{% url 'ListaJuegos' %}" class="button_login" style="color: white; width:100px">Regresar</a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 ">
+    <div class="text-img">
+       <figure><img src="{% static '/AppJuegos/images/img.png' %}" alt="#"/></figure>
+    </div>
+</div>
+
+{% endblock %}

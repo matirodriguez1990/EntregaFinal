@@ -1,0 +1,50 @@
+{% extends "AppJuegos/padre.html" %}
+
+{% load static %}
+{% block titulo %}
+        Listado de juegos
+{% endblock %}
+<!--Bloque modificable para el menu-->
+{% block menuModificable %}
+
+<li> <a href="{% url 'Blog' %}">Home</a></li>
+<li class="active"> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
+<li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
+<li> <a href="{% url 'Consola' %}">Consolas</a> </li>
+<li> <a href="{% url 'About' %}">About</a> </li>  
+
+{% endblock %}
+
+{% block login%}
+<div class="img-circular">
+    <img height="40px" src="{{url}}" />
+    <h3 style="color: white; position:absolute; top:15%; left:60%">Hola, {{user.username}}</h3>
+</div>
+{% endblock %}
+
+
+{% block contenidoModificable %}
+
+<div class="col-xl-4 col-lg-4 col-md-4 col-sm-8 ">
+    <div class="text-img">
+       <figure><img src="{% static '/AppJuegos/images/img.png' %}" style="position:absolute; top:50%; left:50%" alt="#"/></figure>
+    </div>
+</div>
+
+{% if object_list %}
+
+<ul style="position: absolute; top: 200px; left: 350px;">
+{% for j in object_list %}
+    <li><a href="{% url 'DetalleJuego' j.id %}" style="color:white">{{ j.nombre }}</a>
+    
+    <a style="color:lightblue" href="{% url 'EditarJuego' j.pk %}">Editar</a> 
+    <a style="color:lightblue" href="{% url 'EliminarJuego' j.pk %}">Eliminar</a>
+    <br>
+
+{% endfor %}
+</ul>
+{% else %}
+<li><FONT SIZE=4 style="color: white; position: absolute; top: 200px; left: 350px;" >No se encontraron juegos</FONT></li>
+{% endif %}
+
+{% endblock %}

@@ -4,8 +4,8 @@
 
 <!--Bloque modificable para el menu-->
 {% block menuModificable %}
-<li> <a href="{% url 'Inicio' %}">Home</a></li>
-<li> <a href="{% url 'Juego' %}">Juegos</a> </li>
+<li> <a href="{% url 'Blog' %}">Home</a></li>
+<li> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
 <li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
 <li> <a href="{% url 'Consola' %}">Consolas</a> </li>
 <li class="active"> <a href="{% url 'About' %}">About</a> </li>  
@@ -28,10 +28,11 @@
             </div>
             
             <div class="col-lg-2 col-md-6 text-center mb-4 mb-lg-0" style="position: absolute; top: 60%; left: 15%;">
-                <div class="bg-light h-100 p-4">
+                <div>
                     <img src="{% static '/AppJuegos/images/mr.jpg' %}" alt="Matias Rodriguez" style="top:60%; left:20%">
-                    <div class="badge-round mt-2">
-                        <h4 style="color: black">Matias Rodriguez</h4>
+                    <div>
+                        <br>
+                        <h2 style="color: white">Matias Rodriguez</h2>
                     </div>
                     <p class="mt-3">Ingeniero en sistemas especializado en seguridad informática. Uno de sus hobbies son los videojuegos.</p>
                     <br>
@@ -44,12 +45,13 @@
             </div>
 
             <div class="col-lg-2 col-md-6 text-center mb-4 mb-lg-0" style="position: absolute; top: 60%; left: 35%;">
-                <div class="bg-light h-100 p-4">
+                <div>
                     <img src="{% static '/AppJuegos/images/jmgk.jpg' %}" alt="Juan Manuel Gonzalez Keilty">
-                    <div class="badge-round mt-2">
-                        <h4 style="color: black">Juan Manuel Gonzalez Keilty</h4>
+                    <div>
+                        <br>
+                        <h2 style="color: white">Juan Manuel Gonzalez Keilty</h2>
                     </div>
-                    <p class="mt-3">Analista en ciberseguridad. Fanático de los videojuegos.</p>
+                    <p class="mt-3">Analista en ciberseguridad. Fanático de los videojuegos de cualquier género.</p>
                     <br>
                     <li class="nav-item">
                         <a href="https://www.linkedin.com/in/juan-manuel-gonz%C3%A1lez-keilty-37b46935/">

@@ -4,7 +4,7 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path("",views.VistaBlog.as_view(),name="Inicio"),
-    path("juego/",views.juego, name="Juego"),
+    #path("juego/",views.juego, name="Juego"),
     path("jugador/",views.jugador, name="Jugador"),
     path("consola/",views.consola, name="Consola"),
     path("about/",views.about, name="About"),
@@ -15,7 +15,13 @@ urlpatterns = [
     path("buscarJuego/",views.buscarJuego,),
     path("buscarJugador/",views.buscarJugador,),
     path("buscarConsola/",views.buscarConsola,),
-
+    path("juego/", views.VistaJuegos.as_view(), name="ListaJuegos"),
+    #path(r"^(?P<pk>\d+)$",views.DetalleJuegos.as_view(),name="DetalleJuego"),
+    #path(r"^editar/(?P<pk>\d+)$",views.EditarJuego.as_view(),name="EditarJuego"),
+    #path(r"^borrar/(?P<pk>\d+)$",views.EliminarJuego.as_view(),name="EliminarJuego"),
+    path("juego/<int:pk>",views.DetalleJuegos.as_view(),name="DetalleJuego"),
+    path("editarJuego/<int:pk>",views.EditarJuego.as_view(),name="EditarJuego"),
+    path("juego/<int:pk>/eliminar",views.EliminarJuego.as_view(),name="EliminarJuego"),
     path("blog/",views.VistaBlog.as_view(),name="Blog"),
     path("post/<int:pk>",views.VistaPost.as_view(),name="PostCompleto"),
     path("nuevoPost/",views.CrearPost.as_view(),name="CrearPost"),
