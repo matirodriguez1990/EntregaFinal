@@ -3,10 +3,6 @@
 {% load static %}
 
 
-{% block contenidoModificableLogo %}
-
-{% endblock %}
-
 {% block menuModificable %}
 <li> <a href="{% url 'Blog' %}">Home</a></li>
 <li> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
@@ -16,6 +12,11 @@
 
 {% endblock %}
 
+{% block contenidoModificableLogo %}
+
+<FONT SIZE=6 style="color: white; position: absolute; left: -80px;">Registro de nuevo usuario</FONT>
+{% endblock %}
+
 {% block contenidoModificable %}
 
 <body>
@@ -23,7 +24,7 @@
     <div class="text-img">
         <figure><img src="{% static '/AppJuegos/images/img.png' %}" style="position:absolute; top: 15%; left: 50%; width:auto; height:auto;" alt="#"/></figure>
      </div>
-     
+     <!--
     <form method="POST">
 
         {% csrf_token %}
@@ -38,7 +39,37 @@
             <br>
             <button class="button_login" type="submit" style="color: white; width:350px">Registrarse</button>
 
-    </form>
+    </form>-->
+
+    <section class="space-pt">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0"  style="position: absolute; top: 15%; left: 15%;">
+                    <div class="form-group">
+                        <form method="post">
+                            {% csrf_token%}
+                            
+                            {{ miFormulario.as_p}}
+                            
+                            </br>
+                            <div class="d-flex flex-row-reverse">
+                                
+                                <button class="button_login" type="submit" style="color: white; width:200px">Registrase</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            
+                                <button  class="button_login" style="width:200px"><a href="{% url 'Blog' %}" style="color: white;">Cancelar</a></button> 
+                            </div>
+                        </form>
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+            
+        </div>
+    </section>
+    
+
 </body>
 
 {% endblock %}

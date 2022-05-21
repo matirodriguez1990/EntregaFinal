@@ -6,6 +6,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, DeleteView, UpdateView, CreateView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 def inicio(request):
@@ -44,6 +46,7 @@ def registro(request):
         miFormulario = RegistrarUsuarioFormulario()
     return render(request,"AppJuegos/registro.html",{"miFormulario":miFormulario})
 
+@login_required
 def editarUsuario(request):
     usuario= request.user
 
@@ -104,10 +107,10 @@ def consola(request):
     return render(request,"AppJuegos/consola.html",{"miFormulario":miFormulario})
 
 def buscarJuego(request):
-    if request.GET["compania"]:
-        companiaJuego=request.GET["compania"]
-        juegos=Juego.objects.filter(compania__iexact=companiaJuego)
-        return render(request,"AppJuegos/resBusquedaJuego.html",{"juegos":juegos,"compania":companiaJuego})
+    if request.GET["nombre"]:
+        nombreJuego=request.GET["nombre"]
+        juegos=Juego.objects.filter(nombre__icontains=nombreJuego)
+        return render(request,"AppJuegos/resBusquedaJuego.html",{"juegos":juegos,"nombre":nombreJuego})
     return redirect("Juego")
 
 def buscarConsola(request):
@@ -175,12 +178,12 @@ class DetalleJuegos(DetailView):
     template_name = 'AppJuegos/detalleJuego.html'
     ordering = ['nombre']
 
-class EliminarJuego(DeleteView):
+class EliminarJuego(LoginRequiredMixin,DeleteView):
     model = Juego
     template_name = 'AppJuegos/eliminarJuego.html'
     success_url = reverse_lazy('ListaJuegos')
 
-class EditarJuego(UpdateView):
+class EditarJuego(LoginRequiredMixin,UpdateView):
     model = Juego
     template_name = 'AppJuegos/editarJuego.html'
     form_class = JuegoEditFormulario
