@@ -30,7 +30,7 @@ def loginRequest(request):
             return render(request,"AppJuegos/login.html",{"miFormulario":miFormulario})
     else:
         miFormulario = AuthenticationForm()
-    return render(request,"AppJuegos/login.html",{"miFormulario":miFormulario})
+    return render(request,"AppJuegos/Usuario/login.html",{"miFormulario":miFormulario})
 
 def registro(request):
     if request.method == "POST":
@@ -44,7 +44,7 @@ def registro(request):
             return redirect("Inicio")
     else:
         miFormulario = RegistrarUsuarioFormulario()
-    return render(request,"AppJuegos/registro.html",{"miFormulario":miFormulario})
+    return render(request,"AppJuegos/Usuario/registro.html",{"miFormulario":miFormulario})
 
 @login_required
 def editarUsuario(request):
@@ -64,21 +64,7 @@ def editarUsuario(request):
     else:
         miFormulario= RegistrarUsuarioFormulario(initial={"username":usuario.username,"email":usuario.email})
 
-    return render (request,"AppJuegos/editarUsuario.html",{"miFormulario":miFormulario,"usuario":usuario.username})
-
-
-def juego(request):
-    if request.method == "POST":
-        miFormulario= JuegoFormulario(request.POST)
-        if miFormulario.is_valid():
-            info=miFormulario.cleaned_data
-            juego=Juego(nombre=info["nombre"],fechaLanzamiento=info["fechaLanzamiento"],compania=info["compania"], copiasCreadas=info["copiasCreadas"], genero=info["genero"])
-            juego.save()
-            return redirect("Juego")
-    else:
-        miFormulario=JuegoFormulario()
-    
-    return render(request,"AppJuegos/juego.html",{"miFormulario":miFormulario})
+    return render (request,"AppJuegos/Usuario/editarUsuario.html",{"miFormulario":miFormulario,"usuario":usuario.username})
 
 def jugador(request):
     if request.method == "POST":
@@ -97,7 +83,7 @@ def buscarJuego(request):
     if request.GET["nombre"]:
         nombreJuego=request.GET["nombre"]
         juegos=Juego.objects.filter(nombre__icontains=nombreJuego)
-        return render(request,"AppJuegos/resBusquedaJuego.html",{"juegos":juegos,"nombre":nombreJuego})
+        return render(request,"AppJuegos/Juegos/resBusquedaJuego.html",{"juegos":juegos,"nombre":nombreJuego})
     return redirect("Juego")
 
 def buscarJugador(request):
@@ -118,18 +104,18 @@ class VistaPost(DetailView):
     model = Post
     template_name = 'AppJuegos/post.html'
 
-class CrearPost(CreateView):
+class CrearPost(LoginRequiredMixin,CreateView):
     model = Post
     form_class = PostFormulario
     template_name = 'AppJuegos/nuevoPost.html'
     #fields = ['titulo','subtitulo','cuerpo']
 
-class EliminarPost(DeleteView):
+class EliminarPost(LoginRequiredMixin,DeleteView):
     model = Post
     template_name = 'AppJuegos/eliminarPost.html'
     success_url = reverse_lazy('Inicio')
 
-class EditarPost(UpdateView):
+class EditarPost(LoginRequiredMixin,UpdateView):
     model = Post
     template_name = 'AppJuegos/editarPost.html'
     form_class = PostEditFormulario
@@ -151,22 +137,23 @@ class EditarPost(UpdateView):
 """
 class VistaJuegos(ListView):
     model = Juego
-    template_name = 'AppJuegos/listarJuego.html'
+    template_name = 'AppJuegos/Juegos/listarJuego.html'
     ordering = ['nombre']
+    paginate_by = 10
 
 class DetalleJuegos(DetailView):
     model = Juego
-    template_name = 'AppJuegos/detalleJuego.html'
+    template_name = 'AppJuegos/Juegos/detalleJuego.html'
     ordering = ['nombre']
 
 class EliminarJuego(LoginRequiredMixin,DeleteView):
     model = Juego
-    template_name = 'AppJuegos/eliminarJuego.html'
+    template_name = 'AppJuegos/Juegos/eliminarJuego.html'
     success_url = reverse_lazy('ListaJuegos')
 
 class EditarJuego(LoginRequiredMixin,UpdateView):
     model = Juego
-    template_name = 'AppJuegos/editarJuego.html'
+    template_name = 'AppJuegos/Juegos/editarJuego.html'
     form_class = JuegoEditFormulario
     success_url = reverse_lazy('ListaJuegos')
 
@@ -180,22 +167,22 @@ class DetalleConsola(DetailView):
     model = Consola
     template_name = 'AppJuegos/Consolas/detalleConsola.html'
 
-class NuevaConsola(CreateView):
+class NuevaConsola(LoginRequiredMixin,CreateView):
     model = Consola
     form_class = ConsolaFormulario
     template_name = 'AppJuegos/Consolas/nuevaConsola.html'
 
-class EditarConsola(UpdateView):
+class EditarConsola(LoginRequiredMixin,UpdateView):
     model = Consola
     template_name = 'AppJuegos/Consolas/editarConsola.html'
     form_class = ConsolaFormulario
     success_url = reverse_lazy('Consola')
 
-class EliminarConsola(DeleteView):
+class EliminarConsola(LoginRequiredMixin,DeleteView):
     model = Consola
     template_name = 'AppJuegos/Consolas/eliminarConsola.html'
     success_url = reverse_lazy('Consola')
-
+"""
 def consola(request):
     if request.method == "POST":
         miFormulario= ConsolaFormulario(request.POST)
@@ -209,6 +196,20 @@ def consola(request):
     
     return render(request,"AppJuegos/consola.html",{"miFormulario":miFormulario})
 
+
+def juego(request):
+    if request.method == "POST":
+        miFormulario= JuegoFormulario(request.POST)
+        if miFormulario.is_valid():
+            info=miFormulario.cleaned_data
+            juego=Juego(nombre=info["nombre"],fechaLanzamiento=info["fechaLanzamiento"],compania=info["compania"], copiasCreadas=info["copiasCreadas"], genero=info["genero"])
+            juego.save()
+            return redirect("Juego")
+    else:
+        miFormulario=JuegoFormulario()
+    
+    return render(request,"AppJuegos/juego.html",{"miFormulario":miFormulario})
+"""
 def buscarConsola(request):
     if request.GET["compania"]:
         companiaConsolas=request.GET["compania"]

@@ -124,4 +124,4 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Para redireccionar automaticamente el login
-LOGIN_URL = "/AppJuegos/login"
+LOGIN_URL = "/AppJuegos/usuario/login"

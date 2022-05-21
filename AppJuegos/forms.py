@@ -17,10 +17,10 @@ def validate_user(request):
 
 class JuegoFormulario(forms.Form):
     nombre=forms.CharField()
-    fechaLanzamiento=forms.DateField(label="Fecha de lanzamiento",help_text="MM/DD/AAAA")
-    compania=forms.CharField(label="Compañía")
-    copiasCreadas=forms.IntegerField(label="Copias creadas")
-    genero=forms.CharField(label="Género")
+    fechaLanzamiento=forms.DateField(required=False, label="Fecha de lanzamiento",help_text="MM/DD/AAAA")
+    compania=forms.CharField(required=False, label="Compañía")
+    copiasCreadas=forms.IntegerField(required=False, label="Copias creadas")
+    genero=forms.CharField(required=False, label="Género")
 
 class JugadorFormulario(forms.Form):
     nombre=forms.CharField()

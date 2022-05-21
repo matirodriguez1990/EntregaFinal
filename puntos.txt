@@ -11,3 +11,28 @@ Generar la clase Avatar y asociarla al usuario.
 
 
 --- Si estamos con tiempo: Revisar como hacer diferenciar login de usuario admin como de usuario normal. (Permisos) Ver ultima afterclass (creo)
+
+
+Nuevos comentarios:
+
+1) Cada hilo, ver de asociar 1 juego y una consola. JM
+
+2) Cada hilo, agregar comentarios. JM
+
+3) Agregar avatares. MR
+
+4) Ver Editar usuarios, que crea nuevos. MR
+
+5) Agregar un boton para cambio de contraseña solamente. MR
+
+6) Agregar imagenes de juegos. MR
+
+7) Modificar el formulario de registro para que seleccione un avatar. Investigar
+
+8) Jugadores, generar vista para ver usuarios. JM
+
+9) Retoques generales de estetica y elimanar basura JM/MR
+
+10) -Generar documento de casos de prueba
+    -Generar video de 10 minutos
+    -Readme

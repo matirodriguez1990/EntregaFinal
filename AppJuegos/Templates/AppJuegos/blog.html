@@ -39,7 +39,12 @@
                         </br>
 
                         <small> {{ post.fecha }}</small>
-                        <li><a href="{% url 'PostCompleto' post.pk %}" style="color:white">{{ post.titulo }}</a> - Por: {{post.autor.first_name}} {{post.autor.last_name}} - <small><small><a style="color:lightblue" href="{% url 'EditarPost' post.pk %}">Editar</a></small></small> - <small><small><a style="color:lightblue" href="{% url 'EliminarPost' post.pk %}">Eliminar</a></small></small><br/>
+                        <li><a href="{% url 'PostCompleto' post.pk %}" style="color:white">{{ post.titulo }}</a> - Por: {{post.autor.first_name}} {{post.autor.last_name}} - 
+                            {% if user.is_authenticated %}
+                            <small><small><a style="color:lightblue" href="{% url 'EditarPost' post.pk %}">Editar</a>
+                            </small></small> - <small><small><a style="color:lightblue" href="{% url 'EliminarPost' post.pk %}">Eliminar</a>
+                            </small></small><br/>
+                            {% endif %}
                          {{post.subtitulo}}<br/><br/> </li>
                          {% endfor %}
                     </ul>

@@ -21,8 +21,10 @@
                 <span>{{post.fecha}} - Por: {{ post.autor.first_name }} {{post.autor.last_name }}</span>
                 <h3 style="color: white">{{ post.titulo }}</h3>
                 <p style="color: white" class="mb-4 justify">{{post.cuerpo}}</p> 
+                {%  if user.is_authenticated %}
                 <button class="button_login" style=" width:150px"> <a style="color: white" href="{% url 'EditarPost' post.pk %}">Editar Post</a> </button>
                 <button class="button_login" style=" width:150px"> <a style="color: white" href="{% url 'EliminarPost' post.pk %}">Eliminar Post</a> </button>
+                {% endif %}
             </div>
         </div>
     </div>

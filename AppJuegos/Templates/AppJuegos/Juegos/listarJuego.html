@@ -31,7 +31,7 @@
 
 <ul style="position:absolute; top: 30%; left: 20%">
 {% for j in object_list %}
-    <li><a href="{% url 'DetalleJuego' j.id %}" style="color:white">{{ j.nombre }}</a>
+    <li><a href="{% url 'DetalleJuego' j.id %}" style="color:white"><FONT SIZE=5>{{ j.nombre }}</FONT></a>
     {% if user.is_authenticated %}
     <a style="color:lightblue" href="{% url 'EditarJuego' j.pk %}">Editar</a> 
     <a style="color:lightblue" href="{% url 'EliminarJuego' j.pk %}">Eliminar</a>
@@ -39,7 +39,27 @@
     <br>
 
 {% endfor %}
+
+
+
 </ul>
+<div style="position:absolute; top: 90%; left: 20%" class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" style="color:lightgray">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}" style="color:lightgray">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" style="color:lightgray">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" style="color:lightgray">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 {% else %}
 <li><FONT SIZE=4 style="color: white; position: absolute; top: 200px; left: 350px" >No se encontraron juegos</FONT></li>
 {% endif %}
