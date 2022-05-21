@@ -5,6 +5,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+<<<<<<< HEAD
 from AppJuegos.models import Post, Juego
 """from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.models import User
@@ -12,6 +13,10 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 """
 
+=======
+
+from AppJuegos.models import Consola, Post, Juego
+>>>>>>> 6c3e1b3f2b3034e8c922d89ee1437cbf09963954
 
 def validate_email(request):
     if User.objects.filter(email = request).exists():
@@ -34,11 +39,6 @@ class JugadorFormulario(forms.Form):
     email=forms.EmailField()
     jugadorActivo=forms.BooleanField(required=False,label="Jugador activo")
     horasJugadasPorDia=forms.IntegerField(label="Horas jugadas por día")
-
-class ConsolaFormulario(forms.Form):
-    nombre=forms.CharField()
-    compania=forms.CharField(label="Compañía")
-    precio=forms.IntegerField()
 
 class RegistrarUsuarioFormulario(UserCreationForm):
     username = forms.CharField(validators= [validate_user], widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -102,6 +102,7 @@ class JuegoEditFormulario(forms.ModelForm):
             'genero': forms.TextInput(attrs={'class':'form-control'}),
         }
 
+<<<<<<< HEAD
 """
 class LoginFormulario(forms.Form):
     username = forms.CharField(max_length=254, widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -153,3 +154,16 @@ class LoginFormulario(forms.Form):
 
     def get_user(self):
         return self.user_cache"""
+=======
+class ConsolaFormulario(forms.ModelForm):
+    class Meta:
+        model = Consola
+        fields = ('nombre','compania','fechaLanzamiento','precio','unidadesVendidas')
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class':'form-control','placeholder':'Título'}),
+            'compania': forms.TextInput(attrs={'class':'form-control'}),
+            'fechaLanzamiento': forms.DateInput(attrs={'class':'form-control','placeholder':'DD/MM/AAAA'}),
+            'precio': forms.NumberInput(attrs={'class':'form-control'}),
+            'unidadesVendidas' : forms.NumberInput(attrs={'class':'form-control'}),
+        }
+>>>>>>> 6c3e1b3f2b3034e8c922d89ee1437cbf09963954

@@ -1,0 +1,67 @@
+{% extends "AppJuegos/padre.html" %}
+
+{% load static %}
+
+<!--Bloque modificable para el menu-->
+{% block menuModificable %}
+
+<li> <a href="{% url 'Blog' %}">Home</a></li>
+<li> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
+<li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
+<li class="active"> <a href="{% url 'Consola' %}">Consolas</a> </li>
+<li> <a href="{% url 'About' %}">About</a> </li>  
+
+{% endblock %}
+
+{% block login%}
+<div class="img-circular">
+    <img height="40px" src="{{url}}" />
+    <h3 style="color: white; position:absolute; top:15%; left:60%">Hola {{user.first_name}}!</h3>
+</div>
+{% endblock %}
+
+
+{% block contenidoModificable %}
+<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 " style="position:absolute; top:15%; left:40%">
+    <div class="text-img">
+       <figure><img src="{% static '/AppJuegos/images/img.png' %}" alt="#"/></figure>
+    </div>
+</div>
+
+
+<section class="space-pt">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 15%; left: 15%;">
+                <p style="color: white" class="mb-4 justify">
+                    <ul>                     
+                        </br>
+                        </br>
+                        <li> 
+                            <b style="color:white">{{ consola.nombre }}</b>
+                        
+                        </br>
+                        Fabricante: {{consola.compania}}
+                        </br>
+                        Fecha de Lanzamiento: {{ consola.fechaLanzamiento }}
+                        </br>
+                        Precio Lanzamiento: {{ consola.precio }} U$D
+                        </br>
+                        Unidades Vendidas: {{ consola.unidadesVendidas }} M
+                        </li>
+                        </br>
+                        {% if user.is_authenticated %}
+                        </br>
+                        </br>
+                        <button class="button_login" style=" width:150px"> <a style="color: white" href="{% url 'EditarConsola' consola.pk %}">Editar Consola</a> </button>
+                        <button class="button_login" style=" width:150px"> <a style="color: white" href="{% url 'EliminarConsola' consola.pk %}">Eliminar Consola</a> </button>
+                        {% endif %}
+                    </ul>
+                </p> 
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+

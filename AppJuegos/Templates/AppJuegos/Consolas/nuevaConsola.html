@@ -3,22 +3,22 @@
 {% load static %}
 
 {% block titulo %}
-Eliminar Post
+        Nueva Consola
 {% endblock %}
 
 {% block menuModificable %}
 
-<li class="active"> <a href="{% url 'Blog' %}">Blog</a></li>
+<li> <a href="{% url 'Blog' %}">Blog</a></li>
 <li> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
 <li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
-<li> <a href="{% url 'Consola' %}">Consolas</a> </li>
+<li class="active"> <a href="{% url 'Consola' %}">Consolas</a> </li>
 <li> <a href="{% url 'About' %}">About</a> </li>  
 
 {% endblock %}
 
 {% block contenidoModificableLogo %}
 
-<FONT SIZE=7 style="color: white; position: absolute; top: -20px; left: -80px;">Eliminar Post {{ post.titulo }}</FONT>
+<FONT SIZE=7 style="color: white; position: absolute; top: -20px; left: -80px;">Nueva Consola</FONT>
 {% endblock %}
 
 {% block contenidoModificable %}
@@ -33,12 +33,14 @@ Eliminar Post
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 15%; left: 15%;">
                 <div class="form-group">
-                <form method="post">
+                    <form method="post">
                     {% csrf_token%}
-                    Esta seguro que desea eliminar el Post {{ post.titulo }}?
+                    {{ form.as_p}}
                     </br>
-                    <button class="button_login" style=" width:50px"> <a style="color: white">Si</a> </button>
-            </div>
+                    <button class="button_login" type="submit" style="color: white; width:110px">Crear</button>
+                    </form>    
+                </div>
+               
             </div>
         </div>
     </div>

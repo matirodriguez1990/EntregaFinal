@@ -29,12 +29,17 @@ class Jugador(models.Model):
         verbose_name_plural="Jugadores"
 
 class Consola(models.Model):
-    nombre=models.CharField(max_length=40)
-    compania=models.CharField(max_length=40)
-    precio=models.IntegerField()
+    nombre = models.CharField(max_length=40)
+    compania = models.CharField(max_length=40)
+    fechaLanzamiento = models.DateField()
+    precio = models.FloatField()
+    unidadesVendidas = models.IntegerField()
 
     def __str__(self):
         return f"Nombre: {self.nombre} - Compañía: {self.compania}"
+
+    def get_absolute_url(self):
+        return reverse('Consola')
     
 class Post(models.Model):
     titulo = models.CharField(max_length=50)

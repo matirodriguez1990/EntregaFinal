@@ -5,10 +5,10 @@
 <!--Bloque modificable para el menu-->
 {% block menuModificable %}
 
-<li class="active"> <a href="{% url 'Blog' %}">Home</a></li>
+<li> <a href="{% url 'Blog' %}">Home</a></li>
 <li> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
 <li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
-<li> <a href="{% url 'Consola' %}">Consolas</a> </li>
+<li class="active"> <a href="{% url 'Consola' %}">Consolas</a> </li>
 <li> <a href="{% url 'About' %}">About</a> </li>  
 
 {% endblock %}
@@ -16,7 +16,7 @@
 {% block login%}
 <div class="img-circular">
     <img height="40px" src="{{url}}" />
-    <h3 style="color: white; position:absolute; top:15%; left:60%">Hola, {{user.first_name}}!</h3>
+    <h3 style="color: white; position:absolute; top:15%; left:60%">Hola {{user.first_name}}!</h3>
 </div>
 {% endblock %}
 
@@ -36,18 +36,24 @@
                 <p style="color: white" class="mb-4 justify">
                     <ul>
                         {% if user.is_authenticated %}
-                        <li class="button_login" style=" width:100px"> <a style="color: white" href="{% url 'CrearPost' %}">Crear Post</a> </li>
+                        <button class="button_login" style=" width:150px"> <a style="color: white" href="{% url 'NuevaConsola' %}">Agregar Consola</a> </button>
                         
                         {% endif %}
 
-                        {% for post in object_list %}
+                        {% for consola in object_list %}
                         </br>
                         </br>
+                        <li>
+                        <a href="{% url 'DetalleConsola' consola.pk %}" style="color:white"><b>{{ consola.nombre }}</b></a>
+                        
+                        </br>
+                        Fabricante: {{consola.compania}}
+                        </br>
+                        Fecha de Lanzamiento: {{ consola.fechaLanzamiento }}
+                        </li>
 
-                        <small> {{ post.fecha }}</small>
-                        <li><a href="{% url 'PostCompleto' post.pk %}" style="color:white">{{ post.titulo }}</a> - Por: {{post.autor.first_name}} {{post.autor.last_name}} - <small><small><a style="color:lightblue" href="{% url 'EditarPost' post.pk %}">Editar</a></small></small> - <small><small><a style="color:lightblue" href="{% url 'EliminarPost' post.pk %}">Eliminar</a></small></small><br/>
-                         {{post.subtitulo}}<br/><br/> </li>
                          {% endfor %}
+                    </br>
                     </ul>
                     <div class="pagination">
                         <span class="step-links">
@@ -66,12 +72,12 @@
                             {% endif %}
                         </span>
                     </div>
+
                 </p> 
             </div>
         </div>
     </div>
-    
 </section>
 
-
 {% endblock %}
+

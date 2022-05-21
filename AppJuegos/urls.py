@@ -1,3 +1,4 @@
+from ast import alias
 from django.urls import path
 from AppJuegos import views
 from django.contrib.auth.views import LogoutView
@@ -6,7 +7,7 @@ urlpatterns = [
     path("",views.VistaBlog.as_view(),name="Inicio"),
     #path("juego/",views.juego, name="Juego"),
     path("jugador/",views.jugador, name="Jugador"),
-    path("consola/",views.consola, name="Consola"),
+    #path("consola/",views.consola, name="Consola"),
     path("about/",views.about, name="About"),
     path("login",views.loginRequest, name="Login"),
     path("registro",views.registro, name="Registro"),
@@ -27,5 +28,11 @@ urlpatterns = [
     path("nuevoPost/",views.CrearPost.as_view(),name="CrearPost"),
     path("editarPost/<int:pk>",views.EditarPost.as_view(),name="EditarPost"),
     path("post/<int:pk>/eliminar",views.EliminarPost.as_view(),name="EliminarPost"),
+
+    path("Consolas/listaConsolas/",views.VistaConsolas.as_view(),name="Consola"),
+    path("Consolas/nuevaConsola/",views.NuevaConsola.as_view(),name="NuevaConsola"),
+    path("Consolas/detalleConsola/<int:pk>",views.DetalleConsola.as_view(),name="DetalleConsola"),
+    path("Consolas/editarConsola/<int:pk>",views.EditarConsola.as_view(),name="EditarConsola"),
+    path("Consolas/detalleConsola/<int:pk>/eliminar",views.EliminarConsola.as_view(),name="EliminarConsola"),    
 
 ]

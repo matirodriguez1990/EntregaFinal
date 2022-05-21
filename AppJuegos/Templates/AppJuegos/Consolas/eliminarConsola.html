@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block titulo %}
-Eliminar Post
+Eliminar Consola
 {% endblock %}
 
 {% block menuModificable %}
@@ -18,7 +18,7 @@ Eliminar Post
 
 {% block contenidoModificableLogo %}
 
-<FONT SIZE=7 style="color: white; position: absolute; top: -20px; left: -80px;">Eliminar Post {{ post.titulo }}</FONT>
+<FONT SIZE=7 style="color: white; position: absolute; top: -20px; left: -80px;">Eliminar Consola {{ consola.nombre }}</FONT>
 {% endblock %}
 
 {% block contenidoModificable %}
@@ -35,9 +35,8 @@ Eliminar Post
                 <div class="form-group">
                 <form method="post">
                     {% csrf_token%}
-                    Esta seguro que desea eliminar el Post {{ post.titulo }}?
-                    </br>
-                    <button class="button_login" style=" width:50px"> <a style="color: white">Si</a> </button>
+                    Esta seguro que desea eliminar la consola {{ consola.compania }} - {{ consola.nombre }}?
+                    <button>Confirmar</button>
             </div>
             </div>
         </div>
