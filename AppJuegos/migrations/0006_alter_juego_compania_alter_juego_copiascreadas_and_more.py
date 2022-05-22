@@ -33,16 +33,5 @@ class Migration(migrations.Migration):
             name='genero',
             field=models.CharField(default='juego', max_length=40),
         ),
-        migrations.CreateModel(
-            name='Avatar',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('imagen', models.ImageField(blank=True, null=True, upload_to='avatares')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-            ],
-            options={
-                'verbose_name': 'Avatar',
-                'verbose_name_plural': 'Avatares',
-            },
-        ),
+       
     ]
