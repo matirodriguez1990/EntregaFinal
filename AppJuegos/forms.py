@@ -31,6 +31,7 @@ class JugadorFormulario(forms.Form):
     jugadorActivo=forms.BooleanField(required=False,label="Jugador activo")
     horasJugadasPorDia=forms.IntegerField(label="Horas jugadas por día")
 
+"""
 class UsuarioFormulario(forms.ModelForm):
     username = forms.CharField(validators= [validate_user], widget=forms.TextInput(attrs={'class':'form-control'}))
     email = forms.EmailField(validators= [validate_email], widget=forms.EmailInput(attrs={'class':'form-control'}))
@@ -71,14 +72,14 @@ class UsuarioFormulario(forms.ModelForm):
                     u'Avatar file size may not exceed 20k.')
 
         except AttributeError:
-            """
-            Handles case when we are updating the user profile
-            and do not supply a new avatar
-            """
+            
+            #Handles case when we are updating the user profile
+            #and do not supply a new avatar
+            
             pass
 
         return avatar
-
+"""
 
 
 class RegistrarUsuarioFormulario(UserCreationForm):

@@ -15,8 +15,9 @@ class Juego(models.Model):
         return f"Nombre: {self.nombre} - Compañía: {self.compania}"
 
 class Jugador(models.Model):
-    user=models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar=models.ImageField(default=None)
+    nombre=models.CharField(max_length=40)
+    apellido=models.CharField(max_length=40)
+    email=models.EmailField(max_length=254)
     jugadorActivo=models.BooleanField()
     horasJugadasPorDia=models.IntegerField()
 

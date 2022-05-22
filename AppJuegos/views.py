@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from AppJuegos import forms
 from AppJuegos.models import Consola, Juego, Jugador, Post, Avatar
-from AppJuegos.forms import AvatarFormulario, ConsolaFormulario, JuegoFormulario, JugadorFormulario, RegistrarUsuarioFormulario,PostFormulario,PostEditFormulario, JuegoEditFormulario, UsuarioFormulario
+from AppJuegos.forms import AvatarFormulario, ConsolaFormulario, JuegoFormulario, JugadorFormulario, RegistrarUsuarioFormulario,PostFormulario,PostEditFormulario, JuegoEditFormulario
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
