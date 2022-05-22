@@ -28,11 +28,12 @@ urlpatterns = [
     path("nuevoPost/",views.CrearPost.as_view(),name="CrearPost"),
     path("editarPost/<int:pk>",views.EditarPost.as_view(),name="EditarPost"),
     path("post/<int:pk>/eliminar",views.EliminarPost.as_view(),name="EliminarPost"),
+    path("post/<int:pk>/nuevoComentario/",views.NuevoComentario.as_view(),name="NuevoComentario"),
     #Consola
-    path("Consolas/listaConsolas/",views.VistaConsolas.as_view(),name="Consola"),
-    path("Consolas/nuevaConsola/",views.NuevaConsola.as_view(),name="NuevaConsola"),
-    path("Consolas/detalleConsola/<int:pk>",views.DetalleConsola.as_view(),name="DetalleConsola"),
-    path("Consolas/editarConsola/<int:pk>",views.EditarConsola.as_view(),name="EditarConsola"),
-    path("Consolas/detalleConsola/<int:pk>/eliminar",views.EliminarConsola.as_view(),name="EliminarConsola"),    
+    path("consolas/lista/",views.VistaConsolas.as_view(),name="Consola"),
+    path("consolas/nueva/",views.NuevaConsola.as_view(),name="NuevaConsola"),
+    path("consolas/detalle/<int:pk>",views.DetalleConsola.as_view(),name="DetalleConsola"),
+    path("consolas/editar/<int:pk>",views.EditarConsola.as_view(),name="EditarConsola"),
+    path("consolas/detalle/<int:pk>/eliminar",views.EliminarConsola.as_view(),name="EliminarConsola"),    
 
 ]

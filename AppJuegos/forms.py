@@ -102,3 +102,7 @@ class ConsolaFormulario(forms.ModelForm):
             'precio': forms.NumberInput(attrs={'class':'form-control'}),
             'unidadesVendidas' : forms.NumberInput(attrs={'class':'form-control'}),
         }
+
+class ComentarioFormulario(UserCreationForm):
+    nombre = forms.CharField(label="Nombre",widget=forms.TextInput(attrs={'class':'form-control'}))
+    cuerpo = forms.CharField(label="Cuerpo",widget=forms.Textarea(attrs={'class':'form-control'}))

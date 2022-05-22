@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from AppJuegos.models import Consola, Juego, Jugador, Post
-from AppJuegos.forms import ConsolaFormulario, JuegoFormulario, JugadorFormulario, RegistrarUsuarioFormulario,PostFormulario,PostEditFormulario, JuegoEditFormulario
+from AppJuegos.models import Comentario, Consola, Juego, Jugador, Post
+from AppJuegos.forms import ConsolaFormulario, JuegoFormulario, JugadorFormulario, RegistrarUsuarioFormulario,PostFormulario,PostEditFormulario, JuegoEditFormulario,ComentarioFormulario
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
@@ -27,7 +27,7 @@ def loginRequest(request):
                 login(request,user)
                 return redirect("Inicio")
         else:
-            return render(request,"AppJuegos/login.html",{"miFormulario":miFormulario})
+            return render(request,"AppJuegos/Usuario/login.html",{"miFormulario":miFormulario})
     else:
         miFormulario = AuthenticationForm()
     return render(request,"AppJuegos/Usuario/login.html",{"miFormulario":miFormulario})
@@ -216,3 +216,8 @@ def buscarConsola(request):
         consolas=Consola.objects.filter(compania__iexact=companiaConsolas)
         return render(request,"AppJuegos/resBusquedaConsola.html",{"consolas":consolas,"compania":companiaConsolas})
     return redirect("Consola")
+
+class NuevoComentario(CreateView):
+    model = Comentario
+    form_class = ComentarioFormulario
+    template_name = 'AppJuegos/Posts/nuevoComentario.html'
