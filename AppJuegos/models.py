@@ -47,6 +47,8 @@ class Post(models.Model):
     cuerpo = models.TextField()
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha = models.DateField(auto_now_add=True)
+    consola = models.ForeignKey(Consola, on_delete=models.CASCADE, default='1')
+    juego = models.ForeignKey(Juego,on_delete=models.CASCADE,default='1')
 
     def __str__(self) -> str:
         return self.titulo + ' - ' + str(self.autor)
@@ -54,25 +56,15 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('Blog')
 
-<<<<<<< HEAD
-class Comentario(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comentarios")
-    user = models.ForeignKey(User,on_delete=models.CASCADE, related_name="usuario")
-=======
 class Comentarios(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comentarios")
->>>>>>> 1d0ba0978220cffb5f6a260d9ecced2cffb09295
     titulo = models.CharField(max_length=50)
     cuerpo = models.TextField()
     fechaComentario = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
-<<<<<<< HEAD
-        return '%s - %s' % (self.post.titulo, self.nombre)
-=======
         return '%s - %s' % (self.post.titulo, self.titulo)
->>>>>>> 1d0ba0978220cffb5f6a260d9ecced2cffb09295
 
 class Avatar(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)

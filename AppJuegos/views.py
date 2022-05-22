@@ -148,7 +148,6 @@ class VistaBlog(ListView):
     template_name = 'AppJuegos/blog.html'
     ordering = ['-id']
     paginate_by = 3
-    #ordering = ['-fecha']
 
 class VistaPost(DetailView):
     model = Post
@@ -290,6 +289,14 @@ class NuevoComentario(CreateView):
     model = Comentarios
     form_class = ComentarioFormulario
     template_name = 'AppJuegos/Posts/nuevoComentario.html'
+    success_url = reverse_lazy('PostCompleto post.pk')
+    ordering = ['-fechaComentario']
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.post_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+
 """
 def buscarJuego(request):
     if request.GET["nombre"]:
