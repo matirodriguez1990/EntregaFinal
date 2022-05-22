@@ -15,15 +15,13 @@ class Juego(models.Model):
         return f"Nombre: {self.nombre} - Compañía: {self.compania}"
 
 class Jugador(models.Model):
-    #usuario=models.OneToOneField(User,related_name="autor",on_delete=models.CASCADE,default=666)
-    nombre=models.CharField(max_length=40)
-    apellido=models.CharField(max_length=40)
-    email=models.EmailField(unique=True)
+    user=models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar=models.ImageField(default=None)
     jugadorActivo=models.BooleanField()
     horasJugadasPorDia=models.IntegerField()
 
     def __str__(self):
-        return f"Nombre: {self.nombre} - Apellido: {self.apellido} - Email: {self.email}"
+        return f"Nombre: {self.first_name} - Apellido: {self.last_name}"
 
     class Meta:
         verbose_name="Jugador"
@@ -54,3 +52,13 @@ class Post(models.Model):
     
     def get_absolute_url(self):
         return reverse('Blog')
+
+class Avatar(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to="avatares",null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Avatar"
+        verbose_name_plural = "Avatares"
+
+

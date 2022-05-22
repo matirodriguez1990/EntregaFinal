@@ -69,11 +69,21 @@
                             </ul>
                             {% endif %}
                             {% if user.is_authenticated %}
+                            
                             <ul class="top_icon">
+                                
+                                {% with last_image=user.avatar_set.last %}
+                                {% if last_image %}
+                                    
+                                <h2 style="color:white"> <img src="{{ last_image.imagen.url }}" class="" style="border-radius: 50%; max-width: 40px;"> Hola, {{user.username}}</h2>
+                                {% else %}
+                                <h2 style="color:white">Hola, {{user.username}}</h2>
+                                {% endif %}
+                                {% endwith %}
                                 <li class="button_login"> <a href="{% url 'EditarUsuario' %}">Editar</a> </li>
                                 <li> <a href="{% url 'Logout' %}">Logout</a> </li>
-                                {% block login %}
-                                {% endblock %}
+                                
+                                
                             </ul>
                             
                             {% endif %}

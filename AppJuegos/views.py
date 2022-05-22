@@ -1,7 +1,8 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from AppJuegos.models import Consola, Juego, Jugador, Post
-from AppJuegos.forms import ConsolaFormulario, JuegoFormulario, JugadorFormulario, RegistrarUsuarioFormulario,PostFormulario,PostEditFormulario, JuegoEditFormulario
+from AppJuegos import forms
+from AppJuegos.models import Consola, Juego, Jugador, Post, Avatar
+from AppJuegos.forms import AvatarFormulario, ConsolaFormulario, JuegoFormulario, JugadorFormulario, RegistrarUsuarioFormulario,PostFormulario,PostEditFormulario, JuegoEditFormulario, UsuarioFormulario
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
@@ -48,6 +49,21 @@ def registro(request):
     else:
         miFormulario = RegistrarUsuarioFormulario()
     return render(request,"AppJuegos/Usuario/registro.html",{"miFormulario":miFormulario})
+
+@login_required
+def subirAvatar(request):
+    if request.method == "POST":
+        miFormulario = AvatarFormulario(request.POST, request.FILES)
+
+        if miFormulario.is_valid():
+            info=miFormulario.cleaned_data
+            avatar = Avatar(user=request.user, imagen=info["imagen"])
+            avatar.save()
+            redirect("Inicio")
+    else:
+        miFormulario = AvatarFormulario()
+    
+    return render(request, "AppJuegos/Usuario/subirAvatar.html", {"miFormulario":miFormulario})
 
 @login_required
 def editarUsuario(request):
@@ -147,20 +163,15 @@ class VistaJuegos(ListView):
 class BuscarJuego(ListView):
     template_name = 'AppJuegos/Juegos/resBusquedaJuego.html'
     model = Juego
-    paginate_by = 2
-
-    def get_queryset(self):
-        query = self.request.GET.get('nombre')
-        if query:
-            object_list = self.model.objects.filter(nombre__icontains=query)
-        else:
-            object_list = self.model.objects.none()
-        return object_list
+    paginate_by = 1
     
-    def get_query(self):
-        query = self.request.GET.get('nombre')
-        return query
-        
+    def get_context_data(self,**kwargs):
+        object_list = self.model.objects.filter(nombre__startswith=self.request.GET.get('nombre'))
+        data = super().get_context_data(**kwargs)
+        data['object_list'] = object_list
+        data["query"] = self.request.GET.get('nombre')
+        return data
+
 class DetalleJuego(DetailView):
     model = Juego
     template_name = 'AppJuegos/Juegos/detalleJuego.html'
@@ -290,3 +301,5 @@ def buscarJuego(request):
     
     context['resultadoBusqueda'] = resultadoBusqueda
     return render(request, "AppJuegos/Juegos/busquedaJuego.html", context)"""
+
+

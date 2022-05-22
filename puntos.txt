@@ -19,7 +19,7 @@ Nuevos comentarios:
 
 2) Cada hilo, agregar comentarios. JM
 
-3) Agregar avatares. MR
+
 
 4) Ver Editar usuarios, que crea nuevos. MR
 
@@ -27,7 +27,7 @@ Nuevos comentarios:
 
 6) Agregar imagenes de juegos. MR
 
-7) Modificar el formulario de registro para que seleccione un avatar. Investigar
+
 
 8) Jugadores, generar vista para ver usuarios. JM
 
@@ -36,3 +36,8 @@ Nuevos comentarios:
 10) -Generar documento de casos de prueba
     -Generar video de 10 minutos
     -Readme
+
+
+Finalizados
+3) Agregar avatares. LISTO
+7) Modificar el formulario de registro para que seleccione un avatar. LISTO
