@@ -6,7 +6,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from AppJuegos.models import Avatar, Jugador, Post, Juego, Consola
+from AppJuegos.models import Avatar, Comentario, Jugador, Post, Juego, Consola
 from django.core.files.images import get_image_dimensions
 
 def validate_email(request):
@@ -156,9 +156,16 @@ class ConsolaFormulario(forms.ModelForm):
             'unidadesVendidas' : forms.NumberInput(attrs={'class':'form-control'}),
         }
 
-class ComentarioFormulario(UserCreationForm):
-    nombre = forms.CharField(label="Nombre",widget=forms.TextInput(attrs={'class':'form-control'}))
-    cuerpo = forms.CharField(label="Cuerpo",widget=forms.Textarea(attrs={'class':'form-control'}))
+class ComentarioFormulario(forms.ModelForm):
+    class Meta:
+        model = Comentario
+        fields = ('titulo','cuerpo')
+        widgets = {
+            "user":forms.TextInput(attrs={'value':'','id':'blogGames',"type":"hidden"}),
+            'titulo': forms.TextInput(attrs={'class':'form-control'}),
+            'cuerpo': forms.Textarea(attrs={'class':'form-control'}),
+        }
+
 class AvatarFormulario(forms.ModelForm):
 
     class Meta:
