@@ -70,20 +70,52 @@ def editarUsuario(request):
     usuario= request.user
 
     if request.method == "POST":
-        miFormulario = RegistrarUsuarioFormulario(request.POST)
+        miFormulario = EditarUsuarioFormulario(request.POST)
+
+        if miFormulario.is_valid():
+            info=miFormulario.cleaned_data
+            usuario.first_name=info["first_name"]
+            usuario.last_name=info["last_name"]
+            usuario.email=info["email"]
+            usuario.save()
+            return redirect ("Inicio")
+    else:
+        miFormulario= EditarUsuarioFormulario(initial={"first_name":usuario.first_name,"last_name":usuario.last_name,"email":usuario.email})
+
+    return render (request,"AppJuegos/Usuario/editarUsuario.html",{"miFormulario":miFormulario})
+"""
+@login_required
+def editarPassword(request):
+    usuario= request.user
+
+    if request.method == "POST":
+        miFormulario = EditarPasswordFormulario(request.POST)
 
         if miFormulario.is_valid():
             info=miFormulario.cleaned_data
             usuario.username=info["username"]
-            usuario.email=info["email"]
+            usuario.passwordAntigua=info["password"]
             usuario.password1=info["password1"]
             usuario.password2=info["password1"]
             usuario.save()
             return redirect ("Inicio")
     else:
-        miFormulario= RegistrarUsuarioFormulario(initial={"username":usuario.username,"email":usuario.email})
+        miFormulario= EditarPasswordFormulario()
 
-    return render (request,"AppJuegos/Usuario/editarUsuario.html",{"miFormulario":miFormulario,"usuario":usuario.username})
+    return render (request,"AppJuegos/Usuario/editarPassword.html",{"miFormulario":miFormulario})
+"""
+@login_required
+def editarPassword(request):
+    if request.method == "POST":
+        miFormulario = EditarPasswordFormulario(data=request.POST, user=request.user)
+
+        if miFormulario.is_valid():
+            miFormulario.save()
+            return redirect ("Inicio")
+    else:
+        miFormulario= EditarPasswordFormulario(user=request.user)
+
+    return render (request,"AppJuegos/Usuario/editarPassword.html",{"miFormulario":miFormulario})
 
 def jugador(request):
     if request.method == "POST":
@@ -163,7 +195,7 @@ class VistaJuegos(ListView):
 class BuscarJuego(ListView):
     template_name = 'AppJuegos/Juegos/resBusquedaJuego.html'
     model = Juego
-    paginate_by = 1
+    paginate_by = 2
     
     def get_context_data(self,**kwargs):
         object_list = self.model.objects.filter(nombre__startswith=self.request.GET.get('nombre'))

@@ -13,6 +13,7 @@ urlpatterns = [
     path("usuario/login",views.loginRequest, name="Login"),
     path("usuario/registro",views.registro, name="Registro"),
     path("usuario/editar",views.editarUsuario, name="EditarUsuario"),
+    path("usuario/password",views.editarPassword, name="EditarPassword"),
     path("usuario/logout",LogoutView.as_view(template_name="AppJuegos/Usuario/logout.html"), name="Logout"),
     path("usuario/avatar",views.subirAvatar, name="SubirAvatar"),
     #Juego
