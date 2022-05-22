@@ -33,5 +33,5 @@ class Migration(migrations.Migration):
             name='genero',
             field=models.CharField(default='juego', max_length=40),
         ),
-       
+        
     ]
