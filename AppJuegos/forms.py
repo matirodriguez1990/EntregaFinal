@@ -101,6 +101,16 @@ class RegistrarUsuarioFormulario(UserCreationForm):
             "password1": None,
             "password2": None}
 
+class EditarNombreUsuarioFormulario(forms.ModelForm):
+    username = forms.CharField(validators= [validate_user], widget=forms.TextInput(attrs={'class':'form-control'}))
+    
+    class Meta:
+        model = User
+        fields = ["username"]
+        help_texts = {
+            "username": None,
+        }
+
 class EditarUsuarioFormulario(forms.ModelForm):
     #username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}))

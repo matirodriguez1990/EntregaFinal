@@ -83,27 +83,24 @@ def editarUsuario(request):
         miFormulario= EditarUsuarioFormulario(initial={"first_name":usuario.first_name,"last_name":usuario.last_name,"email":usuario.email})
 
     return render (request,"AppJuegos/Usuario/editarUsuario.html",{"miFormulario":miFormulario})
-"""
+
 @login_required
-def editarPassword(request):
+def editarNombreUsuario(request):
     usuario= request.user
 
     if request.method == "POST":
-        miFormulario = EditarPasswordFormulario(request.POST)
+        miFormulario = EditarNombreUsuarioFormulario(request.POST)
 
         if miFormulario.is_valid():
             info=miFormulario.cleaned_data
             usuario.username=info["username"]
-            usuario.passwordAntigua=info["password"]
-            usuario.password1=info["password1"]
-            usuario.password2=info["password1"]
             usuario.save()
             return redirect ("Inicio")
     else:
-        miFormulario= EditarPasswordFormulario()
+        miFormulario= EditarNombreUsuarioFormulario(initial={"username":usuario.username})
 
-    return render (request,"AppJuegos/Usuario/editarPassword.html",{"miFormulario":miFormulario})
-"""
+    return render (request,"AppJuegos/Usuario/editarNombreUsuario.html",{"miFormulario":miFormulario})
+
 @login_required
 def editarPassword(request):
     if request.method == "POST":
@@ -111,11 +108,13 @@ def editarPassword(request):
 
         if miFormulario.is_valid():
             miFormulario.save()
-            return redirect ("Inicio")
+            login(request,request.user)
+            return render(request,"AppJuegos/Usuario/confirmacionPassword.html")
     else:
         miFormulario= EditarPasswordFormulario(user=request.user)
 
     return render (request,"AppJuegos/Usuario/editarPassword.html",{"miFormulario":miFormulario})
+
 
 def jugador(request):
     if request.method == "POST":

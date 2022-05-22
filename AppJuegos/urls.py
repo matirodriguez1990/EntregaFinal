@@ -9,13 +9,16 @@ urlpatterns = [
     path("jugador/",views.jugador, name="Jugador"),
     #path("consola/",views.consola, name="Consola"),
     path("about/",views.about, name="About"),
+    
     #Usuario
     path("usuario/login",views.loginRequest, name="Login"),
     path("usuario/registro",views.registro, name="Registro"),
     path("usuario/editar",views.editarUsuario, name="EditarUsuario"),
+    path("usuario/editarNombre",views.editarNombreUsuario, name="EditarNombreUsuario"),
     path("usuario/password",views.editarPassword, name="EditarPassword"),
     path("usuario/logout",LogoutView.as_view(template_name="AppJuegos/Usuario/logout.html"), name="Logout"),
     path("usuario/avatar",views.subirAvatar, name="SubirAvatar"),
+    
     #Juego
     #path("juego/buscar/",views.buscarJuego),
     path("juego/listar/", views.VistaJuegos.as_view(), name="ListaJuegos"),
