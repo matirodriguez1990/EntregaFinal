@@ -6,7 +6,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from AppJuegos.models import Avatar, Comentario, Jugador, Post, Juego, Consola
+from AppJuegos.models import Avatar, Comentarios, Jugador, Post, Juego, Consola
 from django.core.files.images import get_image_dimensions
 
 def validate_email(request):
@@ -158,7 +158,7 @@ class ConsolaFormulario(forms.ModelForm):
 
 class ComentarioFormulario(forms.ModelForm):
     class Meta:
-        model = Comentario
+        model = Comentarios
         fields = ('titulo','cuerpo')
         widgets = {
             "user":forms.TextInput(attrs={'value':'','id':'blogGames',"type":"hidden"}),

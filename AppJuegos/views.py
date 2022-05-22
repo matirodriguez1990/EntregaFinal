@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from AppJuegos.models import Comentario, Consola, Juego, Jugador, Post
+from AppJuegos.models import Comentarios, Consola, Juego, Jugador, Post
 from AppJuegos.models import Consola, Juego, Jugador, Post, Avatar
 from AppJuegos.forms import *
 from django.contrib.auth.forms import AuthenticationForm
@@ -255,7 +255,7 @@ def buscarConsola(request):
     return redirect("Consola")
 
 class NuevoComentario(CreateView):
-    model = Comentario
+    model = Comentarios
     form_class = ComentarioFormulario
     template_name = 'AppJuegos/Posts/nuevoComentario.html'
 """

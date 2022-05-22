@@ -54,15 +54,15 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('Blog')
 
-class Comentario(models.Model):
+class Comentarios(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comentarios")
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
     titulo = models.CharField(max_length=50)
     cuerpo = models.TextField()
     fechaComentario = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
-        return '%s - %s' % (self.post.titulo, self.nombre)
+        return '%s - %s' % (self.post.titulo, self.titulo)
 
 class Avatar(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
