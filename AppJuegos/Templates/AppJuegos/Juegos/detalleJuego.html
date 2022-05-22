@@ -27,9 +27,9 @@
                     <h3 style="color: white">Fecha de lanzamiento: <p style="color: white" class="mb-4 justify">{{juego.fechaLanzamiento}}</p> </h3> 
                     <h3 style="color: white">Copias creadas: <p style="color: white" class="mb-4 justify">{{juego.copiasCreadas}}</p> </h3> 
                     <h3 style="color: white">Género: <p style="color: white" class="mb-4 justify">{{juego.genero}}</p> </h3> 
-                    <button  class="button_login" style="width:100px"><a href="{% url 'ListaJuegos' %}" style="color: white;">Regresar</a></button> 
+                    <button  class="button_login" style="width:100px"><a href="{% url 'ListaJuegos' %}" style="color: white;">Regresar</a></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     {%  if user.is_authenticated %}
-                    <button class="button_login" style=" width:100px"> <a style="color: white" href="{% url 'EditarJuego' juego.pk %}">Editar</a> </button>
+                    <button class="button_login" style=" width:100px"> <a style="color: white" href="{% url 'EditarJuego' juego.pk %}">Editar</a> </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <button class="button_login" style=" width:100px"> <a style="color: white" href="{% url 'EliminarJuego' juego.pk %}">Eliminar</a> </button>
                     {% endif %}
                 </div>

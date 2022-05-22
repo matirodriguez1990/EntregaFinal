@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from AppJuegos.models import Comentario, Consola, Juego, Jugador, Post
+from AppJuegos.models import Comentarios, Consola, Juego, Jugador, Post
 from AppJuegos.models import Consola, Juego, Jugador, Post, Avatar
 from AppJuegos.forms import *
 from django.contrib.auth.forms import AuthenticationForm
@@ -70,20 +70,51 @@ def editarUsuario(request):
     usuario= request.user
 
     if request.method == "POST":
-        miFormulario = RegistrarUsuarioFormulario(request.POST)
+        miFormulario = EditarUsuarioFormulario(request.POST)
+
+        if miFormulario.is_valid():
+            info=miFormulario.cleaned_data
+            usuario.first_name=info["first_name"]
+            usuario.last_name=info["last_name"]
+            usuario.email=info["email"]
+            usuario.save()
+            return redirect ("Inicio")
+    else:
+        miFormulario= EditarUsuarioFormulario(initial={"first_name":usuario.first_name,"last_name":usuario.last_name,"email":usuario.email})
+
+    return render (request,"AppJuegos/Usuario/editarUsuario.html",{"miFormulario":miFormulario})
+
+@login_required
+def editarNombreUsuario(request):
+    usuario= request.user
+
+    if request.method == "POST":
+        miFormulario = EditarNombreUsuarioFormulario(request.POST)
 
         if miFormulario.is_valid():
             info=miFormulario.cleaned_data
             usuario.username=info["username"]
-            usuario.email=info["email"]
-            usuario.password1=info["password1"]
-            usuario.password2=info["password1"]
             usuario.save()
             return redirect ("Inicio")
     else:
-        miFormulario= RegistrarUsuarioFormulario(initial={"username":usuario.username,"email":usuario.email})
+        miFormulario= EditarNombreUsuarioFormulario(initial={"username":usuario.username})
 
-    return render (request,"AppJuegos/Usuario/editarUsuario.html",{"miFormulario":miFormulario,"usuario":usuario.username})
+    return render (request,"AppJuegos/Usuario/editarNombreUsuario.html",{"miFormulario":miFormulario})
+
+@login_required
+def editarPassword(request):
+    if request.method == "POST":
+        miFormulario = EditarPasswordFormulario(data=request.POST, user=request.user)
+
+        if miFormulario.is_valid():
+            miFormulario.save()
+            login(request,request.user)
+            return render(request,"AppJuegos/Usuario/confirmacionPassword.html")
+    else:
+        miFormulario= EditarPasswordFormulario(user=request.user)
+
+    return render (request,"AppJuegos/Usuario/editarPassword.html",{"miFormulario":miFormulario})
+
 
 def jugador(request):
     if request.method == "POST":
@@ -160,17 +191,18 @@ class VistaJuegos(ListView):
     ordering = ['nombre']
     paginate_by = 10
 
+"""
 class BuscarJuego(ListView):
     template_name = 'AppJuegos/Juegos/resBusquedaJuego.html'
     model = Juego
-    paginate_by = 1
+    paginate_by = 2
     
     def get_context_data(self,**kwargs):
         object_list = self.model.objects.filter(nombre__startswith=self.request.GET.get('nombre'))
         data = super().get_context_data(**kwargs)
         data['object_list'] = object_list
         data["query"] = self.request.GET.get('nombre')
-        return data
+        return data"""
 
 class DetalleJuego(DetailView):
     model = Juego
@@ -255,7 +287,7 @@ def buscarConsola(request):
     return redirect("Consola")
 
 class NuevoComentario(CreateView):
-    model = Comentario
+    model = Comentarios
     form_class = ComentarioFormulario
     template_name = 'AppJuegos/Posts/nuevoComentario.html'
 """
@@ -292,25 +324,26 @@ def home_screen_view(request, *args, **kwargs):
 
 	return render(request, "personal/home.html", context)"""
 
-"""
+juegosPorPagina = 10
+
 def buscarJuego(request):
     context = {}
     query = ""
     if request.GET:
-        query = request.GET.get('q', '')
+        query = request.GET["nombre"]
         context['query'] = str(query)
-
-    resultadoBusqueda = Juego.objects.filter(nombre__icontains=query)
-    #page = request.GET.get('page', 1)
-    resultadoBusqueda_paginator = Paginator(resultadoBusqueda, 5)
+    
+    resultadoBusqueda = Juego.objects.filter(nombre__startswith=query)
+    page = request.GET.get('page', 1)
+    resultadoBusqueda_paginator = Paginator(resultadoBusqueda, juegosPorPagina)
     try:
         resultadoBusqueda = resultadoBusqueda_paginator.page(page)
     except PageNotAnInteger:
-        resultadoBusqueda = resultadoBusqueda_paginator.page(5)
+        resultadoBusqueda = resultadoBusqueda_paginator.page(juegosPorPagina)
     except EmptyPage:
         resultadoBusqueda = resultadoBusqueda_paginator.page(resultadoBusqueda_paginator.num_pages)
     
     context['resultadoBusqueda'] = resultadoBusqueda
-    return render(request, "AppJuegos/Juegos/busquedaJuego.html", context)"""
+    return render(request, "AppJuegos/Juegos/busquedaJuego.html", context)
 
 

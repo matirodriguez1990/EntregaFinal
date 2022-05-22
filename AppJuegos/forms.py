@@ -3,10 +3,10 @@ from dataclasses import field
 from datetime import date, datetime
 from enum import unique
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from AppJuegos.models import Avatar, Comentario, Jugador, Post, Juego, Consola
+from AppJuegos.models import Avatar, Comentarios, Jugador, Post, Juego, Consola
 from django.core.files.images import get_image_dimensions
 
 def validate_email(request):
@@ -100,7 +100,41 @@ class RegistrarUsuarioFormulario(UserCreationForm):
             "email": None,
             "password1": None,
             "password2": None}
-        
+
+class EditarNombreUsuarioFormulario(forms.ModelForm):
+    username = forms.CharField(validators= [validate_user], widget=forms.TextInput(attrs={'class':'form-control'}))
+    
+    class Meta:
+        model = User
+        fields = ["username"]
+        help_texts = {
+            "username": None,
+        }
+
+class EditarUsuarioFormulario(forms.ModelForm):
+    #username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}))
+    first_name = forms.CharField(label="Nombre", widget = forms.TextInput(attrs={'class':'form-control'}))
+    last_name = forms.CharField(label="Apellido", widget = forms.TextInput(attrs={'class':'form-control'}))
+    #password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    #password2 = forms.CharField(label="Repetir la contraseña", widget=forms.PasswordInput(attrs={'class':'form-control'}))
+
+    class Meta:
+        model = User
+        fields = ["first_name","last_name","email"]
+        help_texts = {
+            "first_name": None,
+            "last_name": None,
+            "email": None,
+           }
+
+class EditarPasswordFormulario(PasswordChangeForm):
+    error_css_class = "Tiene erorres"
+    error_messages = {"password_incorrect":"Contraseña incorrecta"}
+    old_password=forms.CharField(required=True,label="Contraseña vieja", widget=forms.PasswordInput(attrs={'class':'form-control'}),error_messages={"requeried":"La contraseña no puede ser vacía"})
+    new_password1 = forms.CharField(required=True,label="Contraseña nueva", widget=forms.PasswordInput(attrs={'class':'form-control'}),error_messages={"requeried":"La contraseña no puede ser vacía"})
+    new_password1 = forms.CharField(required=True,label="Repetir la contraseña", widget=forms.PasswordInput(attrs={'class':'form-control'}),error_messages={"requeried":"La contraseña no puede ser vacía"})
+
 #class PostFormulario(forms.Form):
 #    titulo = forms.CharField(label="Título")
 #    subtitulo = forms.CharField(label="Subtítulo")
@@ -158,7 +192,7 @@ class ConsolaFormulario(forms.ModelForm):
 
 class ComentarioFormulario(forms.ModelForm):
     class Meta:
-        model = Comentario
+        model = Comentarios
         fields = ('titulo','cuerpo')
         widgets = {
             "user":forms.TextInput(attrs={'value':'','id':'blogGames',"type":"hidden"}),
