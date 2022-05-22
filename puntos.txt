@@ -35,3 +35,33 @@ Finalizados
 4) Ver Editar usuarios, que crea nuevos. LISTO
 5) Agregar un boton para cambio de contraseña solamente. LISTO
 7) Modificar el formulario de registro para que seleccione un avatar. LISTO
+
+
+
+busquedaJuego
+
+</ul>
+    <div style="position:absolute; top: 90%; left: 20%" class="pagination">
+        <span class="step-links">
+            {% if resultadoBusqueda.has_previous %}
+                <a href="?{% if query %}nombre={{query}}&{% endif %}page={{ resultadoBusqueda.previous_page_number }}" style="color:lightgray">&laquo; Anterior</a>
+            {% endif %}
+
+            {% for i in resultadoBusqueda.paginator.page_range %}
+            {% if resultadoBusqueda.number == i %}
+                <li><a>{{ i }}</a></li>
+            {% else %}
+                <li><a href="?{% if query %}nombre={{query}}&{% endif %}page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+
+            {% if resultadoBusqueda.has_next %}
+            <li>
+            <a href="?{% if query %}nombre={{query}}&{% endif %}page={{ resultadoBusqueda.next_page_number }}">Siguiente</a>
+            </li>
+            <li>
+            <a href="?{% if query %}nombre={{query}}&{% endif %}page={{ resultadoBusqueda.paginator.num_pages }}">Último &raquo;</a>
+            </li>
+        {% endif %}
+        </span>
+    </div>

@@ -191,6 +191,7 @@ class VistaJuegos(ListView):
     ordering = ['nombre']
     paginate_by = 10
 
+"""
 class BuscarJuego(ListView):
     template_name = 'AppJuegos/Juegos/resBusquedaJuego.html'
     model = Juego
@@ -201,7 +202,7 @@ class BuscarJuego(ListView):
         data = super().get_context_data(**kwargs)
         data['object_list'] = object_list
         data["query"] = self.request.GET.get('nombre')
-        return data
+        return data"""
 
 class DetalleJuego(DetailView):
     model = Juego
@@ -323,25 +324,26 @@ def home_screen_view(request, *args, **kwargs):
 
 	return render(request, "personal/home.html", context)"""
 
-"""
+juegosPorPagina = 10
+
 def buscarJuego(request):
     context = {}
     query = ""
     if request.GET:
-        query = request.GET.get('q', '')
+        query = request.GET["nombre"]
         context['query'] = str(query)
-
-    resultadoBusqueda = Juego.objects.filter(nombre__icontains=query)
-    #page = request.GET.get('page', 1)
-    resultadoBusqueda_paginator = Paginator(resultadoBusqueda, 5)
+    
+    resultadoBusqueda = Juego.objects.filter(nombre__startswith=query)
+    page = request.GET.get('page', 1)
+    resultadoBusqueda_paginator = Paginator(resultadoBusqueda, juegosPorPagina)
     try:
         resultadoBusqueda = resultadoBusqueda_paginator.page(page)
     except PageNotAnInteger:
-        resultadoBusqueda = resultadoBusqueda_paginator.page(5)
+        resultadoBusqueda = resultadoBusqueda_paginator.page(juegosPorPagina)
     except EmptyPage:
         resultadoBusqueda = resultadoBusqueda_paginator.page(resultadoBusqueda_paginator.num_pages)
     
     context['resultadoBusqueda'] = resultadoBusqueda
-    return render(request, "AppJuegos/Juegos/busquedaJuego.html", context)"""
+    return render(request, "AppJuegos/Juegos/busquedaJuego.html", context)
 
 

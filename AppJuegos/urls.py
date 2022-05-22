@@ -22,7 +22,8 @@ urlpatterns = [
     #Juego
     #path("juego/buscar/",views.buscarJuego),
     path("juego/listar/", views.VistaJuegos.as_view(), name="ListaJuegos"),
-    path("juego/buscar/", views.BuscarJuego.as_view(), name="BuscarJuegos"),
+    #path("juego/buscar/", views.BuscarJuego.as_view(), name="BuscarJuegos"),
+    path("juego/buscar/", views.buscarJuego, name="BuscarJuegos"),
     path("juego/detalle/<int:pk>",views.DetalleJuego.as_view(),name="DetalleJuego"),
     path("juego/editar/<int:pk>",views.EditarJuego.as_view(),name="EditarJuego"),
     path("juego/eliminar/<int:pk>",views.EliminarJuego.as_view(),name="EliminarJuego"),
