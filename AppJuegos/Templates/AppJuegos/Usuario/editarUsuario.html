@@ -17,25 +17,25 @@
 {% endblock %}
 
 {% block contenidoModificable %}
-
 <body>
-
-    <form method="POST">
-
-    {% csrf_token%}
-
-    <table style="width: 330;">
-    
-        <h1 style="color: white;">Editar usuario</h1> 
-    
-        {{miFormulario.as_table}}
-        
-        </table>
-        <br>
-        <button class="button_login" type="submit" style="color: white; width:350px">Guardar cambios</button>
-
-    </form>
-
+<section class="space-pt">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 15%; left: 15%;">
+                <div class="form-group">
+                <form method="post">
+                    {% csrf_token%}
+                    <h1 style="color: white;">Editar usuario</h1>
+                    {{ miFormulario.as_p}}
+                    <br>
+                    <button  class="button_login" style="width:150px"><a href="{% url 'SubirAvatar' %}" style="color: white;">Subir Avatar</a></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button class="button_login" style="color: white; width:150px">Guardar</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button  class="button_login" style="width:150px"><a href="{% url 'Inicio' %}" style="color: white;">Cancelar</a></button>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
-
 {% endblock %}

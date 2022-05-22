@@ -1,0 +1,45 @@
+{% extends "AppJuegos/padre.html" %}
+
+{% load static %}
+
+
+{% block contenidoModificableLogo %}
+
+{% endblock %}
+
+{% block menuModificable %}
+<li> <a href="{% url 'Blog' %}">Home</a></li>
+<li> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
+<li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
+<li> <a href="{% url 'Consola' %}">Consolas</a> </li>
+<li> <a href="{% url 'About' %}">About</a> </li>
+
+{% endblock %}
+
+{% block contenidoModificable %}
+
+<body>
+
+    <form method="POST" enctype="multipart/form-data">
+
+    {% csrf_token%}
+
+    <p style="width: 330;">
+    
+        <h1 style="color: white;">Subir Avatar</h1> 
+    
+        {{miFormulario.as_p}}
+        
+    </p>
+        <br>
+        <button class="button_login" type="submit" style="color: white; width:330px">Subir Avatar</button>
+
+    </form>
+    <script>
+        var usuario = "{{user.id}}";
+        document.getElementById("blogGames").value = usuario;
+    </script>
+</body>
+
+
+{% endblock %}

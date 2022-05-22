@@ -30,7 +30,7 @@
                 <hr>
                 <h3 style="color:white">Comentarios</h3>
                 {% if not post.comentarios.all %}
-                    No hay comentarios todavía {% if user.is_authenticated %}- <a href="#" style="color:lightblue">Crear uno!</a>{% endif %}
+                    No hay comentarios todavía {% if user.is_authenticated %}- <a href="{% url 'NuevoComentario' post.pk %}" style="color:lightblue">Crear uno!</a>{% endif %}
                 {% else %}
                     {% for comentario in post.comentarios.all %}
                         <strong>{{comentario.titulo}} - <i>{{comentario.fechaComentario}}</i></strong>

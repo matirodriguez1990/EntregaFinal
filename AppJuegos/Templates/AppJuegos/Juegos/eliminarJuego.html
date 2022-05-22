@@ -16,11 +16,6 @@ Eliminar Juego
 
 {% endblock %}
 
-{% block contenidoModificableLogo %}
-
-<FONT SIZE=7 style="color: white; position: absolute; top: -20px; left: -80px;">Eliminar Juego {{ juego.nombre }}</FONT>
-{% endblock %}
-
 {% block contenidoModificable %}
 
 <section class="space-pt">
@@ -28,13 +23,17 @@ Eliminar Juego
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 15%; left: 15%;">
                 <div class="form-group">
-                <form method="post">
-                    {% csrf_token%}
-                    <h1 style="color: white">¿Esta seguro que desea eliminar el juego?</h1>
-                    <br>
-                    <button class="button_login" style="color: white; width:100px">Confirmar</button>
-                </form>
-            </div>
+                    <form method="post">
+                        {% csrf_token%}
+                        <br>
+                        <h3 style="color:white; width: auto;">¿Esta seguro que desea eliminar el juego <i>{{ juego.nombre }}</i>?</h3>
+                        <br>
+                        <button class="button_login" style="width:100px"> <a style="color: white">Eliminar</a> </button>
+                        
+                    </form>
+                        <br>
+                        <button class="button_login" style="width:100px"> <a style="color: white" href="{% url 'ListaJuegos' %}">Cancelar</a> </button>
+                </div>
             </div>
         </div>
     </div>

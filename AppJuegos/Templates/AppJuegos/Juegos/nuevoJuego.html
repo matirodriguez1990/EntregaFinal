@@ -2,55 +2,37 @@
 
 {% load static %}
 
-<!--Bloque modificable para el logo-->
-{% block contenidoModificableLogo %}
-
-<FONT SIZE=7 style="color: white; position: absolute; top: -20px; left: -80px;">Juegos</FONT>
+{% block titulo %}
+Agregar Juego
 {% endblock %}
 
-<!--Bloque modificable para el menu-->
 {% block menuModificable %}
 
-<li> <a href="{% url 'Blog' %}">Home</a></li>
+<li> <a href="{% url 'Blog' %}">Blog</a></li>
 <li class="active"> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
 <li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
 <li> <a href="{% url 'Consola' %}">Consolas</a> </li>
-<li> <a href="{% url 'About' %}">About</a> </li> 
+<li> <a href="{% url 'About' %}">About</a> </li>  
+
 {% endblock %}
 
-
-<!--Bloque modificable para formularios y busqueda-->
 {% block contenidoModificable %}
-
-{% if miForm.errors %}
-
-<p style="color: red">Datos incorrectos</p>
-
-{% endif %}
-
-<form action="" method="POST">{% csrf_token %}
-
-    <table style="position: absolute; top: 25%; left:15%">
-    
-    <h3 style="color: white; position: absolute; top: 20%; left:15%">Agregar un juego</h3>
-    
-    {{miFormulario.as_table}}
-
-    </table>
-
-    <input type="submit" value="Enviar" style="position: absolute; top: 54%; left:34%">
-
-</form>
-
-
-
-<h3 style="color: white; position:absolute; top: 65%; left: 15%;">Buscar juegos por nombre de compañía</h3>
-<form action="/AppJuegos/buscarJuego" method="GET">
-        
-    <input type="text" name="compania" id="compania" style="position:absolute; top: 70%; left: 15%; width: 260px; height:auto;">
-    
-    <input type="submit" value="Buscar"style="position:absolute; top: 70%; left: 33.7%; width:auto; height:auto;">
-
-</form>
+<section class="space-pt">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 15%; left: 15%;">
+                <div class="form-group">
+                <form method="post">
+                    {% csrf_token%}
+                    <h1 style="color: white;">Agregar juego</h1>
+                    {{ form.as_p}}
+                    <br>
+                    <button class="button_login" style="color: white; width:100px">Agregar</button>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}

@@ -6,24 +6,23 @@ from django.urls import reverse
 
 class Juego(models.Model):
     nombre=models.CharField(max_length=100)
-    fechaLanzamiento=models.DateField(default="01/01/1950")
-    compania=models.CharField(default="compañía",max_length=40)
-    copiasCreadas=models.IntegerField(default=1000000)
-    genero=models.CharField(default="juego",max_length=40)
+    fechaLanzamiento=models.DateField()
+    compania=models.CharField(max_length=40)
+    copiasCreadas=models.IntegerField()
+    genero=models.CharField(max_length=40)
 
     def __str__(self):
         return f"Nombre: {self.nombre} - Compañía: {self.compania}"
 
 class Jugador(models.Model):
-    #usuario=models.OneToOneField(User,related_name="autor",on_delete=models.CASCADE,default=666)
     nombre=models.CharField(max_length=40)
     apellido=models.CharField(max_length=40)
-    email=models.EmailField(unique=True)
+    email=models.EmailField(max_length=254)
     jugadorActivo=models.BooleanField()
     horasJugadasPorDia=models.IntegerField()
 
     def __str__(self):
-        return f"Nombre: {self.nombre} - Apellido: {self.apellido} - Email: {self.email}"
+        return f"Nombre: {self.first_name} - Apellido: {self.last_name}"
 
     class Meta:
         verbose_name="Jugador"
@@ -63,3 +62,12 @@ class Comentario(models.Model):
 
     def __str__(self):
         return '%s - %s' % (self.post.titulo, self.nombre)
+class Avatar(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to="avatares",null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Avatar"
+        verbose_name_plural = "Avatares"
+
+

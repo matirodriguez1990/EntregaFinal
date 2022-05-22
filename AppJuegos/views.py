@@ -1,13 +1,17 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from AppJuegos.models import Comentario, Consola, Juego, Jugador, Post
-from AppJuegos.forms import ConsolaFormulario, JuegoFormulario, JugadorFormulario, RegistrarUsuarioFormulario,PostFormulario,PostEditFormulario, JuegoEditFormulario,ComentarioFormulario
+from AppJuegos.models import Consola, Juego, Jugador, Post, Avatar
+from AppJuegos.forms import *
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, DeleteView, UpdateView, CreateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
+from operator import attrgetter
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 # Create your views here.
 def inicio(request):
@@ -47,6 +51,21 @@ def registro(request):
     return render(request,"AppJuegos/Usuario/registro.html",{"miFormulario":miFormulario})
 
 @login_required
+def subirAvatar(request):
+    if request.method == "POST":
+        miFormulario = AvatarFormulario(request.POST, request.FILES)
+
+        if miFormulario.is_valid():
+            info=miFormulario.cleaned_data
+            avatar = Avatar(user=request.user, imagen=info["imagen"])
+            avatar.save()
+            redirect("Inicio")
+    else:
+        miFormulario = AvatarFormulario()
+    
+    return render(request, "AppJuegos/Usuario/subirAvatar.html", {"miFormulario":miFormulario})
+
+@login_required
 def editarUsuario(request):
     usuario= request.user
 
@@ -78,14 +97,14 @@ def jugador(request):
         miFormulario=JugadorFormulario()
     
     return render(request,"AppJuegos/jugador.html",{"miFormulario":miFormulario})
-
+"""
 def buscarJuego(request):
     if request.GET["nombre"]:
         nombreJuego=request.GET["nombre"]
         juegos=Juego.objects.filter(nombre__icontains=nombreJuego)
         return render(request,"AppJuegos/Juegos/resBusquedaJuego.html",{"juegos":juegos,"nombre":nombreJuego})
-    return redirect("Juego")
-
+    return redirect("ListaJuegos")
+"""
 def buscarJugador(request):
     if request.GET["nombre"]:
         nombreJugador=request.GET["nombre"]
@@ -141,7 +160,19 @@ class VistaJuegos(ListView):
     ordering = ['nombre']
     paginate_by = 10
 
-class DetalleJuegos(DetailView):
+class BuscarJuego(ListView):
+    template_name = 'AppJuegos/Juegos/resBusquedaJuego.html'
+    model = Juego
+    paginate_by = 1
+    
+    def get_context_data(self,**kwargs):
+        object_list = self.model.objects.filter(nombre__startswith=self.request.GET.get('nombre'))
+        data = super().get_context_data(**kwargs)
+        data['object_list'] = object_list
+        data["query"] = self.request.GET.get('nombre')
+        return data
+
+class DetalleJuego(DetailView):
     model = Juego
     template_name = 'AppJuegos/Juegos/detalleJuego.html'
     ordering = ['nombre']
@@ -154,7 +185,13 @@ class EliminarJuego(LoginRequiredMixin,DeleteView):
 class EditarJuego(LoginRequiredMixin,UpdateView):
     model = Juego
     template_name = 'AppJuegos/Juegos/editarJuego.html'
-    form_class = JuegoEditFormulario
+    form_class = JuegoFormulario
+    success_url = reverse_lazy('ListaJuegos')
+
+class CrearJuego(LoginRequiredMixin,CreateView):
+    model = Juego
+    form_class = JuegoFormulario
+    template_name = 'AppJuegos/Juegos/nuevoJuego.html'
     success_url = reverse_lazy('ListaJuegos')
 
 class VistaConsolas(ListView):
@@ -221,3 +258,59 @@ class NuevoComentario(CreateView):
     model = Comentario
     form_class = ComentarioFormulario
     template_name = 'AppJuegos/Posts/nuevoComentario.html'
+"""
+def buscarJuego(request):
+    if request.GET["nombre"]:
+        nombreJuego=request.GET["nombre"]
+        juegos = Juego.objects.filter(nombre__icontains=nombreJuego)
+        return render(request, 'AppJuegos/Juegos/resBusquedaJuego.html', {"juegos":juegos,"nombre":nombreJuego})
+    return redirect("ListaJuegos")"""
+
+"""
+def home_screen_view(request, *args, **kwargs):
+	
+	context = {}
+	# Search
+	query = ""
+	if request.GET:
+		query = request.GET.get('q', '')
+		context['query'] = str(query)
+
+	resultadoBusqueda = sorted(get_blog_queryset(query), key=attrgetter('date_updated'), reverse=True)
+	
+	# Pagination
+	page = request.GET.get('page', 1)
+	resultadoBusqueda_paginator = Paginator(resultadoBusqueda, 5)
+	try:
+		resultadoBusqueda = resultadoBusqueda_paginator.page(page)
+	except PageNotAnInteger:
+		resultadoBusqueda = resultadoBusqueda_paginator.page(5)
+	except EmptyPage:
+		resultadoBusqueda = resultadoBusqueda_paginator.page(resultadoBusqueda_paginator.num_pages)
+
+	context['resultadoBusqueda'] = resultadoBusqueda
+
+	return render(request, "personal/home.html", context)"""
+
+"""
+def buscarJuego(request):
+    context = {}
+    query = ""
+    if request.GET:
+        query = request.GET.get('q', '')
+        context['query'] = str(query)
+
+    resultadoBusqueda = Juego.objects.filter(nombre__icontains=query)
+    #page = request.GET.get('page', 1)
+    resultadoBusqueda_paginator = Paginator(resultadoBusqueda, 5)
+    try:
+        resultadoBusqueda = resultadoBusqueda_paginator.page(page)
+    except PageNotAnInteger:
+        resultadoBusqueda = resultadoBusqueda_paginator.page(5)
+    except EmptyPage:
+        resultadoBusqueda = resultadoBusqueda_paginator.page(resultadoBusqueda_paginator.num_pages)
+    
+    context['resultadoBusqueda'] = resultadoBusqueda
+    return render(request, "AppJuegos/Juegos/busquedaJuego.html", context)"""
+
+
