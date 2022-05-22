@@ -6,10 +6,10 @@ from django.urls import reverse
 
 class Juego(models.Model):
     nombre=models.CharField(max_length=100)
-    fechaLanzamiento=models.DateField(default="01/01/1950")
-    compania=models.CharField(default="compañía",max_length=40)
-    copiasCreadas=models.IntegerField(default=1000000)
-    genero=models.CharField(default="juego",max_length=40)
+    fechaLanzamiento=models.DateField()
+    compania=models.CharField(max_length=40)
+    copiasCreadas=models.IntegerField()
+    genero=models.CharField(max_length=40)
 
     def __str__(self):
         return f"Nombre: {self.nombre} - Compañía: {self.compania}"

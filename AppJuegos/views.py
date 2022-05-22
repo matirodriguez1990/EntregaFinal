@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from AppJuegos import forms
 from AppJuegos.models import Consola, Juego, Jugador, Post, Avatar
-from AppJuegos.forms import AvatarFormulario, ConsolaFormulario, JuegoFormulario, JugadorFormulario, RegistrarUsuarioFormulario,PostFormulario,PostEditFormulario, JuegoEditFormulario
+from AppJuegos.forms import AvatarFormulario, ConsolaFormulario, JuegoFormulario, JugadorFormulario, RegistrarUsuarioFormulario,PostFormulario,PostEditFormulario, JuegoFormulario
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
@@ -185,7 +185,13 @@ class EliminarJuego(LoginRequiredMixin,DeleteView):
 class EditarJuego(LoginRequiredMixin,UpdateView):
     model = Juego
     template_name = 'AppJuegos/Juegos/editarJuego.html'
-    form_class = JuegoEditFormulario
+    form_class = JuegoFormulario
+    success_url = reverse_lazy('ListaJuegos')
+
+class CrearJuego(LoginRequiredMixin,CreateView):
+    model = Juego
+    form_class = JuegoFormulario
+    template_name = 'AppJuegos/Juegos/nuevoJuego.html'
     success_url = reverse_lazy('ListaJuegos')
 
 class VistaConsolas(ListView):

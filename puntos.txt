@@ -19,15 +19,9 @@ Nuevos comentarios:
 
 2) Cada hilo, agregar comentarios. JM
 
-
-
-4) Ver Editar usuarios, que crea nuevos. MR
-
 5) Agregar un boton para cambio de contraseña solamente. MR
 
 6) Agregar imagenes de juegos. MR
-
-
 
 8) Jugadores, generar vista para ver usuarios. JM
 
@@ -40,4 +34,5 @@ Nuevos comentarios:
 
 Finalizados
 3) Agregar avatares. LISTO
+4) Ver Editar usuarios, que crea nuevos. LISTO
 7) Modificar el formulario de registro para que seleccione un avatar. LISTO

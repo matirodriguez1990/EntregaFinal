@@ -132,16 +132,16 @@ class PostEditFormulario(forms.ModelForm):
             'cuerpo': forms.Textarea(attrs={'class':'form-control'}),
         }
 
-class JuegoEditFormulario(forms.ModelForm):
+class JuegoFormulario(forms.ModelForm):
     class Meta:
         model = Juego
         fields = ('nombre','fechaLanzamiento','compania','copiasCreadas','genero')
         widgets = {
-            'nombre': forms.TextInput(attrs={'class':'form-control'}),
-            'fechaLanzamiento': forms.DateInput(attrs={'class':'form-control','placeholder':'MM/DD/AAAA'}),
-            'compania': forms.TextInput(attrs={'class':'form-control'}),
-            'copiasCreadas': forms.NumberInput(attrs={'class':'form-control'}),
-            'genero': forms.TextInput(attrs={'class':'form-control'}),
+            'nombre': forms.TextInput(attrs={'class':'form-control','placeholder':'Por ejemplo: Elden Ring'}),
+            'fechaLanzamiento': forms.DateInput(attrs={'class':'form-control','placeholder':'DD/MM/AAAA'}),
+            'compania': forms.TextInput(attrs={'class':'form-control','placeholder':'Por ejemplo: FromSoftware'}),
+            'copiasCreadas': forms.NumberInput(attrs={'class':'form-control','placeholder':'Por ejemplo: 1000000'}),
+            'genero': forms.TextInput(attrs={'class':'form-control','placeholder':'Por ejemplo: RPG'}),
         }
 
 class ConsolaFormulario(forms.ModelForm):
