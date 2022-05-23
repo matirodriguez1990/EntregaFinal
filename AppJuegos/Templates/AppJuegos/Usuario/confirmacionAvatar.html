@@ -1,0 +1,31 @@
+{% extends "AppJuegos/padre.html" %}
+
+{% load static %}
+
+
+{% block contenidoModificableLogo %}
+
+{% endblock %}
+
+{% block menuModificable %}
+<li> <a href="{% url 'Blog' %}">Home</a></li>
+<li> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
+<li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
+<li> <a href="{% url 'Consola' %}">Consolas</a> </li>
+<li> <a href="{% url 'About' %}">About</a> </li> 
+{% endblock %}
+
+{% block contenidoModificable %}
+
+<head>
+    <meta http-equiv="refresh" content="3;url={% url 'Inicio' %}" />
+</head>
+
+<body>
+
+    <h1 style="color: white"> Avatar actualizado correctamente. Redirigiendo en 3 segundos...</h1>
+
+</body>
+
+
+{% endblock %}
