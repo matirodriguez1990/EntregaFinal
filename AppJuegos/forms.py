@@ -225,8 +225,7 @@ class AvatarFormulario(forms.ModelForm):
             }
 
 class ImagenFormulario(forms.ModelForm):
-    nombre = forms.Select(attrs={'class':'form-control',"type":"hidden"})
-    imagen = forms.FileField(label="Imagen", widget = forms.FileInput())
+    imagen = forms.FileField(label="Imagen")
     class Meta:
         model=Imagen
         fields=["nombre","imagen"]

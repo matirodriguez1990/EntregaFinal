@@ -300,11 +300,11 @@ def buscarConsola(request):
         return render(request,"AppJuegos/resBusquedaConsola.html",{"consolas":consolas,"compania":companiaConsolas})
     return redirect("Consola")
 
-class NuevoComentario(CreateView):
+class NuevoComentario(LoginRequiredMixin,CreateView):
     model = Comentarios
     form_class = ComentarioFormulario
     template_name = 'AppJuegos/Posts/nuevoComentario.html'
-    success_url = reverse_lazy('PostCompleto post.pk')
+    success_url = reverse_lazy('Blog')
     ordering = ['-fechaComentario']
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -346,7 +346,7 @@ def home_screen_view(request, *args, **kwargs):
 
 	return render(request, "personal/home.html", context)"""
 
-juegosPorPagina = 10
+juegosPorPagina = 2
 
 def buscarJuego(request):
     context = {}
