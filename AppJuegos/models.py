@@ -36,7 +36,7 @@ class Consola(models.Model):
     unidadesVendidas = models.IntegerField()
 
     def __str__(self):
-        return f"Nombre: {self.nombre} - Compañía: {self.compania}"
+        return f"{self.nombre}"
 
     def get_absolute_url(self):
         return reverse('Consola')
