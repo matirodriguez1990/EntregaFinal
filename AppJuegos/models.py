@@ -12,7 +12,7 @@ class Juego(models.Model):
     genero=models.CharField(max_length=40)
 
     def __str__(self):
-        return f"Nombre: {self.nombre} - Compañía: {self.compania}"
+        return f"{self.nombre}"
 
 class Jugador(models.Model):
     nombre=models.CharField(max_length=40)
