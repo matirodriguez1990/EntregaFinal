@@ -128,6 +128,12 @@ def jugador(request):
         miFormulario=JugadorFormulario()
     
     return render(request,"AppJuegos/jugador.html",{"miFormulario":miFormulario})
+
+class VistaJugadores(ListView):
+    model = User
+    template_name = 'AppJuegos/Usuario/listarJugadores.html'
+    ordering = ['id']
+    paginate_by = 5
 """
 def buscarJuego(request):
     if request.GET["nombre"]:

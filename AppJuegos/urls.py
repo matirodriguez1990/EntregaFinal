@@ -18,6 +18,7 @@ urlpatterns = [
     path("usuario/password",views.editarPassword, name="EditarPassword"),
     path("usuario/logout",LogoutView.as_view(template_name="AppJuegos/Usuario/logout.html"), name="Logout"),
     path("usuario/avatar",views.subirAvatar, name="SubirAvatar"),
+    path("usuario/listar/", views.VistaJugadores.as_view(), name="ListaJugadores"),
     
     #Juego
     #path("juego/buscar/",views.buscarJuego),
