@@ -18,7 +18,7 @@
 <section class="space-pt">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 15%; left: 15%;">
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 10%; left: 15%;">
                 <p style="color: white" class="mb-4 justify">
                     <ul>
                         {% if user.is_authenticated %}
@@ -30,34 +30,39 @@
                         </br>
                         </br>
 
-                        <small> {{ post.fecha }}</small>
-                        <li><a href="{% url 'PostCompleto' post.pk %}" style="color:white">{{ post.titulo }}</a> - Por: {{post.autor.first_name}} {{post.autor.last_name}} - 
+                        <i>{{ post.fecha }}</i>
+                        <li><a href="{% url 'PostCompleto' post.pk %}" style="color:white; font-size:25px">{{ post.titulo }}</a>
+                            <br/>
+                            Por: {{post.autor.username}} - 
                             {% if user.is_authenticated %}
                             <small><small><a style="color:lightblue" href="{% url 'EditarPost' post.pk %}">Editar</a>
                             </small></small> - <small><small><a style="color:lightblue" href="{% url 'EliminarPost' post.pk %}">Eliminar</a>
                             </small></small><br/>
                             {% endif %}
-                         {{post.subtitulo}}<br/><br/> </li>
+                            <p>{{post.subtitulo}}</p>
+                            <br/>Tags: <i>{{post.consola}} - {{post.juego}}</i>
+                        </li>
                          {% endfor %}
                     </ul>
-                    <div class="pagination">
-                        <span class="step-links">
-                            {% if page_obj.has_previous %}
-                                <a href="?page=1" style="color:lightgray">&laquo; first</a>
-                                <a href="?page={{ page_obj.previous_page_number }}" style="color:lightgray">previous</a>
-                            {% endif %}
-                    
-                            <span class="current">
-                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                            </span>
-                    
-                            {% if page_obj.has_next %}
-                                <a href="?page={{ page_obj.next_page_number }}" style="color:lightgray">next</a>
-                                <a href="?page={{ page_obj.paginator.num_pages }}" style="color:lightgray">last &raquo;</a>
-                            {% endif %}
-                        </span>
-                    </div>
+
                 </p> 
+                <div style="position:absolute; top: 112%; left: 3%" class="pagination">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1" style="color:lightgray">&laquo; first</a>
+                            <a href="?page={{ page_obj.previous_page_number }}" style="color:lightgray">previous</a>
+                        {% endif %}
+                
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+                
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}" style="color:lightgray">next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}" style="color:lightgray">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
             </div>
         </div>
     </div>

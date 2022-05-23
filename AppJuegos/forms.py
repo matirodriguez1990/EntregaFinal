@@ -161,11 +161,14 @@ class PostFormulario(forms.ModelForm):
 class PostEditFormulario(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('titulo','subtitulo','cuerpo',)
+        fields = ('titulo','subtitulo','cuerpo','consola','juego')
         widgets = {
             'titulo': forms.TextInput(attrs={'class':'form-control','placeholder':'Título'}),
             'subtitulo': forms.TextInput(attrs={'class':'form-control'}),
             'cuerpo': forms.Textarea(attrs={'class':'form-control'}),
+            'consola':forms.Select(attrs={'class':'form-control'}),
+            'juego':forms.Select(attrs={'class':'form-control'}),
+
         }
 
 class JuegoFormulario(forms.ModelForm):
