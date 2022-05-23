@@ -47,6 +47,8 @@ class Post(models.Model):
     cuerpo = models.TextField()
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha = models.DateField(auto_now_add=True)
+    consola = models.ForeignKey(Consola, on_delete=models.CASCADE, default='1')
+    juego = models.ForeignKey(Juego,on_delete=models.CASCADE,default='1')
 
     def __str__(self) -> str:
         return self.titulo + ' - ' + str(self.autor)

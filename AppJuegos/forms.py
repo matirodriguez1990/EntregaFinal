@@ -148,12 +148,14 @@ class PostFormulario(forms.ModelForm):
     #fecha = forms.DateField(initial=date.today())
     class Meta:
         model = Post
-        fields = ('titulo','subtitulo','cuerpo','autor')
+        fields = ('titulo','subtitulo','cuerpo','autor','consola','juego')
         widgets = {
             'titulo': forms.TextInput(attrs={'class':'form-control','placeholder':'Título'}),
             'subtitulo': forms.TextInput(attrs={'class':'form-control'}),
             'cuerpo': forms.Textarea(attrs={'class':'form-control'}),
             'autor': forms.TextInput(attrs={'class':'form-control','placeholder':'Autor','value':'','id':'blogGames','type':'hidden'}),
+            'consola':forms.Select(attrs={'class':'form-control'}),
+            'juego':forms.Select(attrs={'class':'form-control'}),
         }
 
 class PostEditFormulario(forms.ModelForm):
@@ -195,11 +197,23 @@ class ComentarioFormulario(forms.ModelForm):
         model = Comentarios
         fields = ('titulo','cuerpo')
         widgets = {
-            "user":forms.TextInput(attrs={'value':'','id':'blogGames',"type":"hidden"}),
+            'autor': forms.TextInput(attrs={'class':'form-control','placeholder':'Autor','value':'','id':'blogGames','type':'hidden'}),
             'titulo': forms.TextInput(attrs={'class':'form-control'}),
             'cuerpo': forms.Textarea(attrs={'class':'form-control'}),
         }
 
+"""class PostFormulario(forms.ModelForm):
+    #fecha = forms.DateField(initial=date.today())
+    class Meta:
+        model = Post
+        fields = ('titulo','subtitulo','cuerpo','autor')
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class':'form-control','placeholder':'Título'}),
+            'subtitulo': forms.TextInput(attrs={'class':'form-control'}),
+            'cuerpo': forms.Textarea(attrs={'class':'form-control'}),
+            'autor': forms.TextInput(attrs={'class':'form-control','placeholder':'Autor','value':'','id':'blogGames','type':'hidden'}),
+        }
+"""
 class AvatarFormulario(forms.ModelForm):
 
     class Meta:
