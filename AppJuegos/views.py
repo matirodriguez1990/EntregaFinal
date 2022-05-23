@@ -59,7 +59,7 @@ def subirAvatar(request):
             info=miFormulario.cleaned_data
             avatar = Avatar(user=request.user, imagen=info["imagen"])
             avatar.save()
-            redirect("Inicio")
+            return render(request, "AppJuegos/Usuario/confirmacionAvatar.html")
     else:
         miFormulario = AvatarFormulario()
     
@@ -240,7 +240,7 @@ def subirImagen(request):
             info=miFormulario.cleaned_data
             imagen= Imagen(nombre=info["nombre"], imagen=info["imagen"])
             imagen.save()
-            redirect("ListaJuegos")
+            return render(request, "AppJuegos/Juegos/confirmacionImagen.html")
     else:
         miFormulario = ImagenFormulario()
     
