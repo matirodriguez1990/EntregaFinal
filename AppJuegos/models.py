@@ -72,4 +72,12 @@ class Avatar(models.Model):
         verbose_name = "Avatar"
         verbose_name_plural = "Avatares"
 
+class Imagen(models.Model):
+    nombre = models.ForeignKey(Juego,on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to="imagenes",null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Imagen"
+        verbose_name_plural = "Imagenes"
+
 

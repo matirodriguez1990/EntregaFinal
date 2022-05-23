@@ -226,6 +226,21 @@ class CrearJuego(LoginRequiredMixin,CreateView):
     template_name = 'AppJuegos/Juegos/nuevoJuego.html'
     success_url = reverse_lazy('ListaJuegos')
 
+@login_required
+def subirImagen(request):
+    if request.method == "POST":
+        miFormulario = ImagenFormulario(request.POST, request.FILES)
+
+        if miFormulario.is_valid():
+            info=miFormulario.cleaned_data
+            imagen= Imagen(nombre=info["nombre"], imagen=info["imagen"])
+            imagen.save()
+            redirect("ListaJuegos")
+    else:
+        miFormulario = ImagenFormulario()
+    
+    return render(request, "AppJuegos/Juegos/subirImagen.html", {"miFormulario":miFormulario})
+
 class VistaConsolas(ListView):
     model = Consola
     template_name = 'AppJuegos/Consolas/listaConsolas.html'

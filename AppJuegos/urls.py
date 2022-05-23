@@ -28,6 +28,7 @@ urlpatterns = [
     path("juego/editar/<int:pk>",views.EditarJuego.as_view(),name="EditarJuego"),
     path("juego/eliminar/<int:pk>",views.EliminarJuego.as_view(),name="EliminarJuego"),
     path("juego/nuevo",views.CrearJuego.as_view(),name="CrearJuego"),
+    path("juego/imagen",views.subirImagen, name="SubirImagen"),
 
     path("buscarJugador/",views.buscarJugador,),
     path("buscarConsola/",views.buscarConsola,),

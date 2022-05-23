@@ -35,6 +35,7 @@ Finalizados
 4) Ver Editar usuarios, que crea nuevos. LISTO
 5) Agregar un boton para cambio de contraseña solamente. LISTO
 7) Modificar el formulario de registro para que seleccione un avatar. LISTO
+11) Buscador con paginacion. LISTO
 
 
 

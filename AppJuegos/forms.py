@@ -6,7 +6,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from AppJuegos.models import Avatar, Comentarios, Jugador, Post, Juego, Consola
+from AppJuegos.models import Avatar, Comentarios, Jugador, Post, Juego, Consola, Imagen
 from django.core.files.images import get_image_dimensions
 
 def validate_email(request):
@@ -209,3 +209,10 @@ class AvatarFormulario(forms.ModelForm):
             "user":forms.TextInput(attrs={'value':'','id':'blogGames',"type":"hidden"}),
             "imagen":forms.FileInput()
             }
+
+class ImagenFormulario(forms.ModelForm):
+    nombre = forms.Select(attrs={'class':'form-control',"type":"hidden"})
+    imagen = forms.FileField(label="Imagen", widget = forms.FileInput())
+    class Meta:
+        model=Imagen
+        fields=["nombre","imagen"]
