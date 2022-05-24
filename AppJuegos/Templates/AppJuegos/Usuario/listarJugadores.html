@@ -28,7 +28,7 @@
     <h1 style="color:white">Jugador</h1>
     <br>
     {% for j in object_list %}
-    <li><a href="{% url 'DetalleJuego' j.id %}" style="color:white"><FONT SIZE=4>{{ j.username }}</FONT></a>
+    <li><a href="{% url 'DetalleJuego' j.id %}" style="color:white">{{{% with last_image=user.avatar_set.last %}}}<FONT SIZE=4>{{ j.username }}</FONT></a>
     <br>
     {% endfor %}
 </ul>
