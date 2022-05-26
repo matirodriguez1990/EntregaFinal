@@ -164,7 +164,7 @@ class VistaJuegos(ListView):
     model = Juego
     template_name = 'AppJuegos/Juegos/listarJuego.html'
     ordering = ['nombre']
-    paginate_by = 8
+    paginate_by = 7
 
 #Clase para detallar los juegos
 class DetalleJuego(DetailView):
@@ -210,7 +210,7 @@ def subirImagen(request):
     return render(request, "AppJuegos/Juegos/subirImagen.html", {"miFormulario":miFormulario})
 
 #Función para buscar juegos con paginación
-juegosPorPagina = 8
+juegosPorPagina = 7
 
 def buscarJuego(request):
     contexto = {}
