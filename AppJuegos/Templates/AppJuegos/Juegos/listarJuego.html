@@ -1,9 +1,7 @@
 {% extends "AppJuegos/padre.html" %}
 
 {% load static %}
-{% block titulo %}
-        Listado de juegos
-{% endblock %}
+
 <!--Bloque modificable para el menu-->
 {% block menuModificable %}
 
@@ -20,12 +18,13 @@
 {% if object_list %}
 
 {% if user.is_authenticated %}
-<button class="button_login" style="position:absolute;width:100px;height: 78px; left: 43%; top:19.5%"> <a style="color: white" href="{% url 'SubirImagen' %}">Subir imagen</a> </button>
+<button class="button_login" style="position:absolute;width:100px;height: 78px; left: 48%; top:21%"> <a style="color: white" href="{% url 'SubirImagen' %}">Subir imagen</a> </button>
 {% endif %}
 
 <ul style="position:absolute; top: 25%; left: 20%">
 
     {% if user.is_authenticated %}
+    <br>
     <li class="button_login" style="width:364px; text-align: center;"> <a style="color: white" href="{% url 'CrearJuego' %}">Agregar juego nuevo</a> </li>
     {% endif %}
     <br>

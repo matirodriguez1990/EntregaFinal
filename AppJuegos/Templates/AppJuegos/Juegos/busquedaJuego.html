@@ -12,11 +12,11 @@
 {% endblock %}
 
 {% block contenidoModificable %}
-<FONT SIZE=6 style="color: white; position: absolute; top: 120px; left: 300px;">Juegos encontrados</FONT>
+<FONT SIZE=6 style="color: white; position: absolute; top: 120px; left: 250px;">Juegos encontrados</FONT>
 
 {% if resultadoBusqueda %}
 
-<ul style="position: absolute; top: 200px; left: 350px;">
+<ul style="position: absolute; top: 200px; left: 250px;">
 {% for j in resultadoBusqueda %}
     <li><a href="{% url 'DetalleJuego' j.id %}" style="color:white"><FONT SIZE=5>{{ j.nombre }}</FONT></a>
     {% if user.is_authenticated %}

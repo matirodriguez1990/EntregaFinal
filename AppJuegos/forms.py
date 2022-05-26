@@ -1,87 +1,24 @@
-from cProfile import label
-from dataclasses import field
-from datetime import date, datetime
-from enum import unique
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from AppJuegos.models import Avatar, Comentarios, Jugador, Post, Juego, Consola, Imagen
+from AppJuegos.models import Avatar, Comentarios, Post, Juego, Consola, Imagen
 from django.core.files.images import get_image_dimensions
 
+###################################################################################################
+#Formularios para Usuario
+###################################################################################################
+#Función para validar email antes de crear un usuario
 def validate_email(request):
     if User.objects.filter(email = request).exists():
         raise ValidationError((f"{request} ya existe."))
 
+#Función para validar un usuario antes de ser creado
 def validate_user(request):
     if User.objects.filter(username = request).exists():
         raise ValidationError((f"{request} ya existe."))
 
-class JuegoFormulario(forms.Form):
-    nombre=forms.CharField()
-    fechaLanzamiento=forms.DateField(required=False, label="Fecha de lanzamiento",help_text="MM/DD/AAAA")
-    compania=forms.CharField(required=False, label="Compañía")
-    copiasCreadas=forms.IntegerField(required=False, label="Copias creadas")
-    genero=forms.CharField(required=False, label="Género")
-
-class JugadorFormulario(forms.Form):
-    nombre=forms.CharField()
-    apellido=forms.CharField()
-    email=forms.EmailField()
-    jugadorActivo=forms.BooleanField(required=False,label="Jugador activo")
-    horasJugadasPorDia=forms.IntegerField(label="Horas jugadas por día")
-
-"""
-class UsuarioFormulario(forms.ModelForm):
-    username = forms.CharField(validators= [validate_user], widget=forms.TextInput(attrs={'class':'form-control'}))
-    email = forms.EmailField(validators= [validate_email], widget=forms.EmailInput(attrs={'class':'form-control'}))
-    first_name = forms.CharField(label="Nombre", widget = forms.TextInput(attrs={'class':'form-control'}))
-    last_name = forms.CharField(label="Apellido", widget = forms.TextInput(attrs={'class':'form-control'}))
-    password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput(attrs={'class':'form-control'}))
-    password2 = forms.CharField(label="Repetir la contraseña", widget=forms.PasswordInput(attrs={'class':'form-control'}))
-    jugadorActivo = forms.BooleanField(label="Jugador activo")
-    horasJugadasPorDia=forms.IntegerField(label="Horas jugadas por día", widget=forms.NumberInput(attrs={'class':'form-control'}))
-    avatar=forms.ImageField(label="Avatar")
-
-    class Meta:
-        model=Jugador
-        fields = ["username","first_name","last_name","email","password1","password2","jugadorActivo","horasJugadasPorDia","avatar"]
-    
-    def clean_avatar(self):
-        avatar = self.cleaned_data['avatar']
-
-        try:
-            w, h = get_image_dimensions(avatar)
-
-            #validate dimensions
-            max_width = max_height = 100
-            if w > max_width or h > max_height:
-                raise forms.ValidationError(
-                    u'Please use an image that is '
-                     '%s x %s pixels or smaller.' % (max_width, max_height))
-
-            #validate content type
-            main, sub = avatar.content_type.split('/')
-            if not (main == 'image' and sub in ['jpeg', 'pjpeg', 'gif', 'png']):
-                raise forms.ValidationError(u'Please use a JPEG, '
-                    'GIF or PNG image.')
-
-            #validate file size
-            if len(avatar) > (20 * 1024):
-                raise forms.ValidationError(
-                    u'Avatar file size may not exceed 20k.')
-
-        except AttributeError:
-            
-            #Handles case when we are updating the user profile
-            #and do not supply a new avatar
-            
-            pass
-
-        return avatar
-"""
-
-
+#Formulario para registrar usuarios nuevos
 class RegistrarUsuarioFormulario(UserCreationForm):
     username = forms.CharField(validators= [validate_user], widget=forms.TextInput(attrs={'class':'form-control'}))
     email = forms.EmailField(validators= [validate_email], widget=forms.EmailInput(attrs={'class':'form-control'}))
@@ -101,6 +38,7 @@ class RegistrarUsuarioFormulario(UserCreationForm):
             "password1": None,
             "password2": None}
 
+#Formulario para editar el nombre de los usuarios
 class EditarNombreUsuarioFormulario(forms.ModelForm):
     username = forms.CharField(validators= [validate_user], widget=forms.TextInput(attrs={'class':'form-control'}))
     
@@ -111,13 +49,11 @@ class EditarNombreUsuarioFormulario(forms.ModelForm):
             "username": None,
         }
 
+#Formulario para editar los datos del usuario
 class EditarUsuarioFormulario(forms.ModelForm):
-    #username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}))
     first_name = forms.CharField(label="Nombre", widget = forms.TextInput(attrs={'class':'form-control'}))
     last_name = forms.CharField(label="Apellido", widget = forms.TextInput(attrs={'class':'form-control'}))
-    #password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput(attrs={'class':'form-control'}))
-    #password2 = forms.CharField(label="Repetir la contraseña", widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
     class Meta:
         model = User
@@ -128,6 +64,7 @@ class EditarUsuarioFormulario(forms.ModelForm):
             "email": None,
            }
 
+#Formulario para editar la password del usuario
 class EditarPasswordFormulario(PasswordChangeForm):
     error_css_class = "Tiene erorres"
     error_messages = {"password_incorrect":"Contraseña incorrecta"}
@@ -135,17 +72,39 @@ class EditarPasswordFormulario(PasswordChangeForm):
     new_password1 = forms.CharField(required=True,label="Contraseña nueva", widget=forms.PasswordInput(attrs={'class':'form-control'}),error_messages={"requeried":"La contraseña no puede ser vacía"})
     new_password1 = forms.CharField(required=True,label="Repetir la contraseña", widget=forms.PasswordInput(attrs={'class':'form-control'}),error_messages={"requeried":"La contraseña no puede ser vacía"})
 
-#class PostFormulario(forms.Form):
-#    titulo = forms.CharField(label="Título")
-#    subtitulo = forms.CharField(label="Subtítulo")
-#    cuerpo = forms.CharField()
-#    fecha = forms.DateField(initial=date.today())
-#    class Meta:
-#        model = Post
-#        fields = 'autor'
+###################################################################################################
+#Fin Formularios para Usuario
+###################################################################################################
 
+
+###################################################################################################
+#Formularios para Juego
+###################################################################################################
+
+#Formulario para Juegos nuevos
+class JuegoFormulario(forms.ModelForm):
+    class Meta:
+        model = Juego
+        fields = ('nombre','fechaLanzamiento','compania','copiasCreadas','genero')
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class':'form-control','placeholder':'Por ejemplo: Elden Ring'}),
+            'fechaLanzamiento': forms.DateInput(attrs={'class':'form-control','placeholder':'DD/MM/AAAA'}),
+            'compania': forms.TextInput(attrs={'class':'form-control','placeholder':'Por ejemplo: FromSoftware'}),
+            'copiasCreadas': forms.NumberInput(attrs={'class':'form-control','placeholder':'Por ejemplo: 1000000'}),
+            'genero': forms.TextInput(attrs={'class':'form-control','placeholder':'Por ejemplo: RPG'}),
+        }
+
+###################################################################################################
+#Fin Formularios para Juego
+###################################################################################################
+
+
+###################################################################################################
+#Formularios para Post
+###################################################################################################
+
+#Formulario para nuevo Post
 class PostFormulario(forms.ModelForm):
-    #fecha = forms.DateField(initial=date.today())
     class Meta:
         model = Post
         fields = ('titulo','subtitulo','cuerpo','autor','consola','juego')
@@ -158,6 +117,7 @@ class PostFormulario(forms.ModelForm):
             'juego':forms.Select(attrs={'class':'form-control'}),
         }
 
+#Formulario para editar Post
 class PostEditFormulario(forms.ModelForm):
     class Meta:
         model = Post
@@ -171,18 +131,16 @@ class PostEditFormulario(forms.ModelForm):
 
         }
 
-class JuegoFormulario(forms.ModelForm):
-    class Meta:
-        model = Juego
-        fields = ('nombre','fechaLanzamiento','compania','copiasCreadas','genero')
-        widgets = {
-            'nombre': forms.TextInput(attrs={'class':'form-control','placeholder':'Por ejemplo: Elden Ring'}),
-            'fechaLanzamiento': forms.DateInput(attrs={'class':'form-control','placeholder':'DD/MM/AAAA'}),
-            'compania': forms.TextInput(attrs={'class':'form-control','placeholder':'Por ejemplo: FromSoftware'}),
-            'copiasCreadas': forms.NumberInput(attrs={'class':'form-control','placeholder':'Por ejemplo: 1000000'}),
-            'genero': forms.TextInput(attrs={'class':'form-control','placeholder':'Por ejemplo: RPG'}),
-        }
+###################################################################################################
+#Fin Formularios para Post
+###################################################################################################
 
+
+###################################################################################################
+#Formularios para Consolas
+###################################################################################################
+
+#Formulario para consola nueva
 class ConsolaFormulario(forms.ModelForm):
     class Meta:
         model = Consola
@@ -195,6 +153,15 @@ class ConsolaFormulario(forms.ModelForm):
             'unidadesVendidas' : forms.NumberInput(attrs={'class':'form-control'}),
         }
 
+###################################################################################################
+#Fin Formularios para Consolas
+###################################################################################################
+
+###################################################################################################
+#Formularios para Comentarios
+###################################################################################################
+
+#Formulario para comentario nuevo
 class ComentarioFormulario(forms.ModelForm):
     class Meta:
         model = Comentarios
@@ -205,18 +172,15 @@ class ComentarioFormulario(forms.ModelForm):
             'cuerpo': forms.Textarea(attrs={'class':'form-control'}),
         }
 
-"""class PostFormulario(forms.ModelForm):
-    #fecha = forms.DateField(initial=date.today())
-    class Meta:
-        model = Post
-        fields = ('titulo','subtitulo','cuerpo','autor')
-        widgets = {
-            'titulo': forms.TextInput(attrs={'class':'form-control','placeholder':'Título'}),
-            'subtitulo': forms.TextInput(attrs={'class':'form-control'}),
-            'cuerpo': forms.Textarea(attrs={'class':'form-control'}),
-            'autor': forms.TextInput(attrs={'class':'form-control','placeholder':'Autor','value':'','id':'blogGames','type':'hidden'}),
-        }
-"""
+###################################################################################################
+#Fin Formularios para Comentarios
+###################################################################################################
+
+###################################################################################################
+#Formularios para Avatar
+###################################################################################################
+
+#Formulario para Avatar nuevo
 class AvatarFormulario(forms.ModelForm):
 
     class Meta:
@@ -227,8 +191,22 @@ class AvatarFormulario(forms.ModelForm):
             "imagen":forms.FileInput()
             }
 
+###################################################################################################
+#Fin Formularios para Avatar
+###################################################################################################
+
+
+###################################################################################################
+#Formularios para Imagen
+###################################################################################################
+
+#Formulario para Imagen nueva
 class ImagenFormulario(forms.ModelForm):
     imagen = forms.FileField(label="Imagen")
     class Meta:
         model=Imagen
         fields=["nombre","imagen"]
+
+###################################################################################################
+#Formularios para Imagen
+###################################################################################################

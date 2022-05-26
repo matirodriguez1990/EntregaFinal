@@ -1,9 +1,7 @@
 {% extends "AppJuegos/padre.html" %}
 
 {% load static %}
-{% block titulo %}
-        Juego
-{% endblock %}
+
 <!--Bloque modificable para el menu-->
 {% block menuModificable %}
 
@@ -16,17 +14,19 @@
 {% endblock %}
 
 {% block contenidoModificable %}
-
+<FONT SIZE=6 style="color: white; position: absolute; top: 6%; left: 30%;">{{ juego.nombre }}</FONT> 
     <section class="space-pt">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 15%; left: 15%;">
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 15%; left: 18%;">
                     
-                    <h1 style="color: white">{{ juego.nombre }}</h1>
+                    <br>
+                    <br>
                     <h3 style="color: white">Compañía: <p style="color: white" class="mb-4 justify">{{juego.compania}}</p> </h3> 
                     <h3 style="color: white">Fecha de lanzamiento: <p style="color: white" class="mb-4 justify">{{juego.fechaLanzamiento}}</p> </h3> 
                     <h3 style="color: white">Copias creadas: <p style="color: white" class="mb-4 justify">{{juego.copiasCreadas}}</p> </h3> 
                     <h3 style="color: white">Género: <p style="color: white" class="mb-4 justify">{{juego.genero}}</p> </h3>
+                    <br>
                     <button  class="button_login" style="width:100px"><a href="{% url 'ListaJuegos' %}" style="color: white;">Regresar</a></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     {%  if user.is_authenticated %}
                     <button class="button_login" style=" width:100px"> <a style="color: white" href="{% url 'EditarJuego' juego.pk %}">Editar</a> </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -38,11 +38,11 @@
     </section>
 
 
-    <ul class="top_icon" style="position: absolute; top: 17%; left: 30%;">
-                                
+    <ul class="top_icon" style="position: absolute; top: 15%; left: 40%;">
+        
         {% with last_image=juego.imagen_set.last %}
         {% if last_image %}
-            
+        <br><br>    
         <img src="{{ last_image.imagen.url }}" class="" style="max-width: 600px;">
         
         {% endif %}

@@ -2,13 +2,9 @@
 
 {% load static %}
 
-{% block titulo %}
-Agregar Juego
-{% endblock %}
-
 {% block menuModificable %}
 
-<li> <a href="{% url 'Blog' %}">Blog</a></li>
+<li> <a href="{% url 'Blog' %}">Home</a></li>
 <li class="active"> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
 <li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
 <li> <a href="{% url 'Consola' %}">Consolas</a> </li>
@@ -24,7 +20,7 @@ Agregar Juego
                 <div class="form-group">
                 <form method="post">
                     {% csrf_token%}
-                    <h1 style="color: white;">Agregar juego</h1>
+                    <br>
                     {{ form.as_p}}
                     <br>
                     <button class="button_login" style="color: white; width:100px">Agregar</button>

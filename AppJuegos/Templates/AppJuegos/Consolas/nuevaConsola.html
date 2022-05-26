@@ -8,17 +8,12 @@
 
 {% block menuModificable %}
 
-<li> <a href="{% url 'Blog' %}">Blog</a></li>
+<li> <a href="{% url 'Blog' %}">Home</a></li>
 <li> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
 <li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
 <li class="active"> <a href="{% url 'Consola' %}">Consolas</a> </li>
 <li> <a href="{% url 'About' %}">About</a> </li>  
 
-{% endblock %}
-
-{% block contenidoModificableLogo %}
-
-<FONT SIZE=7 style="color: white; position: absolute; top: -20px; left: -80px;">Nueva Consola</FONT>
 {% endblock %}
 
 {% block contenidoModificable %}
@@ -30,6 +25,7 @@
                 <div class="form-group">
                     <form method="post">
                     {% csrf_token%}
+                    <br>
                     {{ form.as_p}}
                     </br>
                     <button class="button_login" type="submit" style="color: white; width:110px">Crear</button>

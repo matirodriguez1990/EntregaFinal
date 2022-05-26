@@ -8,7 +8,7 @@ Eliminar Post
 
 {% block menuModificable %}
 
-<li class="active"> <a href="{% url 'Blog' %}">Blog</a></li>
+<li class="active"> <a href="{% url 'Blog' %}">Home</a></li>
 <li> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
 <li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
 <li> <a href="{% url 'Consola' %}">Consolas</a> </li>
@@ -37,7 +37,7 @@ Eliminar Post
                     
                 </form>
                 <br>
-                <button class="button_login" style=" width:100px"> <a style="color: white" href="{% url 'Inicio' %}">Cancelar</a> </button>
+                <button class="button_login" style=" width:100px"> <a style="color: white" href="{% url 'Blog' %}">Cancelar</a> </button>
             </div>
             </div>
         </div>
