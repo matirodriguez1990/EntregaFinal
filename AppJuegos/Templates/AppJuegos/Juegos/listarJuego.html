@@ -18,13 +18,13 @@
 {% if object_list %}
 
 {% if user.is_authenticated %}
-<button class="button_login" style="position:absolute;width:100px;height: 78px; left: 48%; top:21%"> <a style="color: white" href="{% url 'SubirImagen' %}">Subir imagen</a> </button>
+<button class="button_login" style="position:absolute;width:100px;height: 78px; left: 48%; top:25%"> <a style="color: white" href="{% url 'SubirImagen' %}">Subir imagen</a> </button>
 {% endif %}
 
 <ul style="position:absolute; top: 25%; left: 20%">
 
     {% if user.is_authenticated %}
-    <br>
+    <br><br>
     <li class="button_login" style="width:364px; text-align: center;"> <a style="color: white" href="{% url 'CrearJuego' %}">Agregar juego nuevo</a> </li>
     {% endif %}
     <br>
@@ -63,6 +63,7 @@
 
 
 <form action="/AppJuegos/juego/buscar" method="GET" style="position:absolute; top: 15%; left: 20%">
+    <br>
     <h3 style="color: white;">Buscar juegos por nombre</h3>
     <input type="text" name="nombre" id="nombre" style= "width: 260px; height:auto;">
     <button class="button_login" type="submit" style="color: white; width:100px; height:auto">Buscar</button>
