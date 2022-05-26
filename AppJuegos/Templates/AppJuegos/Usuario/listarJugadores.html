@@ -20,15 +20,22 @@
 {% if object_list %}
 
 <ul style="position:absolute; top: 25%; left: 20%">
-
-    {% if user.is_authenticated %}
-    <li class="button_login" style="width:364px; text-align: center;"> <a style="color: white" href="{% url 'CrearJuego' %}">Agregar juego nuevo</a> </li>
-    {% endif %}
     <br/>
     <h1 style="color:white">Jugador</h1>
     <br>
     {% for j in object_list %}
-    <li><a href="{% url 'DetalleJuego' j.id %}" style="color:white">{{{% with last_image=user.avatar_set.last %}}}<FONT SIZE=4>{{ j.username }}</FONT></a>
+
+    <li><a href="{% url 'DetalleJuego' j.id %}" style="color:white">
+        {% with last_image=j.avatar_set.last %}
+        {% if last_image %}
+        <h2 style="color:white"> <img src="{{ last_image.imagen.url }}" class="" style="border-radius: 50%; max-width: 40px;"><FONT SIZE=4>   {{  j.username }}</FONT></a></h2>
+        <br/>
+        {% else %}
+        <FONT SIZE=4>{{ j.username }}</FONT></a>
+        <br/>
+        {% endif %}
+        {% endwith %}
+        
     <br>
     {% endfor %}
 </ul>
