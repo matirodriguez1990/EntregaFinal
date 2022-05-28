@@ -23,11 +23,12 @@
 
 {% block contenidoModificable %}
 
+{% if object_list %}
 
 <section class="space-pt">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 15%; left: 15%;">
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 30%; left: 15%;">
                 <p style="color: white" class="mb-4 justify">
                     <ul>
                         {% if user.is_authenticated %}
@@ -49,7 +50,7 @@
 
                          {% endfor %}
                     </br>
-                    </ul>
+                    </ul>   
                     <div class="pagination">
                         <span class="step-links">
                             {% if page_obj.has_previous %}
@@ -73,6 +74,20 @@
         </div>
     </div>
 </section>
+
+{% else %}
+<li><FONT SIZE=4 style="color: white; position: absolute; top: 200px; left: 350px" >No se encontraron consolas</FONT></li>
+{% endif %}
+
+<form action="/AppJuegos/consolas/buscar" method="GET" style="position:absolute; top: 15%; left: 16%">
+    <br>
+    <h3 style="color: white;">Buscar consola por compañía</h3>
+    <input type="text" name="compania" id="compania" style= "width: 260px; height:auto;">
+    <button class="button_login" type="submit" style="color: white; width:100px; height:auto">Buscar</button>
+
+
+</form>
+
 
 {% endblock %}
 

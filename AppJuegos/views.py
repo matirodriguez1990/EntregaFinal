@@ -318,13 +318,28 @@ class EliminarConsola(LoginRequiredMixin,DeleteView):
     template_name = 'AppJuegos/Consolas/eliminarConsola.html'
     success_url = reverse_lazy('Consola')
 
-#Función para buscar consolas
+#Función para buscar juegos con paginación
+consolasPorPagina = 5
+
 def buscarConsola(request):
-    if request.GET["compania"]:
-        companiaConsolas=request.GET["compania"]
-        consolas=Consola.objects.filter(compania__iexact=companiaConsolas)
-        return render(request,"AppJuegos/resBusquedaConsola.html",{"consolas":consolas,"compania":companiaConsolas})
-    return redirect("Consola")
+    contexto = {}
+    query = ""
+    if request.GET:
+        query = request.GET["compania"]
+        contexto['query'] = str(query)
+    
+    resultadoBusqueda = Consola.objects.filter(compania__startswith=query)
+    page = request.GET.get('page', 1)
+    resultadoBusqueda_paginator = Paginator(resultadoBusqueda, consolasPorPagina)
+    try:
+        resultadoBusqueda = resultadoBusqueda_paginator.page(page)
+    except PageNotAnInteger:
+        resultadoBusqueda = resultadoBusqueda_paginator.page(consolasPorPagina)
+    except EmptyPage:
+        resultadoBusqueda = resultadoBusqueda_paginator.page(resultadoBusqueda_paginator.num_pages)
+    
+    contexto['resultadoBusqueda'] = resultadoBusqueda
+    return render(request, "AppJuegos/Consolas/busquedaConsola.html", contexto)
 
 ###################################################################################################
 #Fin de Vistas de Consolas

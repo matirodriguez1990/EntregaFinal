@@ -27,7 +27,7 @@
                     {% csrf_token%}
                     {{ form.as_p}}
                     </br>
-                    <button class="button_login" type="submit" style="color: white; width:110px">Crear</button>
+                    <button class="button_login" type="submit" style="color: white; width:110px">Crear</button> <button class="button_login" type="submit" style="color: white; width:110px"><a href="{% url 'Blog' %}" style="color: white;">Cancelar</a></button>
                     </form>    
                 </div>
                 <script>
