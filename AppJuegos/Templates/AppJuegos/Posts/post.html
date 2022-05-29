@@ -22,10 +22,18 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4 mb-lg-0" style="position: absolute; top: 15%; left: 15%;">
-                <span>{{post.fecha}} - Por: {{ post.autor.username }}</span>
+                {% with last_image=post.autor.avatar_set.last %}
+                {% if last_image %}
+                <span>{{post.fecha}} - <img src="{{ last_image.imagen.url }}" class="" style="border-radius: 50%; max-width: 40px;">{{ post.autor.username }}</span>
+                {% else %}
+                <span>{{post.fecha}} - {{ post.autor.username }}</span>
+                <br/>
+                {% endif %}
+                {% endwith %}
                 <h2 style="color: white">{{ post.titulo }}</h2>
-                <p style="color: white" class="mb-4 justify">{{post.cuerpo}}</p> 
+                <p style="color: white" class="mb-4 justify">{{post.cuerpo|safe}}</p> 
                 {%  if user.is_authenticated %}
+                <br/>
                 <button class="button_login" style=" width:150px"> <a style="color: white" href="{% url 'EditarPost' post.pk %}">Editar Post</a> </button>
                 <button class="button_login" style=" width:150px"> <a style="color: white" href="{% url 'EliminarPost' post.pk %}">Eliminar Post</a> </button>
                 {% endif %}

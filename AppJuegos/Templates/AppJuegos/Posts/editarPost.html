@@ -29,11 +29,13 @@ Editar Post
                 <div class="form-group">
                     <form method="post">
                         {% csrf_token%}
+                        {{ form.media}}
                         {{ form.as_p}}
                         </br>
                         <button class="button_login" type="submit" style="color: white; width:110px">Confirmar</button>   
-                        <button class="button_login" href="{% url 'Blog' %}" style="color: white; width:110px">Cancelar</button>        
                     </form> 
+                    <br/>
+                        <button class="button_login" href="{% url 'Blog' %}" style="color: white; width:110px">Cancelar</button>        
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 #Modelo de Juego
 class Juego(models.Model):
@@ -31,7 +32,7 @@ class Consola(models.Model):
 class Post(models.Model):
     titulo = models.CharField(max_length=50)
     subtitulo = models.CharField(max_length=255)
-    cuerpo = models.TextField()
+    cuerpo = RichTextField(blank=True,null=True)
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha = models.DateField(auto_now_add=True)
     consola = models.ForeignKey(Consola, on_delete=models.CASCADE, default='1')

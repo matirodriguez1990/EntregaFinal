@@ -39,7 +39,14 @@
                         <i>{{ post.fecha }}</i>
                         <li><a href="{% url 'PostCompleto' post.pk %}" style="color:white; font-size:25px">{{ post.titulo }}</a>
                             <br/>
-                            Por: {{post.autor.username}} - 
+                            {% with last_image=post.autor.avatar_set.last %}
+                            {% if last_image %}
+                            <span>{{post.fecha}} - <img src="{{ last_image.imagen.url }}" class="" style="border-radius: 50%; max-width: 40px;">{{ post.autor.username }}</span>
+                            {% else %}
+                            <span>{{post.fecha}} - {{ post.autor.username }}</span>
+                            <br/>
+                            {% endif %}
+                            {% endwith %}
                             {% if user.is_authenticated %}
                             <small><small><a style="color:lightblue" href="{% url 'EditarPost' post.pk %}">Editar</a>
                             </small></small> - <small><small><a style="color:lightblue" href="{% url 'EliminarPost' post.pk %}">Eliminar</a>
