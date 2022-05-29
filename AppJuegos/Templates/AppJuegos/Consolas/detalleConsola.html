@@ -47,12 +47,11 @@
                         </br>
                         Unidades Vendidas: {{ consola.unidadesVendidas }} M
                         </li>
-                        </br>
-                        {% if user.is_authenticated %}
-                        </br>
-                        </br>
-                        <button class="button_login" style=" width:150px"> <a style="color: white" href="{% url 'EditarConsola' consola.pk %}">Editar Consola</a> </button>
-                        <button class="button_login" style=" width:150px"> <a style="color: white" href="{% url 'EliminarConsola' consola.pk %}">Eliminar Consola</a> </button>
+                        <br>
+                        <button  class="button_login" style="width:100px"><a href="{% url 'Consola' %}" style="color: white;">Regresar</a></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {%  if user.is_authenticated %}
+                        <button class="button_login" style=" width:100px"> <a style="color: white" href="{% url 'EditarConsola' consola.pk %}">Editar</a> </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="button_login" style=" width:100px"> <a style="color: white" href="{% url 'EliminarConsola' consola.pk %}">Eliminar</a> </button>
                         {% endif %}
                     </ul>
                 </p> 

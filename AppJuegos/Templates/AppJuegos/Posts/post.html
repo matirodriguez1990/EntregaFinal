@@ -49,7 +49,7 @@
                         <br/>
                         <strong>{{comentario.titulo}}</strong> - Por: <i>{{comentario.user}}</i>
                         <br/>
-                        {{comentario.cuerpo}}
+                        {{comentario.cuerpo|safe}}
                         <br/>
                         <br/>
                     {% endfor %}

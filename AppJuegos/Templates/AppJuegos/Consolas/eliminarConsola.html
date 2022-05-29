@@ -34,8 +34,8 @@ Eliminar Consola
                     <form method="post">
                         {% csrf_token%}
                         <h3 style="color:white; width: auto;">¿Esta seguro que desea eliminar la consola <i>{{ consola.nombre }}</i>?</h3>
-                        <button class="button_login" style=" width:50px"> <a style="color: white">Si</a> </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button class="button_login" style=" width:50px"> <a style="color: white" href="{% url 'Consola' %}">No</a> </button>
+                        <button class="button_login" style=" width:100px"> <a style="color: white">Eliminar</a> </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="button_login" style=" width:100px"> <a style="color: white" href="{% url 'Consola' %}">Cancelar</a> </button>
                     </form>
                 </div>
             </div>

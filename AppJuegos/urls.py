@@ -38,6 +38,6 @@ urlpatterns = [
     path("consolas/nueva/",views.NuevaConsola.as_view(),name="NuevaConsola"),
     path("consolas/detalle/<int:pk>",views.DetalleConsola.as_view(),name="DetalleConsola"),
     path("consolas/editar/<int:pk>",views.EditarConsola.as_view(),name="EditarConsola"),
-    path("consolas/detalle/<int:pk>/eliminar",views.EliminarConsola.as_view(),name="EliminarConsola"),
+    path("consolas/eliminar/<int:pk>",views.EliminarConsola.as_view(),name="EliminarConsola"),
     path("consolas/buscar/", views.buscarConsola, name="BuscarConsolas"),    
 ]

@@ -22,7 +22,7 @@
 
 {% block contenidoModificableLogo %}
 
-<FONT SIZE=6 style="color: white; position: absolute; top: 20px; left: -80px;">Nuevo Comentario</FONT>
+<FONT SIZE=6 style="color: white; position: absolute; top: 20px; left: 20px;">Nuevo Comentario</FONT>
 {% endblock %}
 
 {% block contenidoModificable %}
@@ -34,10 +34,11 @@
                 <div class="form-group">
                     <form method="post">
                     {% csrf_token%}
+                    <small><br></small>
                     {{ form.media}}
                     {{ form.as_p}}
                     </br>
-                    <button class="button_login" type="submit" style="color: white; width:110px">Crear</button> <button class="button_login" style="color: white; width:110px"><a href="{% url 'Blog' %}" style="color: white;">Cancelar</a></button>
+                    <button class="button_login" type="submit" style="color: white; width:110px">Crear</button> <button class="button_login" type="submit" style="color: white; width:110px"><a href="{% url 'Blog' %}" style="color: white;">Cancelar</a></button>
                     </form>    
                 </div>
             </div>

@@ -148,7 +148,7 @@ class VistaJugadores(ListView):
     model = User
     template_name = 'AppJuegos/Usuario/listarJugadores.html'
     ordering = ['id']
-    paginate_by = 8
+    paginate_by = 6
 
 ###################################################################################################
 #Fin de Vistas de Usuario

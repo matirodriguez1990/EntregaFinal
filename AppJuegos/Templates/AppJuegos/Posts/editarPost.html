@@ -32,14 +32,14 @@ Editar Post
                         {{ form.media}}
                         {{ form.as_p}}
                         </br>
-                        <button class="button_login" type="submit" style="color: white; width:110px">Confirmar</button>   
-                    </form> 
-                    <br/>
-                        <button class="button_login" href="{% url 'Blog' %}" style="color: white; width:110px">Cancelar</button>        
+                        <button class="button_login" type="submit" style="color: white; width:110px">Crear</button> <button class="button_login" type="submit" style="color: white; width:110px"><a href="{% url 'Blog' %}" style="color: white;">Cancelar</a></button>
+                    </form>
                 </div>
+                <small><br></small>
             </div>
         </div>
     </div>
 </section>
+
 
 {% endblock %}

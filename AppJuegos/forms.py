@@ -132,10 +132,10 @@ class LoginFormulario(forms.Form):
 #Formulario para editar la password del usuario
 class EditarPasswordFormulario(PasswordChangeForm):
     error_css_class = "Tiene erorres"
-    error_messages = {"password_incorrect":"Contraseña incorrecta"}
+    error_messages = {"password_incorrect":"Contraseña incorrecta","password_mismatch":"Las nuevas contraseñas no coinciden"}
     old_password=forms.CharField(required=True,label="Contraseña vieja", widget=forms.PasswordInput(attrs={'class':'form-control'}),error_messages={"requeried":"La contraseña no puede ser vacía"})
     new_password1 = forms.CharField(required=True,label="Contraseña nueva", widget=forms.PasswordInput(attrs={'class':'form-control'}),error_messages={"requeried":"La contraseña no puede ser vacía"})
-    new_password1 = forms.CharField(required=True,label="Repetir la contraseña", widget=forms.PasswordInput(attrs={'class':'form-control'}),error_messages={"requeried":"La contraseña no puede ser vacía"})
+    new_password2 = forms.CharField(required=True,label="Repetir la contraseña", widget=forms.PasswordInput(attrs={'class':'form-control'}),error_messages={"requeried":"La contraseña no puede ser vacía"})
 
 ###################################################################################################
 #Fin Formularios para Usuario
@@ -148,16 +148,14 @@ class EditarPasswordFormulario(PasswordChangeForm):
 
 #Formulario para Juegos nuevos
 class JuegoFormulario(forms.ModelForm):
+    nombre= forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Por ejemplo: Elden Ring'}))
+    fechaLanzamiento=forms.DateField(label="Fecha de lanzamiento",widget=forms.DateInput(attrs={'class':'form-control','placeholder':'DD/MM/AAAA'}))
+    compania=forms.CharField(label="Compañía", widget=forms.TextInput(attrs={'class':'form-control'}))
+    copiasCreadas=forms.IntegerField(label="Copias creadas", widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Cantidad de copias creadas'}))
+    genero=forms.CharField(label="Género",widget=forms.TextInput(attrs={'class':'form-control','placeholder': 'Por ejemplo: RPG'}))
     class Meta:
         model = Juego
         fields = ('nombre','fechaLanzamiento','compania','copiasCreadas','genero')
-        widgets = {
-            'nombre': forms.TextInput(attrs={'class':'form-control','placeholder':'Por ejemplo: Elden Ring'}),
-            'fechaLanzamiento': forms.DateInput(attrs={'class':'form-control','placeholder':'DD/MM/AAAA'}),
-            'compania': forms.TextInput(attrs={'class':'form-control','placeholder':'Por ejemplo: FromSoftware'}),
-            'copiasCreadas': forms.NumberInput(attrs={'class':'form-control','placeholder':'Por ejemplo: 1000000'}),
-            'genero': forms.TextInput(attrs={'class':'form-control','placeholder':'Por ejemplo: RPG'}),
-        }
 
 ###################################################################################################
 #Fin Formularios para Juego
@@ -207,17 +205,15 @@ class PostEditFormulario(forms.ModelForm):
 
 #Formulario para consola nueva
 class ConsolaFormulario(forms.ModelForm):
+    nombre= forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Título'}))
+    compania=forms.CharField(label="Compañía", widget=forms.TextInput(attrs={'class':'form-control'}))
+    fechaLanzamiento=forms.DateField(label="Fecha de lanzamiento",widget=forms.DateInput(attrs={'class':'form-control','placeholder':'DD/MM/AAAA'}))
+    precio=forms.IntegerField(label="Precio", widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'El precio es en dólares'}))
+    unidadesVendidas=forms.IntegerField(label="Unidades vendidas",widget=forms.NumberInput(attrs={'class':'form-control','placeholder': 'Unidades vendidas en millones'}))
     class Meta:
         model = Consola
         fields = ('nombre','compania','fechaLanzamiento','precio','unidadesVendidas')
-        widgets = {
-            'nombre': forms.TextInput(attrs={'class':'form-control','placeholder':'Título'}),
-            'compania': forms.TextInput(attrs={'class':'form-control'}),
-            'fechaLanzamiento': forms.DateInput(attrs={'class':'form-control','placeholder':'DD/MM/AAAA'}),
-            'precio': forms.NumberInput(attrs={'class':'form-control'}),
-            'unidadesVendidas' : forms.NumberInput(attrs={'class':'form-control'}),
-        }
-
+       
 ###################################################################################################
 #Fin Formularios para Consolas
 ###################################################################################################
