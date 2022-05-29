@@ -7,25 +7,29 @@
 <!--Bloque modificable para el menu-->
 {% block menuModificable %}
 
-<li> <a href="{% url 'Blog' %}">Home</a></li>
-<li> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
-<li class="active"> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
-<li> <a href="{% url 'Consola' %}">Consolas</a> </li>
-<li> <a href="{% url 'About' %}">About</a> </li>  
+<small><br/></small>
+<li> <a style="text-align: left;" href="{% url 'Blog' %}">Home</a></li>
+<li> <a style="text-align: left;" href="{% url 'ListaJuegos' %}">Juegos</a> </li>
+<li class="active"> <a style="text-align: left;" href="{% url 'Jugador' %}">Jugadores</a> </li>
+<li> <a style="text-align: left;" href="{% url 'Consola' %}">Consolas</a> </li>
+<li> <a style="text-align: left;" href="{% url 'About' %}">About</a> </li>  
+{% if user.is_authenticated %}   
+<li> <a style="text-align: left;" href="{% url 'CrearPost' %}">Crear Post</a> </li>  
+{% endif %}  
 
 {% endblock %}
 
 {% block contenidoModificable %}
+<FONT SIZE=6 style="color: white; position: absolute; top: 120px; left: 250px;">Jugadores</FONT>
 
 {% if object_list %}
 
-<ul style="position:absolute; top: 25%; left: 20%">
+<ul style="position: absolute; top: 200px; left: 250px;">
     <br/>
-    <h1 style="color:white">Jugador</h1>
     <br>
     {% for j in object_list %}
 
-    <li><a href="{% url 'DetalleJuego' j.id %}" style="color:white">
+    <li><a style="color:white">
         {% with last_image=j.avatar_set.last %}
         {% if last_image %}
         <h2 style="color:white"> <img src="{{ last_image.imagen.url }}" class="" style="border-radius: 50%; max-width: 40px;">&nbsp&nbsp<FONT SIZE=4>{{  j.username }}</FONT></a></h2>

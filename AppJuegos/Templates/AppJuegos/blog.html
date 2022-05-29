@@ -5,11 +5,15 @@
 <!--Bloque modificable para el menu-->
 {% block menuModificable %}
 
-<li class="active"> <a href="{% url 'Blog' %}">Home</a></li>
-<li> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
-<li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
-<li> <a href="{% url 'Consola' %}">Consolas</a> </li>
-<li> <a href="{% url 'About' %}">About</a> </li>  
+<small><br/></small>
+<li class="active"> <a style="text-align: left;" href="{% url 'Blog' %}">Home</a></li>
+<li> <a style="text-align: left;" href="{% url 'ListaJuegos' %}">Juegos</a> </li>
+<li> <a style="text-align: left;" href="{% url 'Jugador' %}">Jugadores</a> </li>
+<li> <a style="text-align: left;" href="{% url 'Consola' %}">Consolas</a> </li>
+<li> <a style="text-align: left;" href="{% url 'About' %}">About</a> </li>  
+{% if user.is_authenticated %}   
+<li> <a style="text-align: left;" href="{% url 'CrearPost' %}">Crear Post</a> </li>  
+{% endif %}  
 
 {% endblock %}
 
@@ -20,16 +24,7 @@
 </div>
 {% endblock %}
 
-{% block contenidoModificableLogo %}
-    {% if user.is_authenticated %}               
-    <button  class="button_login" style="width:150px;"><a href="{% url 'CrearPost' %}" style="color: white;">Crear Post</a></button>
-    {% endif %}  
-{% endblock %}
-
 {% block contenidoModificable %}
-
-              
-
 
 <section class="space-pt">
     <div class="container">

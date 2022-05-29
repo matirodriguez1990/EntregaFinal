@@ -39,7 +39,7 @@ class VistaBlog(ListView):
 #Función para solicitar al usuario el login
 def loginRequest(request):
     if request.method == "POST":
-        miFormulario= AuthenticationForm(request, data=request.POST)
+        miFormulario= LoginFormulario(request, data=request.POST)
         if miFormulario.is_valid():
             usuario=miFormulario.cleaned_data.get("username")
             contrasenia=miFormulario.cleaned_data.get("password")
@@ -50,7 +50,7 @@ def loginRequest(request):
         else:
             return render(request,"AppJuegos/Usuario/login.html",{"miFormulario":miFormulario})
     else:
-        miFormulario = AuthenticationForm()
+        miFormulario = LoginFormulario()
     return render(request,"AppJuegos/Usuario/login.html",{"miFormulario":miFormulario})
 
 
@@ -148,7 +148,7 @@ class VistaJugadores(ListView):
     model = User
     template_name = 'AppJuegos/Usuario/listarJugadores.html'
     ordering = ['id']
-    paginate_by = 5
+    paginate_by = 8
 
 ###################################################################################################
 #Fin de Vistas de Usuario

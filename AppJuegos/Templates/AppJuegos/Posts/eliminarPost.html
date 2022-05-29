@@ -8,11 +8,15 @@ Eliminar Post
 
 {% block menuModificable %}
 
-<li class="active"> <a href="{% url 'Blog' %}">Home</a></li>
-<li> <a href="{% url 'ListaJuegos' %}">Juegos</a> </li>
-<li> <a href="{% url 'Jugador' %}">Jugadores</a> </li>
-<li> <a href="{% url 'Consola' %}">Consolas</a> </li>
-<li> <a href="{% url 'About' %}">About</a> </li>  
+<small><br/></small>
+<li class="active"> <a style="text-align: left;" href="{% url 'Blog' %}">Home</a></li>
+<li> <a style="text-align: left;" href="{% url 'ListaJuegos' %}">Juegos</a> </li>
+<li> <a style="text-align: left;" href="{% url 'Jugador' %}">Jugadores</a> </li>
+<li> <a style="text-align: left;" href="{% url 'Consola' %}">Consolas</a> </li>
+<li> <a style="text-align: left;" href="{% url 'About' %}">About</a> </li>  
+{% if user.is_authenticated %}   
+<li> <a style="text-align: left;" href="{% url 'CrearPost' %}">Crear Post</a> </li>  
+{% endif %}  
 
 {% endblock %}
 
